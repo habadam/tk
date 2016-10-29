@@ -101,7 +101,9 @@
 
     function bindEvents() {
       $('.page-list>li').click(function() {
-        window.location.href = "https://tjespe.github.io/tk/files/" + $(this)[0].textContent;
+				setTimeout(function(){
+					window.location.href = "https://tjespe.github.io/tk/files/" + $(this)[0].textContent;
+	      }, 500);
       });
       //jQuery time
       var parent, ink, d, x, y;
