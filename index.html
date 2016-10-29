@@ -107,7 +107,7 @@
       });
       //jQuery time
       var parent, ink, d, x, y;
-      $("ul li span").on("clickstart touchstart", function(e) {
+      $("ul li span").on("click touchstart", function(e) {
         parent = $(this).parent();
         //create .ink element if it doesn't exist
         if (parent.find(".ink").length == 0)
