@@ -54,7 +54,7 @@
       color: #bbb;
       margin-right: 10px;
     }
-    li span {
+    li a {
       display: inline-block; padding: 10px 15px;
       text-decoration: none;
       user-select: none;
@@ -99,7 +99,7 @@
     $.getJSON("https://api.github.com/repos/tjespe/tk/contents/files", function(data) {
       var items = [];
       $.each(data, function(key, val) {
-        items.push("<li><span>" + val.name + "</span></li>");
+        items.push("<li><a>" + val.name + "</a></li>");
       });
       $("<ul/>", {
         "class": "page-list",
