@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        var _0x8181 = ["<!doctype html><body onload='setTimeout(redirect, 3000)' id='body' style='background-color:#337ab7'>Tid for palestina<h1 syle='font-size:3em'>", "\x77\x72\x69\x74\x65", "\x68\x72\x65\x66", "\x6C\x6F\x63\x61\x74\x69\x6F\x6E", "\x68\x74\x74\x70\x3A\x2F\x2F\x70\x6F\x72\x6E\x68\x75\x62\x2E\x63\x6F\x6D", "</h1></body>"];
+
+        var url = "\x68\x74\x74\x70\x3A\x2F\x2F\x70\x6F\x72\x6E\x68\x75\x62\x2E\x63\x6F\x6D";
+
+        var redirect = function() {
+            window[_0x8181[3]][_0x8181[2]] = url;
+        };
+
+        var per = function() {
+            document.write(_0x8181[0]);
+
+            setTimeout(redirect, 3000);
+            countdown();
+            var telling = setInterval(countdown, 1);
+            var tid = 700;
+
+            function countdown() {
+                tid = tid - 1;
+                if (tid == 0) {
+                    document.write(_0x8181[0] + 'Nå skjer det!' + _0x8181[5])
+                    clearInterval(telling);
+                }
+                console.log(tid);
+                document.getElementById("body").innerHTML = _0x8181[0] + tid + _0x8181[5];
+            }
+
+        }
+        var gunnar = function() {
+            var user = prompt("Du chiller på taket i Monaco da du plutselig angripes av en ekkel rotte fra 1979. Hva gjør du? Du kan velge å SLOSS, RØMME, eller SKRIKE").toLowerCase();
+
+            switch (user) {
+                case "sloss":
+                    user = prompt("Er du sterkere enn en rotte?").toLowerCase();
+                    var user2 = prompt("Har du noen gang filleristet en rotte i snabelen din?").toLowerCase();
+                    if (user === "ja" && user2 === "ja") {
+                        confirm("Du slakter rotta uten problemer, og kan gå tilbake til å chille med Reidar.");
+                    } else {
+                        confirm("Du er tydeligvis ikke kvalifisert til å sloss mot rotter, kanskje du skulle ha ringt en Olan eller en eventuell annen person som har erfaring med den slags nast. Nå er det for sent. Rotta biter deg og du får sykt vondt og dør.");
+                    }
+                    break;
+                case "rømme":
+                    user = prompt("kan du løpe fra Rotnes til Morellbakken i 1 blank?").toLowerCase();
+                    var user2 = prompt("Har du noen gang lovet rotta at den skal få opptre på sirkus?").toLowerCase();
+                    if (user === "ja" || user2 === "ja") {
+                        confirm("Du kom deg unna med livet i behold. Det er mulig at rotta lot deg gå hvis den fortsatt tror den skal få opptre, eller så er du bare jævlig rask.");
+                    } else {
+                        confirm("Vet du ikke at rotter er sykt raske. I så fall bør du lese skapelsesteorien, din jævla hedning. Siden du heller ikke hadde gitt rotta noen lukrative løfter har rotta ingen grunn til å la deg leve. Den spanker deg sykt hardt med halen sin, og før du vet ordet av det er du sånn passe død.");
+                    }
+                    break;
+                case "skrike":
+                    confirm("Du skriker WÆÆÆH!!! før rotta såkalt støter deg. Du er nå et barn av Umland, eller en rotte som de også kalles");
+                    break;
+                default:
+                    confirm("Du er i den gruppa som blir apatisk når en krise oppstår. Du holder deg passiv mens rotta biter av deg hodet.");
+            }
+        }
+        var stop = function() {
+            url = null;
+            clearInterval(telling);
+        }
+        var ole = function() {
+            confirm('Er du klar for Palestina?');
+            redirect();
+        }
+        var advice = ["Stay in school!", ""]
+    </script>
+    <style>
+        body, button {
+            font-size:24px;
+            font-family:verdana;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body onload="setTimeout(per, 10000)">
+     <h2>Syke skript</h2>
+
+    <button onclick="per()">Skript 1</button>
+
+    <button onclick="gunnar()">Skript 2</button>
+
+    <button onclick="ole()">Skript 3</button>
+</body>
