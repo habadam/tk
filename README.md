@@ -1,2 +1,3 @@
 # TK — Technological Kapoo
-###### Just for having some simple html files
+###### Just for hosting some simple html files
+This repository is a place for publiching html files to the web
