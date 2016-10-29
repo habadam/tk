@@ -5,5 +5,3 @@ This repository is a place for publishing html files to the web
 ###Instructions
 1. Create a file within the /files directory
 2. The public url is now: https://tjespe.github.io/tk/files/your-file-name
-
-You should also add it to the list of pages in the index.html file
