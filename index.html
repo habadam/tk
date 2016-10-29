@@ -27,7 +27,7 @@
     }
     li:hover {
     }
-    li:active {
+    li:active>a {
       color: #295d8a;
       text-decoration: underline;
     }
@@ -49,7 +49,7 @@
     $.getJSON( "https://api.github.com/repos/tjespe/tk/contents/files", function( data ) {
       var items = [];
       $.each( data, function( key, val ) {
-        items.push( "<li>" + val.name + "</li>" );
+        items.push( "<li><a>" + val.name + "</a></li>" );
       });
       $( "<ul/>", {
         "class": "page-list",
