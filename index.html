@@ -43,15 +43,25 @@
   <h1>TK — Technological Kapoo</h1>
   
   <h3>Sider:</h3>
-  <ul class="page-list">
+  <!--ul class="page-list">
     <li>sykeskript.html</li>
     <li>umland.html</li>
-  </ul>
+  </ul-->
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
     $('.page-list>li').click(function(){
       window.location.href = "https://tjespe.github.io/tk/files/"+$(this)[0].textContent;
+    });
+    $.getJSON( "https://api.github.com/repos/tjespe/tk/contents/files", function( data ) {
+      var items = [];
+      $.each( data, function( key, val ) {
+        items.push( "<li>" + val.name + "</li>" );
+      });
+      $( "<ul/>", {
+        "class": "page-list",
+        html: items.join( "" )
+      }).appendTo( "body" );
     });
   </script>
   
