@@ -79,36 +79,37 @@
   </style>
 </head>
 <body>
-  
+
   <h1>TK — Technological Kapoo</h1>
-  
+
   <h2>Sider:</h2>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
-$.getJSON("https://api.github.com/repos/tjespe/tk/contents/files", function(data) {
-    var items = [];
-    $.each(data, function(key, val) {
+    $.getJSON("https://api.github.com/repos/tjespe/tk/contents/files", function(data) {
+      var items = [];
+      $.each(data, function(key, val) {
         items.push("<li><a>" + val.name + "</a></li>");
-    });
-    $("<ul/>", {
+      });
+      $("<ul/>", {
         "class": "page-list",
         html: items.join("")
-    }).appendTo("body");
+      }).appendTo("body");
 
-    $('.page-list>li').click(function() {
-        window.location.href = "https://tjespe.github.io/tk/files/" + $(this)[0].textContent;
+      bindEvents();
     });
-});
 
-function bindEvents() {
-    //jQuery time
-    var parent, ink, d, x, y;
-    $("ul li a").click(function(e) {
+    function bindEvents() {
+      $('.page-list>li').click(function() {
+        window.location.href = "https://tjespe.github.io/tk/files/" + $(this)[0].textContent;
+      });
+      //jQuery time
+      var parent, ink, d, x, y;
+      $("ul li a").click(function(e) {
         parent = $(this).parent();
         //create .ink element if it doesn't exist
         if (parent.find(".ink").length == 0)
-            parent.prepend("<span class='ink'></span>");
+          parent.prepend("<span class='ink'></span>");
 
         ink = parent.find(".ink");
         //incase of quick double clicks stop the previous animation
@@ -116,12 +117,12 @@ function bindEvents() {
 
         //set size of .ink
         if (!ink.height() && !ink.width()) {
-            //use parent's width or height whichever is larger for the diameter to make a circle which can cover the entire element.
-            d = Math.max(parent.outerWidth(), parent.outerHeight());
-            ink.css({
-                height: d,
-                width: d
-            });
+          //use parent's width or height whichever is larger for the diameter to make a circle which can cover the entire element.
+          d = Math.max(parent.outerWidth(), parent.outerHeight());
+          ink.css({
+            height: d,
+            width: d
+          });
         }
 
         //get click coordinates
@@ -131,12 +132,12 @@ function bindEvents() {
 
         //set the position and add class .animate
         ink.css({
-            top: y + 'px',
-            left: x + 'px'
+          top: y + 'px',
+          left: x + 'px'
         }).addClass("animate");
-    })
-}
+      })
+    }
   </script>
-  
+
 </body>
 </html>
