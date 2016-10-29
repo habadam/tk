@@ -45,7 +45,7 @@
       color: #bbb;
       margin-right: 10px;
     }
-    li a {
+    li span {
       display: inline-block; padding: 10px 15px;
       text-decoration: none;
       user-select: none;
@@ -89,7 +89,7 @@
     $.getJSON("https://api.github.com/repos/tjespe/tk/contents/files", function(data) {
       var items = [];
       $.each(data, function(key, val) {
-        items.push("<li><a>" + val.name + "</a></li>");
+        items.push("<li><span>" + val.name + "</span></li>");
       });
       $("<ul/>", {
         "class": "page-list",
@@ -107,7 +107,7 @@
       });
       //jQuery time
       var parent, ink, d, x, y;
-      $("ul li a").on("clickstart touchstart", function(e) {
+      $("ul li span").on("clickstart touchstart", function(e) {
         parent = $(this).parent();
         //create .ink element if it doesn't exist
         if (parent.find(".ink").length == 0)
