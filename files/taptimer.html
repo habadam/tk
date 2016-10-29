@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="no">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>TapTimer</title>
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-title" content="TapTapper">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    </head>
+
+    <body ng-app="eksponenskalkulator" style="background-color:#337ab7" class="noselect" id="body" ng-controller="sizeController as size" ontouchstart="">
+        <div ng-controller="albumCtrl as album">
+
+            <header>
+                 <h1>TapTimer</h1>
+            </header>
+
+            <div style="height:100px"></div>
+
+            <div class="content" ng-show="size.ifMobile()">
+                <ul class="nav nav-pills tid">
+                    <li><a href="">Tid: {{album.counter | number:2}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content" ng-show="size.ifMobile()">
+                 <pre>{{album.numb}}/30</pre>
+            </div>
+
+            <div class="content" ng-show="size.ifMobile()" ng-hide="album.ifDone()">
+                <ul class="nav nav-pills app">
+                    <li><a ng-click="album.plusOne()">Legg til 1</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content" ng-hide="size.ifMobile()">Beklager. Det skal være en ganske fair konkurranse så da er det ugreit at du prøver deg fra en datamaskin.
+                <br>Tenk på alle de som ikke har noe datamaskin!
+                <br>
+                <br>Gå til telefonen din for å være med i konkurransen.
+            </div>
+
+            <script>
+                var app = angular.module('eksponenskalkulator', [])
+
+                .controller('textCtrl', function($http) {
+                    this.data = {};
+
+                    $http.get('js/text.json').success(function(data) {
+                        console.log('this', this);
+                        this.data = data;
+                        console.log(this.data);
+                    }.bind(this));
+                })
+
+                .controller('sizeController', function() {
+                    this.width = window.innerWidth;
+                    this.height = window.innerHeight;
+                    this.ifMobile = function() {
+                        return this.width < 1050;
+                    };
+                    this.ifNarrowerThan = function(x) {
+                        return this.width < x;
+                    };
+                    this.ifLowerThan = function(x) {
+                        return this.height < x;
+                    };
+                })
+
+                .controller('viewController', function() {
+                    var reSmartURL = /\/ath(\/)?$/;
+                    var reQueryString = /([\?&]ath=[^&]*$|&ath=[^&]*(&))/;
+                    this.sjekk = function() {
+                        return reSmartURL || reQueryString;
+                    };
+                })
+
+                .controller('albumCtrl', function($timeout) {
+                    var that = this;
+                    this.counter = 0;
+                    this.done = false;
+                    this.onTimeout = function() {
+                        that.counter = that.counter + 0.01;
+                        mytimeout = $timeout(that.onTimeout, 10);
+                    };
+
+                    var mytimeout = $timeout(that.onTimeout, 10);
+
+                    this.stop = function() {
+                        $timeout.cancel(mytimeout);
+                    }
+                    this.numb = 0;
+                    this.plusOne = function() {
+                        that.numb = that.numb + 1;
+                        console.log(that.numb);
+                        if (that.numb >= 30) {
+                            that.stop();
+                            that.done = true;
+                        }
+                    }
+                    this.ifDone = function() {
+                        return that.done === true;
+                    }
+                })
+
+
+                .run(function() {
+                    FastClick.attach(document.body);
+                });
+            </script>
+            <script>!function(){"use strict";function t(e,o){function i(t,e){return function(){return t.apply(e,arguments)}}var r;if(o=o||{},this.trackingClick=!1,this.trackingClickStart=0,this.targetElement=null,this.touchStartX=0,this.touchStartY=0,this.lastTouchIdentifier=0,this.touchBoundary=o.touchBoundary||10,this.layer=e,this.tapDelay=o.tapDelay||200,this.tapTimeout=o.tapTimeout||700,!t.notNeeded(e)){for(var a=["onMouse","onClick","onTouchStart","onTouchMove","onTouchEnd","onTouchCancel"],c=this,s=0,u=a.length;u>s;s++)c[a[s]]=i(c[a[s]],c);n&&(e.addEventListener("mouseover",this.onMouse,!0),e.addEventListener("mousedown",this.onMouse,!0),e.addEventListener("mouseup",this.onMouse,!0)),e.addEventListener("click",this.onClick,!0),e.addEventListener("touchstart",this.onTouchStart,!1),e.addEventListener("touchmove",this.onTouchMove,!1),e.addEventListener("touchend",this.onTouchEnd,!1),e.addEventListener("touchcancel",this.onTouchCancel,!1),Event.prototype.stopImmediatePropagation||(e.removeEventListener=function(t,n,o){var i=Node.prototype.removeEventListener;"click"===t?i.call(e,t,n.hijacked||n,o):i.call(e,t,n,o)},e.addEventListener=function(t,n,o){var i=Node.prototype.addEventListener;"click"===t?i.call(e,t,n.hijacked||(n.hijacked=function(t){t.propagationStopped||n(t)}),o):i.call(e,t,n,o)}),"function"==typeof e.onclick&&(r=e.onclick,e.addEventListener("click",function(t){r(t)},!1),e.onclick=null)}}var e=navigator.userAgent.indexOf("Windows Phone")>=0,n=navigator.userAgent.indexOf("Android")>0&&!e,o=/iP(ad|hone|od)/.test(navigator.userAgent)&&!e,i=o&&/OS 4_\d(_\d)?/.test(navigator.userAgent),r=o&&/OS [6-7]_\d/.test(navigator.userAgent),a=navigator.userAgent.indexOf("BB10")>0;t.prototype.needsClick=function(t){switch(t.nodeName.toLowerCase()){case"button":case"select":case"textarea":if(t.disabled)return!0;break;case"input":if(o&&"file"===t.type||t.disabled)return!0;break;case"label":case"iframe":case"video":return!0}return/\bneedsclick\b/.test(t.className)},t.prototype.needsFocus=function(t){switch(t.nodeName.toLowerCase()){case"textarea":return!0;case"select":return!n;case"input":switch(t.type){case"button":case"checkbox":case"file":case"image":case"radio":case"submit":return!1}return!t.disabled&&!t.readOnly;default:return/\bneedsfocus\b/.test(t.className)}},t.prototype.sendClick=function(t,e){var n,o;document.activeElement&&document.activeElement!==t&&document.activeElement.blur(),o=e.changedTouches[0],n=document.createEvent("MouseEvents"),n.initMouseEvent(this.determineEventType(t),!0,!0,window,1,o.screenX,o.screenY,o.clientX,o.clientY,!1,!1,!1,!1,0,null),n.forwardedTouchEvent=!0,t.dispatchEvent(n)},t.prototype.determineEventType=function(t){return n&&"select"===t.tagName.toLowerCase()?"mousedown":"click"},t.prototype.focus=function(t){var e;o&&t.setSelectionRange&&0!==t.type.indexOf("date")&&"time"!==t.type&&"month"!==t.type?(e=t.value.length,t.setSelectionRange(e,e)):t.focus()},t.prototype.updateScrollParent=function(t){var e,n;if(e=t.fastClickScrollParent,!e||!e.contains(t)){n=t;do{if(n.scrollHeight>n.offsetHeight){e=n,t.fastClickScrollParent=n;break}n=n.parentElement}while(n)}e&&(e.fastClickLastScrollTop=e.scrollTop)},t.prototype.getTargetElementFromEventTarget=function(t){return t.nodeType===Node.TEXT_NODE?t.parentNode:t},t.prototype.onTouchStart=function(t){var e,n,r;if(t.targetTouches.length>1)return!0;if(e=this.getTargetElementFromEventTarget(t.target),n=t.targetTouches[0],o){if(r=window.getSelection(),r.rangeCount&&!r.isCollapsed)return!0;if(!i){if(n.identifier&&n.identifier===this.lastTouchIdentifier)return t.preventDefault(),!1;this.lastTouchIdentifier=n.identifier,this.updateScrollParent(e)}}return this.trackingClick=!0,this.trackingClickStart=t.timeStamp,this.targetElement=e,this.touchStartX=n.pageX,this.touchStartY=n.pageY,t.timeStamp-this.lastClickTime<this.tapDelay&&t.preventDefault(),!0},t.prototype.touchHasMoved=function(t){var e=t.changedTouches[0],n=this.touchBoundary;return Math.abs(e.pageX-this.touchStartX)>n||Math.abs(e.pageY-this.touchStartY)>n?!0:!1},t.prototype.onTouchMove=function(t){return this.trackingClick?((this.targetElement!==this.getTargetElementFromEventTarget(t.target)||this.touchHasMoved(t))&&(this.trackingClick=!1,this.targetElement=null),!0):!0},t.prototype.findControl=function(t){return void 0!==t.control?t.control:t.htmlFor?document.getElementById(t.htmlFor):t.querySelector("button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea")},t.prototype.onTouchEnd=function(t){var e,a,c,s,u,l=this.targetElement;if(!this.trackingClick)return!0;if(t.timeStamp-this.lastClickTime<this.tapDelay)return this.cancelNextClick=!0,!0;if(t.timeStamp-this.trackingClickStart>this.tapTimeout)return!0;if(this.cancelNextClick=!1,this.lastClickTime=t.timeStamp,a=this.trackingClickStart,this.trackingClick=!1,this.trackingClickStart=0,r&&(u=t.changedTouches[0],l=document.elementFromPoint(u.pageX-window.pageXOffset,u.pageY-window.pageYOffset)||l,l.fastClickScrollParent=this.targetElement.fastClickScrollParent),c=l.tagName.toLowerCase(),"label"===c){if(e=this.findControl(l)){if(this.focus(l),n)return!1;l=e}}else if(this.needsFocus(l))return t.timeStamp-a>100||o&&window.top!==window&&"input"===c?(this.targetElement=null,!1):(this.focus(l),this.sendClick(l,t),o&&"select"===c||(this.targetElement=null,t.preventDefault()),!1);return o&&!i&&(s=l.fastClickScrollParent,s&&s.fastClickLastScrollTop!==s.scrollTop)?!0:(this.needsClick(l)||(t.preventDefault(),this.sendClick(l,t)),!1)},t.prototype.onTouchCancel=function(){this.trackingClick=!1,this.targetElement=null},t.prototype.onMouse=function(t){return this.targetElement?t.forwardedTouchEvent?!0:t.cancelable&&(!this.needsClick(this.targetElement)||this.cancelNextClick)?(t.stopImmediatePropagation?t.stopImmediatePropagation():t.propagationStopped=!0,t.stopPropagation(),t.preventDefault(),!1):!0:!0},t.prototype.onClick=function(t){var e;return this.trackingClick?(this.targetElement=null,this.trackingClick=!1,!0):"submit"===t.target.type&&0===t.detail?!0:(e=this.onMouse(t),e||(this.targetElement=null),e)},t.prototype.destroy=function(){var t=this.layer;n&&(t.removeEventListener("mouseover",this.onMouse,!0),t.removeEventListener("mousedown",this.onMouse,!0),t.removeEventListener("mouseup",this.onMouse,!0)),t.removeEventListener("click",this.onClick,!0),t.removeEventListener("touchstart",this.onTouchStart,!1),t.removeEventListener("touchmove",this.onTouchMove,!1),t.removeEventListener("touchend",this.onTouchEnd,!1),t.removeEventListener("touchcancel",this.onTouchCancel,!1)},t.notNeeded=function(t){var e,o,i,r;if("undefined"==typeof window.ontouchstart)return!0;if(o=+(/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1]){if(!n)return!0;if(e=document.querySelector("meta[name=viewport]")){if(-1!==e.content.indexOf("user-scalable=no"))return!0;if(o>31&&document.documentElement.scrollWidth<=window.outerWidth)return!0}}if(a&&(i=navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/),i[1]>=10&&i[2]>=3&&(e=document.querySelector("meta[name=viewport]")))){if(-1!==e.content.indexOf("user-scalable=no"))return!0;if(document.documentElement.scrollWidth<=window.outerWidth)return!0}return"none"===t.style.msTouchAction||"manipulation"===t.style.touchAction?!0:(r=+(/Firefox\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],r>=27&&(e=document.querySelector("meta[name=viewport]"),e&&(-1!==e.content.indexOf("user-scalable=no")||document.documentElement.scrollWidth<=window.outerWidth))?!0:"none"===t.style.touchAction||"manipulation"===t.style.touchAction?!0:!1)},t.attach=function(e,n){return new t(e,n)},"function"==typeof define&&"object"==typeof define.amd&&define.amd?define(function(){return t}):"undefined"!=typeof module&&module.exports?(module.exports=t.attach,module.exports.FastClick=t):window.FastClick=t}();</script>
+            <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+            <style>
+#body {
+    font-size:2em;
+}
+header {
+    width:100%;
+    position: fixed;
+    vertical-align: central;
+    background:#FEFEFE;
+    margin: auto;
+    border:1px solid #CCC;
+    letter-spacing: 1px;
+    height: 90px;
+    text-align:center;
+    z-index: 1000;
+}
+input {
+    max-width:80%;
+}
+.spacer {
+    font-size:1em;
+    height:120px;
+}
+.subheader {
+    background:#FEFEFE;
+    border:1px solid #CCC;
+    width:80%;
+    max-width: 600px;
+    margin: auto;
+    font-size: 18px;
+    vertical-align: central;
+    text-align:center;
+    padding:6px;
+}
+h1 {
+    font-size:2em;
+    color:#fa880f;
+}
+.content {
+    font-size:18px;
+    max-width: 600px;
+    width:80%;
+    background: #FEFEFE;
+    border: 1px solid #CCC;
+    margin: 35px auto;
+    vertical-align: central;
+    text-align:center;
+    padding:6px;
+}
+.footer {
+    font-size:18px;
+    background:#FEFEFE;
+    border:1px solid #CCC;
+    width:100%;
+    margin: auto;
+    vertical-align: central;
+    text-align:center;
+    padding:6px;
+    position:absolute;
+}
+.rating-table {
+    vertical-align: central;
+    text-align:center;
+    padding:10px;
+    border: 1px solid #CCC;
+    float:inherit;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#FAFAFA;
+    width:100%;
+    border-radius:7%;
+}
+.footer-table {
+    vertical-align: central;
+    text-align:center;
+    padding:10px;
+    border: 1px solid #CCC;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#FAFAFA;
+    width:100%;
+    border-radius:10%;
+}
+.pre-like {
+    border: 1px solid #999;
+    font-size: 18px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #f5f5f5;
+    margin-left: auto;
+    margin-right: auto;
+}
+.likes,
+.dislikes {
+   background: #337ab7 ;
+ color: #fff;
+ cursor: pointer;
+ display: inline-block;
+   line-height: 40px;
+   min-width: 40px;
+   height: 40px;
+   border-radius: 50%;
+ margin: 0 -30px 0 40px;
+   text-align: center;
+   font-weight: 200;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+   transition: background 500ms;
+   font-size:1em;
+}
+.kalkulator {
+    font-size:18px;
+}
+.sentrert {
+    text-align:center;
+}
+.navy-blue {
+    color:#337ab7;
+    vertical-align: central;
+    text-align:center;
+}
+span {
+    font-size:18px;
+}
+.venstrestilt {
+    text-align:left;
+}
+.nav-pills > li > .finn {
+    margin-left:-1px;
+}
+.describeNumber {
+    width:100px;
+}
+.tabs {
+    font-size:16px;
+}
+tiny {
+    font-size:8px;
+    height:3px;
+    color:#CCC;
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+small {
+    height:6px;
+}
+pre {
+    font-size:2em;
+    vertical-align:center;
+    width:69%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+}
+.skaff {
+    text-align:center;
+    width:inherit;
+}
+.appIkon {
+    width:70px;
+}
+.skaffCell {
+    float:left;
+    vertical-align:central;
+    margin-left:7px;
+    margin-right:auto;
+}
+img.appIkon {
+    float:left;
+}
+.app > li > a {
+    background: linear-gradient(#fbaa54, #fa880f);
+    color:#ffffff;
+    border-radius:50px;
+    margin:15px;
+}
+.app > li > a:hover {
+    background: linear-gradient(#fbaa54, #fa880f);
+    color:#ffffff;
+}
+.app > li > a:active {
+    background: linear-gradient(#fa880f, #fbaa54);
+    color:#ffffff;
+}
+.pc > li > a:active {
+    background-color:#fa880f;
+    color:#ffffff;
+}
+.nav > li > a {
+    max-width:250px;
+    width:69%;
+    float:none;
+    margin-right:auto;
+    margin-left:auto;
+    text-align:center;
+}
+#numb {
+    font-size:3em;
+}
+#skaffApp > a:active > table > tr > td {
+    filter:invert(1);
+}
+.tid>li>a:active {
+  font-size: 2em;
+}
+.nav>li {
+    float:none !important;
+}
+</style>
+        </div>
+    </body>
+
+</html>
