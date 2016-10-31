@@ -98,6 +98,7 @@
   <h1>TK — Technological Kapoo</h1>
 
   <h2>Sider:</h2>
+  <h5>Loading...</h5>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
@@ -110,6 +111,7 @@
         "class": "page-list",
         html: items.join("")
       }).appendTo("body");
+      $('h5').remove();
 
       bindEvents();
     });
