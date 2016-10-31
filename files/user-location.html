@@ -1,16 +1,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
 <meta charset="UTF-8">
 <script>
+var result = {
+  done: false,
+  error: false,
+  lat: 0,
+  long: 0
+}
+document.body.innerHTML = JSON.stringify(result);
+  
 function geo_success(position) {
   do_something(position.coords.latitude, position.coords.longitude);
 }
 
 function geo_error() {
-  document.body.innerHTML = "Sorry, no position available.";
+  var result = {
+    done: true,
+    error: true,
+    lat: 0,
+    long: 0
+  }
+  document.body.innerHTML = JSON.stringify(result);
 }
 
 var geo_options = {
-  enableHighAccuracy: true, 
+  enableHighAccuracy: false, 
   maximumAge        : 30000, 
   timeout           : 27000
 };
@@ -18,6 +32,12 @@ var geo_options = {
 var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
 
 function do_something(lat, long) {
-  document.body.innerHTML = lat + ", " + long;
+  var result = {
+    done: true,
+    error: false,
+    lat: lat,
+    long: long
+  }
+  document.body.innerHTML = JSON.stringify(result);
 }
 </script>
