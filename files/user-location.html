@@ -1,12 +1,14 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+<meta charset="UTF-8">
 <script>
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-        document.body.innerHTML = "Geolocation is not supported by this browser.";
+        document.write("Geolocation is not supported by this browser.");
     }
 }
 function showPosition(position) {
-    document.body.innerHTML = position.coords.latitude + ", " + position.coords.longitude; 
+    document.write(position.coords.latitude + ", " + position.coords.longitude); 
 }
 </script>
