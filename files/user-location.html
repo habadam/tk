@@ -1,13 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
 <meta charset="UTF-8">
 <script>
-var result = {
-  done: false,
-  error: false,
-  lat: 0,
-  long: 0
-}
-document.body.innerHTML = JSON.stringify(result);
   
 function geo_success(position) {
   do_something(position.coords.latitude, position.coords.longitude);
@@ -41,3 +34,12 @@ function do_something(lat, long) {
   document.body.innerHTML = JSON.stringify(result);
 }
 </script>
+
+<body>
+  {
+    done: false,
+    error: false,
+    lat: 0,
+    long: 0
+  }
+</body>
