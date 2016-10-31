@@ -6,7 +6,7 @@ function geo_success(position) {
 }
 
 function geo_error() {
-  document.write("Sorry, no position available.");
+  document.body.innerHTML = "Sorry, no position available.";
 }
 
 var geo_options = {
@@ -18,6 +18,6 @@ var geo_options = {
 var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
 
 function do_something(lat, long) {
-  document.write(lat + ", " + long);
+  document.body.innerHTML = lat + ", " + long;
 }
 </script>
