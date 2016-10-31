@@ -1,0 +1,12 @@
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        document.body.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    document.body.innerHTML = position.coords.latitude + ", " + position.coords.longitude; 
+}
+</script>
