@@ -24,6 +24,16 @@
       align-items: center;
       justify-content: center;
     }
+    @keyframes bubble {
+      0%   {width:30%;}
+      50%  {width:65%;}
+      100% {width:30%;}
+    }
+    img {
+      animation-name: bubble;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
   </style>
 </head>
 
