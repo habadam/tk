@@ -15,10 +15,12 @@
       font-size:2em;
       font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       font-weight: 900;
+      font-variant: small-caps;
       color: hsla(0,0%,30%,1);
       height: 100%;
       padding: 0px;
       margin: 0px;
+      overflow-y: hidden;
     }
     body>div {
       flex: 1;
@@ -27,9 +29,9 @@
       justify-content: center;
     }
     @keyframes bubble {
-      0%   {width:10%;min-width:200px;}
-      70%  {width:30%;min-width:300px;}
-      100% {width:10%;min-width:200px;}
+      0%   {width:30%;min-width:100px;}
+      70%  {width:60%;min-width:300px;}
+      100% {width:30%;min-width:100px;}
     }
     img {
       animation-name: bubble;
