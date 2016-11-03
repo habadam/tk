@@ -4,7 +4,6 @@ var calcs = 0;
 var start = Date.now();
 var inter = setInterval(function(){
   calcs += 1;
-  document.write(calcs);
   if (calcs == 1048) {
     clearInterval(inter);
     var dur = Date.now()-start;
