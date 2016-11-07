@@ -1,0 +1,16 @@
+body {
+    background-color: blue;
+    font-size:1em;
+}
+h1 {
+    color: red;
+}
+p {
+    color: red;
+}
+img {
+    width:100%;
+}
+button {
+    font-size:2em;
+}
