@@ -2,23 +2,23 @@ var hillary = function () {
 confirm ("Er du klar for et skrekkelig eventyr i stua?");
 confirm ("Tenkte meg det, ja");
 var age=prompt ("Før vi begynner må jeg bare vite en ting, hvor gammel er du?").toLowerCase();
-if (age<18)
+if (age<16)
 {
-    confirm ("Dette spillet er for folk som er gamle nok til å stemme.");
+    confirm ("Hvorfor leker du at du skjønner politikk, lille unge?");
 } else {
     confirm ("Flott, du er gammel nok!");
 }
 
-confirm ("Du våkner");
-var userAnswer = prompt("Hva gjør du nå? (Svar 'Sloss', 'Stikke', 'Slå av en prat', eller noe annet)").toLowerCase();
+confirm ("Du våkner om natta av noen merkelige lyder. Da du går til stua for å sjekke hva det er, ser du til din store skrekk at det er Hillary Clinton som er i ferd med å spise barnet ditt!");
+var userAnswer = prompt("Hva gjør du nå? (Svar 'Sloss', 'Stikke', 'Bestikke', eller noe annet)").toLowerCase();
 
 if (userAnswer === "sloss") {
-    var userAnswer2 = prompt ("Har du våpen? (Svar 'Ja', eller 'Nei')");
+    var userAnswer2 = prompt ("Har du automatvåpen i huset? (Svar 'Ja', eller 'Nei')");
     if (userAnswer2 === "ja") {
-        confirm ("Du slakter Putin og bjørnen hans uten at de hadde provosert deg på noen måte, dette fører til at tredje verdenskrig bryter ut og millioner av mennesker dør på grunn av deg! Nå er du vel fornøyd med deg selv, hva?");
+        confirm ("Du benytter deg av din rett fra andre grunnlovstillegg, og skyter demokraten som er på eiendommen din uten tillatelse. Godt gjordt!");
     }
     else {
-        confirm ("Du angriper Putin med en pinne som du kjøpte av en rar dame i Bergen. Dessverre er den russiske presidenten villt god med en AK-47, og han skyter deg gjentatte ganger i hodet mens han roper 'Headshot, dobro, dobro!'");
+        confirm ("Du angriper Hillary med nevene, men det hjelper lite. Både du og barnet ditt blir spist. Nå angrer du kanskje på at du sa, 'nobody needs an assault rifle'");
     }
 }
 else if (userAnswer === "stikke") {
