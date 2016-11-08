@@ -1,5 +1,5 @@
 var hillary = function () {
-confirm ("Er du klar for et skrekkelig eventyr i stua?");
+confirm ("Er du klar for en skrekkelig opplevelse i eget hjem?");
 confirm ("Tenkte meg det, ja");
 var age=prompt ("Før vi begynner må jeg bare vite en ting, hvor gammel er du?").toLowerCase();
 if (age<16)
@@ -22,38 +22,32 @@ if (userAnswer === "sloss") {
     }
 }
 else if (userAnswer === "stikke") {
-    var userAnswer2 = prompt ("Er du raskere enn en bjørn? (Svar: 'Ja, jeg er rask som sonic', eller 'Nei, jeg er treig')");
-    if (userAnswer2 === 'Ja, jeg er rask som sonic') {
-        userAnswer3 = prompt ("Tviler jeg på, hva er persen din på 100-meter?");
-        if (userAnswer3 > 7) {
-            confirm ("Bjørnen er nok dessverre raskere enn deg, den biter av hodet ditt og spiser deg til lunsj");
-        }
-        else {
-            confirm ("Med din ummeneskelige fart klarer du med nød og neppe å løpe fra bjørnen. Du har overlevd Putin, for denne gang.");
-        }
+    var userAnswer2 = prompt ("Er du sikker på at du vil overlate barnet ditt til en sikker død? (Svar: 'Ja', eller 'Nei')".toLowerCase());
+    if (userAnswer2 === 'ja') {
+      confirm ("Barnet ditt er dødt og Hillary er president, og alt er din skyld! Fornøyd med deg selv?")
     }
     else {
-        confirm ("Bjørnen tar deg igjen og eter deg opp. En ganske så trist død, men livet ditt var vel heller ikke noe å skryte av, med tanke på at du var en treig person som brukte fritiden din på å spille 'Putin i skogen'");
+        userAnswer
     }
 }
-else if (userAnswer === "slå av en prat") {
-    confirm ("Putin krever at du overgir turskogen din til Russland, ettersom russerne okkuperte skogen for lenge siden og den dermed historisk sett har vært russisk.");
-    var userAnswer2 = prompt ("Aksepterer du Putin sine krav? (Svar 'Jeg godtar', eller 'Jeg nekter'").toLowerCase();
-    if (userAnswer2 === "jeg godtar") {
-        confirm ("Putin tar over skogen, og du slipper fra det hele med livet i behold, dog det ser ut som du må finne deg en ny turskog.")
+else if (userAnswer === "bestikke") {
+    confirm ("Med en gang du nevner bestikkelser ser Hillary interessert opp.");
+    var userAnswer2 = prompt ("Er du såkalt 'really rich'? (Svar 'Ja', eller 'Nei'").toLowerCase();
+    if (userAnswer2 === "ja") {
+        confirm ("Hillary lar deg og barnet ditt gå. Dere kom unna denne gangen, men Hillary er fortsatt der ute.")
     } else {
-        confirm ("Putin lar deg gå, men kort tid senere blir du snikmyrdet av politiske årsaker. Putin kaller det hele en tragedie og annekterer skogen din.");
+        confirm ("Tips til deg: ikke prøv å bruke penger du ikke har, det funker bare for politikere. Du og ditt barn ender som døde.");
     }
 }
 else {
-    confirm ("Du blir distrahert av Putins vakre overkropp. Han tar deg til fange og putter deg i en gulag som han hevder at ikke lenger er i drift.");
+    confirm ("Du blir stående apatisk og se på at barnet blir fortært og jobben din blir flyttet til Kina (landet som fant opp global oppvarming) og det kommer 650 millioner innvandrere i uka.");
    }
 
-var userRating = prompt ("Hvor bra synes du spillet var, på en skala fra 1-10. (Husk at Russland bomber dritten ut av deg hvis du gir dårlig");
+var userRating = prompt ("Hvor bra synes du spillet var, på en skala fra 1-10. (Husk at Trump bomber dritten ut av deg og familien og tar oljen din, hvis du ikke gir bra rating");
 if (userRating < 9) {
-    confirm ("Cyka! Det er mulig du kommer til å angre på den ratingen når hjemmet ditt er lagt i ruiner. Putin bryr seg pent lite om at du er tilknyttet CIA, han bomber deg uansett.");
+    confirm ("Du er nok terrorist, du! Du kommer til å angre på den ratingen når Trump kommer og såkalt 'grabs you by the pussy'!);
 }
 else {
-    confirm ("Jeg og Vladimir er glade for at du likte spillet. Forøvrig lurer Putin på om du vil bli med i KGB, som selvsagt ikke egentlig er lagt ned.");
+    confirm ("Jeg og The Donald er glade for at du likte spillet. Trum lurer også på om du vil være med ned på grensa for å bygge mur. Mexico betaler deg, vi lover!");
 }
 };
