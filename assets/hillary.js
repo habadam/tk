@@ -45,7 +45,7 @@ else {
 
 var userRating = prompt ("Hvor bra synes du spillet var, på en skala fra 1-10. (Husk at Trump bomber dritten ut av deg og familien og tar oljen din, hvis du ikke gir bra rating");
 if (userRating < 9) {
-    confirm ("Du er nok terrorist, du! Du kommer til å angre på den ratingen når Trump kommer og såkalt 'grabs you by the pussy'!);
+    confirm ("Du er nok terrorist, du! Du kommer til å angre på den ratingen når Trump kommer og såkalt 'grabs you by the pussy'!");
 }
 else {
     confirm ("Jeg og The Donald er glade for at du likte spillet. Trum lurer også på om du vil være med ned på grensa for å bygge mur. Mexico betaler deg, vi lover!");
