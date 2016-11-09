@@ -47,11 +47,15 @@
       background-size: contain;
       position: absolute;
       transition: height, width, opacity 1s;
-      animation-name: bubble;
+      animation-name: small-bubble;
       animation-duration: 2.5s;
       border-radius:100%;
-      background-color:rgba(51,122,183,.5);
     }
+    @keyframes small-bubble {
+      0%   {height:0px;width:0px;}
+      /*50%  {height:20px;width:20px;}*/
+      100% {height:40px;width:40px;opacity: 0;}
+     }
   </style>
 </head>
 
