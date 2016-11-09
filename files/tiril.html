@@ -65,9 +65,6 @@
   </audio>
   <script>
     document.getElementsByTagName('body')[0].setAttribute('style', 'height:'+window.innerHeight+'px');
-      setInterval(function(){
-        document.getElementById('damount').innerHTML = document.getElementsByClassName('dot').length;
-      }, 10);
       document.onmousemove = handleMouseMove;
       function handleMouseMove(event) {
         var dot, eventDoc, doc, body, pageX, pageY;
