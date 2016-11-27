@@ -140,12 +140,10 @@
     app.filter('italics', [function () {
       console.log("italics filtering");
       return function(input, scope) {
-        console.log("funtcion called with input:",input);
         function replace(match) {
-          console.log("Found a number:",match);
           return "<ni>"+match+"</ni>";
         }
-        input.replace(/([0-9])/g, replace);
+        input = input.replace(/[0-9]/g, replace);
         console.log("returning",input);
         return input;
       };
