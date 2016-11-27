@@ -2554,5 +2554,8 @@
   "ᵪ": "_\\chi",
   "sin ": "sin",
   "cos ": "cos",
-  "tan ": "tan"
+  "tan ": "tan",
+  " dx": "dx",
+  " dt": "dt",
+  " du": "du"
 }
