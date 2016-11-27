@@ -99,7 +99,7 @@
   <textarea name="input" placeholder="Write here..." ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <pre ng-bind="m.output | italics:this" ng-if="!m.working"></pre>
+  <pre ng-if="!m.working">{{m.output | italics:this}}</pre>
   <h6 ng-if="m.working">Working...</h6>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
