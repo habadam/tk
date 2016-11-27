@@ -19,8 +19,6 @@
     -ms-user-select: none;
     user-select: none;
   }
-
-  /* General CSS */
   h4 {
     margin-bottom: 5px;
   }
@@ -29,6 +27,13 @@
   }
   .list-group-item {
     margin-top: 30px;
+  }
+  pre {
+    margin: auto;
+    font-size: 1.4em;
+    font-family: 'Times New Roman';
+    font-style: italic;
+    padding: 11px 0;
   }
 
   /* Form CSS */
@@ -42,10 +47,6 @@
     appearance: none;
     width: 450px;
     max-width: 100%;
-  }
-  pre {
-    margin: auto;
-    font-size: 1.4em;
   }
   select, input[type=text], input[type=url], input[type=password], input[type=number] {
     height: 34px;
@@ -95,7 +96,7 @@
   <textarea name="input" placeholder="Write here..." ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <pre ng-bind="m.output" ng-if="!m.working"></pre>
+  <pre ng-bind="m.output | italics:this" ng-if="!m.working"></pre>
   <h6 ng-if="m.working">Working...</h6>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
@@ -130,6 +131,16 @@
           }
           vm.working = false;
         });
+      };
+    }]);
+
+    app.filter('italics', [function () {
+      var vm = this;
+      return function(input, scope) {
+        function replace(match) {
+          return "<ni>"+match+"</ni>";
+        }
+        input.replace(/([0-9])/, replace);
       };
     }]);
   </script>
