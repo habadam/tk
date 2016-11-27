@@ -150,7 +150,7 @@
         function replace(match) {
           return "<i>"+match+"</i>";
         }
-        input = input.replace(/((?!(a[a-z]*)?(sin|cos|tan|dx|du|dt)\b)\b[a-z]+|x)/gi, replace);
+        input = input.replace(/((?!(a[a-z]*)?(sin|cos|tan|dx|du|dt)\b)\b[a-z]+|x|y|z|t)/gi, replace);
         return $sce.trustAsHtml(input);
       };
     }]);
