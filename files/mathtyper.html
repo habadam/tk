@@ -6,8 +6,10 @@
   <title>MathTyper</title>
   <style media="screen">
   /* General CSS: */
-  body {
+  body, pre:empty:before {
     font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  body {
     text-align: center;
   }
   .noselect, .page-list {
@@ -36,8 +38,12 @@
     padding: 11px 0;
   }
   pre:empty:before{
-    content:attr(placeholder);
+    content: attr(placeholder);
     color: #a9a9a9;
+    font-size: initial;
+    text-align: left;
+    display: block;
+    margin-top: -10px;
   }
 
   /* Form CSS */
