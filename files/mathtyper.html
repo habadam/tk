@@ -141,7 +141,7 @@
         function replace(match) {
           return "<i>"+match+"</i>";
         }
-        input = input.replace(/(?!(a[a-z]*)?(sin|cos|tan)\b)\b[a-z]+/gi, replace);
+        input = input.replace(/(?!(a[a-z]*)?(sin|cos|tan|dx|du|dt)\b)\b[a-z]+/gi, replace);
         console.log("returning",input);
         return $sce.trustAsHtml(input);
       };
