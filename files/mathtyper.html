@@ -32,11 +32,8 @@
     margin: auto;
     font-size: 1.4em !important;
     font-family: 'Times New Roman';
-    font-style: italic;
+    /*font-style: italic;*/
     padding: 11px 0;
-  }
-  ni {
-    font-style: initial;
   }
 
   /* Form CSS */
@@ -142,9 +139,9 @@
       console.log("italics filtering");
       return function(input, scope) {
         function replace(match) {
-          return "<ni>"+match+"</ni>";
+          return "<i>"+match+"</i>";
         }
-        input = input.replace(/[0-9]|[𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎()[]]|(a\w+)?(tan|cos|sin)|d(x|u|t)/g, replace);
+        input = input.replace(/(?!(a[a-z]*)?(sin|cos|tan)\b)\b[a-z]+/gi, replace);
         console.log("returning",input);
         return $sce.trustAsHtml(input);
       };
