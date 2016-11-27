@@ -12,7 +12,7 @@
   body {
     text-align: center;
   }
-  .noselect, .page-list {
+  .noselect, [ng-click] {
     cursor: default;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -20,15 +20,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-  h4 {
-    margin-bottom: 5px;
-  }
-  h5, h6 {
-    margin: 0 auto 10px;
-  }
-  .list-group-item {
-    margin-top: 30px;
   }
   pre {
     margin: auto;
@@ -58,9 +49,6 @@
     width: 450px;
     max-width: 100%;
   }
-  select, input[type=text], input[type=url], input[type=password], input[type=number] {
-    height: 34px;
-  }
   textarea {
     height: 90px;
   }
@@ -68,34 +56,8 @@
     outline: 0;
     border: 2px solid #bbb;
   }
-  .ng-touched.ng-invalid {
-    background-color: #f2dede;
-    border-color: #a94442;
-  }
-  select {
-    cursor: pointer;
-    padding: 5px 35px 5px 5px;
-    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Chevron-down,_Web_Fundamentals.svg/40px-Chevron-down,_Web_Fundamentals.svg.png) 96% / 15px no-repeat #eee;
-  }
   [ng-click] {
     cursor: pointer;
-  }
-  a[type=submit] {
-    display: block;
-    height: auto;
-    padding: 7.5px;
-    margin: 15px auto -5px;
-    color: #000;
-  }
-  a[type=submit]:hover {
-    background-color: #ddd;
-  }
-  a[type=submit]:active {
-    background-color: #ccc;
-  }
-  form.ng-invalid>a[type=submit] {
-    cursor: not-allowed;
-    background: repeating-linear-gradient(   45deg,   #ccc,   #ccc 10px,   #eee 10px,   #eee 20px ) !important;
   }
   </style>
 </head>
