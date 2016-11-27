@@ -30,7 +30,7 @@
   }
   pre {
     margin: auto;
-    font-size: 1.4em;
+    font-size: 1.4em !important;
     font-family: 'Times New Roman';
     font-style: italic;
     padding: 11px 0;
@@ -99,12 +99,13 @@
   <textarea name="input" placeholder="Write here..." ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <pre ng-if="!m.working">{{m.output | italics:this}}</pre>
+  <pre ng-if="!m.working" ng-bind-html="m.output | italics:this"></pre>
   <h6 ng-if="m.working">Working...</h6>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.min.js"></script>
   <script type="text/javascript">
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ngSanitize']);
     app.controller('mainCtrl', ['$http', function ($http) {
       var vm = this;
       vm.latex = [];
@@ -137,7 +138,7 @@
       };
     }]);
 
-    app.filter('italics', [function () {
+    app.filter('italics', ['$sce', function ($sce) {
       console.log("italics filtering");
       return function(input, scope) {
         function replace(match) {
@@ -145,7 +146,7 @@
         }
         input = input.replace(/[0-9]/g, replace);
         console.log("returning",input);
-        return input;
+        return $sce.trustAsHtml(input);
       };
     }]);
   </script>
