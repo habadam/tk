@@ -138,12 +138,14 @@
     }]);
 
     app.filter('italics', [function () {
-      var vm = this;
+      console.log("italics filtering");
       return function(input, scope) {
+        console.log("funtcion called with input:",input);
         function replace(match) {
+          console.log("Found a number:",match);
           return "<ni>"+match+"</ni>";
         }
-        input.replace(/([0-9])/, replace);
+        input.replace(/([0-9])/g, replace);
       };
     }]);
   </script>
