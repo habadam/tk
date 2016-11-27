@@ -128,7 +128,7 @@
         request.success(function () {
           for (var i = 0; i < vm.latex.length; i++) {
             var regex = new RegExp(vm.latex[i][1], "g");
-            vm.output = vm.output.replace(regex, key);
+            vm.output = vm.output.replace(regex, vm.latex[i][0]);
           }
           vm.working = false;
         });
