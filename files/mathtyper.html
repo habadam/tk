@@ -100,26 +100,30 @@
     var app = angular.module('app', []);
     app.controller('mainCtrl', ['$http', function ($http) {
       var vm = this;
-      vm.latex = {};
+      vm.latex = [];
       vm.input = "";
       vm.output = "";
       vm.working = false;
-
+      
       var request = $http.get('../assets/latex.json');
-
+      
       request.success(function (data) {
-        vm.latex = data;
+        for (var key in data) {
+          vm.latex.push([key, data[key]])
+        }
+        vm.latex.sort(function(a, b) {
+          return a[1].length - b[1].length
+        });
+        console.log(vm.latex);
       });
 
       vm.process = function () {
         vm.output = vm.input;
         vm.working = true;
         request.success(function () {
-          for (var key in vm.latex) {
-            if (vm.latex.hasOwnProperty(key)) {
-              var regex = new RegExp(vm.latex[key], "g");
-              vm.output = vm.output.replace(regex, key);
-            }
+          for (var i = 0; i < vm.latex.length; i++) {
+            var regex = new RegExp(vm.latex[i][1], "g");
+            vm.output = vm.output.replace(regex, key);
           }
           vm.working = false;
         });
