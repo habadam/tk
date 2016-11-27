@@ -118,10 +118,7 @@
           for (var key in vm.latex) {
             if (vm.latex.hasOwnProperty(key)) {
               var regex = new RegExp(vm.latex[key], "g");
-              vm.output.replace(regex, key);
-              if (regex.test(vm.output)) {
-                alert('Match for '+key);
-              }
+              vm.output = vm.output.replace(regex, key);
             }
           }
           vm.working = false;
