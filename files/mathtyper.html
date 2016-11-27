@@ -130,6 +130,9 @@
             var regex = new RegExp(vm.latex[i][1], "g");
             vm.output = vm.output.replace(regex, vm.latex[i][0]);
           }
+          vm.output = vm.output.replace(/(cos|sin|tan)([a-z])/gi, function (a,b,c,d,e) {
+            console.log(a,b,c,d,e);
+          });
           vm.working = false;
         });
       };
