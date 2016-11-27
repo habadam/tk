@@ -35,6 +35,10 @@
     /*font-style: italic;*/
     padding: 11px 0;
   }
+  pre:empty:before{
+    content:attr(placeholder);
+    color: #a9a9a9;
+  }
 
   /* Form CSS */
   select, input[type=text], input[type=url], input[type=password], input[type=number], textarea, a[type=submit], pre {
@@ -96,8 +100,8 @@
   <textarea name="input" placeholder="Write here..." ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <pre ng-if="!m.working" ng-bind-html="m.output | italics:this"></pre>
-  <h6 ng-if="m.working">Working...</h6>
+  <pre placeholder="The output will come here..." ng-if="!m.working" ng-bind-html="m.output | italics:this"></pre>
+  <h5 ng-if="m.working">Working...</h5>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.min.js"></script>
