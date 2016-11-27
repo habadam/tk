@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="mainCtrl as m">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <title>MathTyper</title>
+  <style media="screen">
+  /* General CSS: */
+  body {
+    font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  .noselect, .page-list {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* General CSS */
+  h4 {
+    margin-bottom: 5px;
+  }
+  h5, h6 {
+    margin: 0 auto 10px;
+  }
+  .list-group-item {
+    margin-top: 30px;
+  }
+
+  /* Form CSS */
+  select, input[type=text], input[type=url], input[type=password], input[type=number], textarea, a[type=submit] {
+    border-radius: 5px;
+    background: #eee;
+    /*max-width: 250px;*/
+    /*cursor: pointer;*/
+    font-size: 16px;
+    border: 1px solid #ccc;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 250px;
+    max-width: 100%;
+  }
+  select, input[type=text], input[type=url], input[type=password], input[type=number] {
+    height: 34px;
+  }
+  textarea {
+    height: 90px;
+  }
+  select:focus, input:focus, textarea:focus {
+    outline: 0;
+    border: 2px solid #bbb;
+  }
+  .ng-touched.ng-invalid {
+    background-color: #f2dede;
+    border-color: #a94442;
+  }
+  select {
+    cursor: pointer;
+    padding: 5px 35px 5px 5px;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Chevron-down,_Web_Fundamentals.svg/40px-Chevron-down,_Web_Fundamentals.svg.png) 96% / 15px no-repeat #eee;
+  }
+  [ng-click] {
+    cursor: pointer;
+  }
+  a[type=submit] {
+    display: block;
+    height: auto;
+    padding: 7.5px;
+    margin: 15px auto -5px;
+    color: #000;
+  }
+  a[type=submit]:hover {
+    background-color: #ddd;
+  }
+  a[type=submit]:active {
+    background-color: #ccc;
+  }
+  form.ng-invalid>a[type=submit] {
+    cursor: not-allowed;
+    background: repeating-linear-gradient(   45deg,   #ccc,   #ccc 10px,   #eee 10px,   #eee 20px ) !important;
+  }
+  </style>
+</head>
+<body>
+  <h1>MathTyper</h1>
+
+  <h3>Input:</h3>
+  <textarea name="input" placeholder="Write here..." ng-model="m.input" ng-keyup="m.process()"></textarea>
+
+  <h3>Output:</h3>
+  <pre ng-bind="m.output" ng-if="!m.working"></pre>
+  <h6 ng-if="m.working">Working...</h6>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.controller('mainCtrl', ['$http', function ($http) {
+      var vm = this;
+      vm.latex = {};
+      vm.input = "";
+      vm.output = "";
+      vm.working = false;
+
+      var request = $http.get('../assets/latex.json');
+
+      request.success(function (data) {
+        vm.latex = data;
+      });
+
+      vm.process = function () {
+        vm.output = vm.input;
+        vm.working = true;
+        request.success(function () {
+          for (var key in vm.latex) {
+            if (vm.latex.hasOwnProperty(key)) {
+              var regex = new RegExp(vm.latex[key], "g");
+              vm.output.replace(regex, key);
+            }
+          }
+          vm.working = false;
+        });
+      };
+    }]);
+  </script>
+</body>
+</html>
