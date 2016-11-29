@@ -3,6 +3,11 @@
   <head>
     <title>Plusstimer</title>
     <link href="../assets/standard.css" rel="stylesheet">
+    <link rel="icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico" />
     <style>
       pre {
         line-height: 1.75;
@@ -18,11 +23,6 @@
         margin:0;
       }
     </style>
-    <link rel="icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico" />
     <script type="text/javascript">
       // Your Client ID can be retrieved from your project in the Google
       // Developer Console, https://console.developers.google.com
@@ -58,7 +58,6 @@
           // Show auth UI, allowing the user to initiate authorization by
           // clicking authorize button.
           authorizeDiv.style.display = 'inline';
-          appendPre('Waiting for user to authorize...');
         }
       }
 
@@ -128,8 +127,7 @@
 
 
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
-    </script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
   </head>
   <body>
     <div id="result" style="font-family: fantasy;width: 200px;max-width: 100%;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
