@@ -96,10 +96,12 @@
         appendPre('Outputting result...');
         if (typeof Storage !== 'undefined' && 'sid' in localStorage && location.search.length <= 1) {
           spreadSheetId = localStorage.sid;
+          validSid = true;
         } else {
           var input = prompt('Skriv inn url-en til google-regnearket ditt');
           if (typeof input === 'string' && input.length > 5) {
             spreadSheetId = input.match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
+            console.log(spreadSheetId);
           }
         }
         if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
