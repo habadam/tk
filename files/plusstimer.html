@@ -88,11 +88,17 @@
        * Print the names and majors of students in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
        */
+      var spreadsheetId;
       function listMajors() {
         appendPre('Loading completed.');
         appendPre('Outputting result...');
+        if (typeof Storage !== 'undefined' && 'sid' in localStorage) {
+          spreadSheetId = localStorage.sid;
+        } else {
+          spreadSheetId = prompt('Skriv inn url-en til google-regnearket ditt').match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
+        }
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1cZTs5TdXlUFiUMseywxCq_z9KRwznZsSIOAoTNla_gI',
+          spreadsheetId: spreadSheetId,
           range: 'Fravær for klassen!G8',
         }).then(function(response) {
           var range = response.result;
@@ -104,6 +110,12 @@
               document.querySelector('#result>number').innerHTML = Number(row[0]);
               document.querySelector('#result').style.display = 'block';
               document.querySelector('#output').style.display = 'none';
+              // Save spreadsheet-id
+              if (typeof Storage !== 'undefined') {
+                try {
+                  localStorage.sid = spreadSheetId;
+                } catch (e) {}
+              }
             }
           } else {
             appendPre('No data found.');
