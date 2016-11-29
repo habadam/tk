@@ -94,7 +94,7 @@
       function listMajors() {
         appendPre('Loading completed.');
         appendPre('Outputting result...');
-        if (typeof Storage !== 'undefined' && 'sid' in localStorage) {
+        if (typeof Storage !== 'undefined' && 'sid' in localStorage && location.search.length <= 1) {
           spreadSheetId = localStorage.sid;
         } else {
           var input = prompt('Skriv inn url-en til google-regnearket ditt');
