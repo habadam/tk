@@ -10,8 +10,10 @@
   <link rel="apple-touch-icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico" />
   <style>
   pre {
-    line-height: 1.75;
-    font-size: 1.25em !important;
+    line-height: 1.5;
+    font-size: 1em !important;
+    white-space: pre-line;
+    word-wrap: break-word;
   }
   html {
     min-height: 100%;
@@ -129,7 +131,7 @@
             appendPre('Ooooo, det lukter error: ' + response.result.error.message);
           });
         } else {
-          appendPre('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: <i>https://docs.google.com/spreadsheets/d/#########/edit</i>');
+          appendPre('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: https://docs.google.com/spreadsheets/d/#########/edit');
         }
       }
 
