@@ -100,7 +100,9 @@
         } else {
           var input = prompt('Skriv inn url-en til google-regnearket ditt');
           if (typeof input === 'string' && input.length > 5) {
-            spreadSheetId = input.match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
+            try {
+              spreadSheetId = input.match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
+            } catch (e) {}
             console.log(spreadSheetId);
           }
         }
