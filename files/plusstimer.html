@@ -131,7 +131,7 @@
             appendPre('Ooooo, det lukter error: ' + response.result.error.message);
           });
         } else {
-          appendPre('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: https://docs.google.com/spreadsheets/d/#########/edit');
+          alertUser('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: https://docs.google.com/spreadsheets/d/#########/edit');
         }
       }
 
