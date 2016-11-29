@@ -88,7 +88,7 @@
        * Print the names and majors of students in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
        */
-      var spreadsheetId;
+      var spreadSheetId;
       function listMajors() {
         appendPre('Loading completed.');
         appendPre('Outputting result...');
@@ -97,7 +97,8 @@
         } else {
           spreadSheetId = prompt('Skriv inn url-en til google-regnearket ditt').match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
         }
-        gapi.client.sheets.spreadsheets.values.get({
+        if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
+          gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadSheetId,
           range: 'Fravær for klassen!G8',
         }).then(function(response) {
@@ -123,6 +124,9 @@
         }, function(response) {
           appendPre('Ooooo, det lukter error: ' + response.result.error.message);
         });
+        } else {
+          appendPre('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: <i>https://docs.google.com/spreadsheets/d/#########/edit</i>');
+        }
       }
 
       /**
