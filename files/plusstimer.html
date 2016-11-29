@@ -10,26 +10,26 @@
     <link rel="apple-touch-icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico" />
     <style>
       pre {
-        line-height: 1.75;
-        font-size: 1.25em !important;
+      line-height: 1.75;
+      font-size: 1.25em !important;
       }
       html {
-        min-height: 100%;
-        display: flex;
+      min-height: 100%;
+      display: flex;
       }
       body {
-        min-width:100%;
-        display:flex;
-        margin:0;
+      min-width:100%;
+      display:flex;
+      margin:0;
       }
     </style>
     <script type="text/javascript">
       // Your Client ID can be retrieved from your project in the Google
       // Developer Console, https://console.developers.google.com
       var CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
-
+      
       var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
-
+      
       /**
        * Check if current user has authorized this application.
        */
@@ -41,7 +41,7 @@
             'immediate': true
           }, handleAuthResult);
       }
-
+      
       /**
        * Handle response from authorization server.
        *
@@ -60,7 +60,7 @@
           authorizeDiv.style.display = 'inline';
         }
       }
-
+      
       /**
        * Initiate auth flow in response to user clicking authorize button.
        *
@@ -73,7 +73,7 @@
         appendPre('Authorizing...');
         return false;
       }
-
+      
       /**
        * Load Sheets API client library.
        */
@@ -83,7 +83,7 @@
             'https://sheets.googleapis.com/$discovery/rest?version=v4';
         gapi.client.load(discoveryUrl).then(listMajors);
       }
-
+      
       /**
        * Print the names and majors of students in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
@@ -128,7 +128,7 @@
           appendPre('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: <i>https://docs.google.com/spreadsheets/d/#########/edit</i>');
         }
       }
-
+      
       /**
        * Append a pre element to the body containing the given message
        * as its text node.
@@ -140,8 +140,8 @@
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
       }
-
-
+      
+      
     </script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
   </head>
@@ -150,7 +150,6 @@
       <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
       <description style="font-size: 1.75em;">plusstimer</description>
     </div>
-    
     <pre id="output"><div id="authorize-div" style="display: none"><span>Authorize access to Google Sheets API</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
   </body>
 </html>
