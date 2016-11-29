@@ -99,31 +99,31 @@
         }
         if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
           gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: spreadSheetId,
-          range: 'Fravær for klassen!G8',
-        }).then(function(response) {
-          var range = response.result;
-          if (range.values.length > 0) {
-            for (i = 0; i < range.values.length; i++) {
-              var row = range.values[i];
-              // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0] + 'plusstimer');
-              document.querySelector('#result>number').innerHTML = Number(row[0]);
-              document.querySelector('#result').style.display = 'block';
-              document.querySelector('#output').style.display = 'none';
-              // Save spreadsheet-id
-              if (typeof Storage !== 'undefined') {
-                try {
-                  localStorage.sid = spreadSheetId;
-                } catch (e) {}
+            spreadsheetId: spreadSheetId,
+            range: 'Fravær for klassen!G8',
+          }).then(function(response) {
+            var range = response.result;
+            if (range.values.length > 0) {
+              for (i = 0; i < range.values.length; i++) {
+                var row = range.values[i];
+                // Print columns A and E, which correspond to indices 0 and 4.
+                appendPre(row[0] + 'plusstimer');
+                document.querySelector('#result>number').innerHTML = Number(row[0]);
+                document.querySelector('#result').style.display = 'block';
+                document.querySelector('#output').style.display = 'none';
+                // Save spreadsheet-id
+                if (typeof Storage !== 'undefined') {
+                  try {
+                    localStorage.sid = spreadSheetId;
+                  } catch (e) {}
+                }
               }
+            } else {
+              appendPre('No data found.');
             }
-          } else {
-            appendPre('No data found.');
-          }
-        }, function(response) {
-          appendPre('Ooooo, det lukter error: ' + response.result.error.message);
-        });
+          }, function(response) {
+            appendPre('Ooooo, det lukter error: ' + response.result.error.message);
+          });
         } else {
           appendPre('Something was wrong with the provided spreadsheet url, please refresh the page and type in a url on the form: <i>https://docs.google.com/spreadsheets/d/#########/edit</i>');
         }
@@ -140,7 +140,6 @@
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
       }
-      
       
     </script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
