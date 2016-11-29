@@ -95,7 +95,10 @@
         if (typeof Storage !== 'undefined' && 'sid' in localStorage) {
           spreadSheetId = localStorage.sid;
         } else {
-          spreadSheetId = prompt('Skriv inn url-en til google-regnearket ditt').match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
+          var input = prompt('Skriv inn url-en til google-regnearket ditt');
+          if (typeof input === 'string' && input.length > 5) {
+            spreadSheetId = input.match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
+          }
         }
         if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
           console.log("spreadSheetId passed line 100 test. Var-dump:","(",typeof spreadSheetId,")",spreadSheetId);
@@ -152,4 +155,4 @@
       </div>
       <pre id="output"><div id="authorize-div" style="display: none"><span>Authorize access to Google Sheets API</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
     </body>
- </html>
+  </html>
