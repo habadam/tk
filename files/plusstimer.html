@@ -93,7 +93,7 @@
         appendPre('Outputting result...');
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1cZTs5TdXlUFiUMseywxCq_z9KRwznZsSIOAoTNla_gI',
-          range: 'Display!A9',
+          range: 'Fravær for klassen!G8',
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
