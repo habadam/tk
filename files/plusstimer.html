@@ -91,6 +91,7 @@
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
               appendPre(row[0] + 'plusstimer');
+              document.queryString('#result').innerHTML = row[0];
             }
           } else {
             appendPre('No data found.');
@@ -118,6 +119,7 @@
     </script>
   </head>
   <body>
+    <div id="result"></div>
     <div id="authorize-div" style="display: none">
       <span>Authorize access to Google Sheets API</span>
       <!--Button for the user to click to initiate auth sequence -->
