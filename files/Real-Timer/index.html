@@ -51,7 +51,11 @@
       maximumAge        : 30000,
       timeout           : 2500
     }
-    vm.wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+    if ('geolocation' in navigator) {
+      vm.wpid = navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);
+    } else {
+      vm.errors.position = true;
+    }
   }]);
 
   app.service('$lazy', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
