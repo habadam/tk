@@ -43,7 +43,7 @@
       vm.conv.then(()=>{
         vm.coords = convert(position.coords.latitude, position.coords.longitude);
         console.log(vm.coords);
-        $lazy.get('//reisapi.ruter.no/Place/GetClosestPlacesExtension?coordinates=x='+Math.round(vm.coords[0])+',y='+Math.round(vm.coords[1])+'&proposals=5').then(function (data) {
+        $lazy.get('//real-timer.tk/cors/cors.php?url=Place%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D15').then(function (data) {
           vm.success = true;
           console.log('Recieved data from Ruter:',data);
         });
