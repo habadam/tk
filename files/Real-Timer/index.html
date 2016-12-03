@@ -25,11 +25,12 @@
 
   app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $lazy, $timeout) {
     let vm = this;
+    vm.success = false;
     vm.errors = {
       unknown: false,
       position: false
     };
-    vm.coords = {'lat':0, 'long':0};
+    vm.coords = [0,0];
     vm.conv = $lazy.get('assets/converter.min.js').then((data)=>{
       eval(data);
     }).catch((data, status)=>{
@@ -42,6 +43,10 @@
       vm.conv.then(()=>{
         vm.coords = convert(position.coords.latitude, position.coords.longitude);
         console.log(vm.coords);
+        $lazy.get('http://reisapi.ruter.no/Place/GetClosestPlacesExtension?coordinates=x='+vm.coords[0]+',y='+vm.coords[1]+'&proposals=5').then(function (data) {
+          vm.success = true;
+          console.log('Recieved data from Ruter:',data);
+        });
       });
       $timeout(()=>{
         navigator.geolocation.clearWatch(vm.wpid);
