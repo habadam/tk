@@ -49,7 +49,7 @@
     let geo_options = {
       enableHighAccuracy: false,
       maximumAge        : 30000,
-      timeout           : 4000
+      timeout           : 2500
     }
     vm.wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
   }]);
