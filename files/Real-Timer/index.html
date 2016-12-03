@@ -1,28 +1,103 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Real-Timer — Den raskeste måten å sjekke når kollektivtransporten kommer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Real-Timer">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="icon" href="assets/favicon.ico">
-  </head>
-  <body>
-    <header>
-      <h1>Real-Timer</h1>
-    </header>
+<head>
+  <meta charset="utf-8">
+  <title>Real-Timer — Den raskeste måten å sjekke når kollektivtransporten kommer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Real-Timer">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" href="assets/favicon.ico">
+</head>
+<body>
+  <header>
+    <h1>Real-Timer</h1>
+  </header>
 
-    <div class="content">
-      Snart kommer en ny versjon av Real-Timer til denne siden
-    </div>
+  <div class="content">
+    Snart kommer en ny versjon av Real-Timer til denne siden
+  </div>
 
-    <style>
-      body {
-        font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <script>
+  let app = angular.module('app', []);
+
+  app.controller('masterCtrl', ['$http', '$lazy', function ($http, $lazy) {
+    let vm = this;
+    vm.errors = {
+      unknown: false,
+      position: false
+    };
+    vm.coords = {'lat':0, 'long':0};
+    vm.conv = $lazy.get('assets/converter.min.js').then((data)=>{
+      eval(data);
+    }).catch((data, status)=>{
+      console.log(data,status);
+      vm.error = true;
+    });
+
+    let geo_success = (position)=>{
+      vm.conv.then(()=>{
+        vm.coords = convert(position.coords.latitude, position.coords.longitude);
+        console.log(vm.coords);
+      });
+    }
+    let geo_error = ()=>{
+      vm.errors.position = true;
+    }
+    let geo_options = {
+      enableHighAccuracy: false,
+      maximumAge        : 30000,
+      timeout           : 4000
+    }
+    vm.wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+  }]);
+
+  app.service('$lazy', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
+    let vm = this;
+
+    vm.get = (url, name, timeout)=>{
+      let deferred = $q.defer();
+      let resolved = false;
+      let request = $http.get(url);
+      request.success(function (data) {
+        if (typeof Storage !== "undefined") {
+          try {
+            localStorage[name] = JSON.stringify(data);
+          } catch (e) {
+            console.log("Couldn't save "+name+"-data to storage even though storage exists. Error:",e);
+          }
+        }
+        deferred.resolve(data);
+        resolved = true;
+      });
+      request.error(function (data, status) {
+        if (typeof Storage !== "undefined" && name in localStorage) {
+          console.info("The request to",name,"failed, but data existed locally");
+          deferred.resolve(JSON.parse(localStorage[name]));
+          resolved = true;
+        } else {
+          deferred.reject("ERROR");
+        }
+      });
+      if (typeof timeout !== "undefined") {
+        $timeout(function () {
+          if (!resolved && typeof Storage !== "undefined" && name in localStorage) {
+            deferred.resolve(JSON.parse(localStorage[name]));
+            console.info("Timeout reached for",name,"but data existed locally");
+          }
+        }, timeout);
       }
-    </style>
-  </body>
+      return deferred.promise;
+    }
+  }]);
+  </script>
+
+  <style>
+  body {
+    font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  </style>
+</body>
 </html>
