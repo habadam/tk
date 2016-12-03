@@ -71,25 +71,25 @@
   app.service('$lazy', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
     let vm = this;
 
-    vm.get = (url, name, timeout)=>{
+    vm.get = (url, timeout)=>{
       let deferred = $q.defer();
       let resolved = false;
       let request = $http.get(url);
       request.success(function (data) {
         if (typeof Storage !== "undefined") {
           try {
-            localStorage[name] = JSON.stringify(data);
+            localStorage[url] = JSON.stringify(data);
           } catch (e) {
-            console.log("Couldn't save "+name+"-data to storage even though storage exists. Error:",e);
+            console.log("Couldn't save "+url+"-data to storage even though storage exists. Error:",e);
           }
         }
         deferred.resolve(data);
         resolved = true;
       });
       request.error(function (data, status) {
-        if (typeof Storage !== "undefined" && name in localStorage) {
-          console.info("The request to",name,"failed, but data existed locally");
-          deferred.resolve(JSON.parse(localStorage[name]));
+        if (typeof Storage !== "undefined" && url in localStorage) {
+          console.info("The request to",url,"failed, but data existed locally");
+          deferred.resolve(JSON.parse(localStorage[url]));
           resolved = true;
         } else {
           deferred.reject("ERROR");
@@ -97,9 +97,9 @@
       });
       if (typeof timeout !== "undefined") {
         $timeout(function () {
-          if (!resolved && typeof Storage !== "undefined" && name in localStorage) {
-            deferred.resolve(JSON.parse(localStorage[name]));
-            console.info("Timeout reached for",name,"but data existed locally");
+          if (!resolved && typeof Storage !== "undefined" && url in localStorage) {
+            deferred.resolve(JSON.parse(localStorage[url]));
+            console.info("Timeout reached for",url,"but data existed locally");
           }
         }, timeout);
       }
