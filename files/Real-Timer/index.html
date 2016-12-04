@@ -43,7 +43,7 @@
       vm.conv.then(()=>{
         vm.coords = convert(position.coords.latitude, position.coords.longitude);
         console.log(vm.coords);
-        $lazy.get('//thorin.epizy.com/cors.php?url=Place%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12').then(function (data) {
+        $http.get('//thorin.epizy.com/cors.php?url=Place%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12').success(function (data) {
           vm.success = true;
           console.log('Recieved data from Ruter:',data);
         });
