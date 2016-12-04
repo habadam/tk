@@ -24,6 +24,22 @@
   <script>
   let app = angular.module('app', []);
 
+  app.config(["$sceProvider", '$controllerProvider', '$provide', '$sceDelegateProvider', function($sceProvider, $controllerProvider, $provide, $sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      'http://static.thorin-games.tk/**',
+      'https://thorin.epizy.com/**',
+      'https://ruter.no/**'
+    ]);
+    $sceProvider.enabled(true);
+
+    // Provider-based controller.
+    app.controller = function( name, constructor ) {
+      $controllerProvider.register( name, constructor );
+      return( this );
+    };
+  }]);
+
   app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $lazy, $timeout) {
     let vm = this;
     vm.success = false;
@@ -116,5 +132,5 @@
     font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
   </style>
-</body>
-</html>
+  </body>
+  </html>
