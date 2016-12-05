@@ -84,7 +84,7 @@
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
         handleAuthResult
       );
-      appendPre('Authorizing...');
+      appendPre('Authorizing…');
       return false;
     }
 
@@ -138,7 +138,7 @@
     * Load Sheets API client library.
     */
     function loadSheetsApi() {
-      appendPre('Loading...');
+      appendPre('Loading…');
       var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
       gapi.client.load(discoveryUrl).then(outputData);
@@ -148,16 +148,17 @@
     * Print the data:
     */
     function outputData() {
-      appendPre('Loading completed.');
-      appendPre('Outputting result...');
+      appendPre('Loading file…');
       if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
         console.log("spreadSheetId passed line 100 test. Var-dump:","(",typeof spreadSheetId,")",spreadSheetId);
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadSheetId,
           range: 'Fravær for klassen!G8',
         }).then(function(response) {
+          appendPre('Loading completed.');
           var range = response.result;
           if (range.values.length > 0) {
+            appendPre('Outputting result…');
             appendPre(range.values[0][0] + 'plusstimer');
             document.querySelector('#result>number').innerHTML = Number(range.values[0][0]);
             document.querySelector('#result').style.display = 'block';
