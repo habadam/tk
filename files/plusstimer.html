@@ -31,6 +31,9 @@
       max-width: 100%;
       color: #aaa;
     }
+    a {
+      color: #337ab7;
+    }
   </style>
   <script type="text/javascript">
     // Your Client ID can be retrieved from your project in the Google
@@ -182,8 +185,8 @@
     */
     var days, hours;
     function updateSheet() {
-      days = prompt('Hvor mange hele DAGER fravær har du på skolearena?', '2');
-      hours = prompt('Hvor mange TIMER fravær har du på skolearena?', '23,75');
+      days = prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2');
+      hours = prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75');
       if (confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
         q('#output').style.display = 'block';
         appendPre('Oppdaterer fravær…');
