@@ -47,7 +47,8 @@
 
     var spreadsheetId, spreadSheetName;
 
-    let q = (s)=>{return document.querySelector(s)}
+    let q = (s)=> return document.querySelector(s);
+    let emptyPre = () => q('pre').innerHTML = "";
 
     /**
     * Check if current user has authorized this application.
@@ -203,6 +204,7 @@
     */
     var days, hours;
     function updateSheet() {
+      emptyPre();
       days = prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2');
       hours = prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75');
       if (days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
