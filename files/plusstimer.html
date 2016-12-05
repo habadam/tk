@@ -41,6 +41,8 @@
 
     var spreadsheetId, spreadSheetName;
 
+    let q = (s)=>{return document.querySelector(s)}
+
     /**
     * Check if current user has authorized this application.
     */
@@ -160,11 +162,11 @@
           if (range.values.length > 0) {
             appendPre('Outputting result…');
             appendPre(range.values[0][0] + 'plusstimer');
-            $('#result>number').innerHTML = Number(range.values[0][0]);
-            $('#result').style.display = 'block';
-            $('#caption').style.display = 'block';
-            $('#caption').innerHTML = "Hentet fra regnearket \""+spreadSheetName+"\"";
-            $('#output').style.display = 'none';
+            q('#result>number').innerHTML = Number(range.values[0][0]);
+            q('#result').style.display = 'block';
+            q('#caption').style.display = 'block';
+            q('#caption').innerHTML = "Hentet fra regnearket \""+spreadSheetName+"\"";
+            q('#output').style.display = 'none';
           } else {
             appendPre('No data found.');
           }
@@ -181,7 +183,7 @@
     */
     var days, hours;
     function updateSheet() {
-      $('#output').style.display = 'block';
+      q('#output').style.display = 'block';
       appendPre('Oppdaterer fravær…');
       gapi.client.sheets.spreadsheets.values.update({
         spreadsheetId: spreadsheetId,
