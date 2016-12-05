@@ -27,9 +27,11 @@
     #caption {
       position: absolute;
       margin: 40px 0 -30px 0;
-      width: 200px;
-      max-width: 100%;
       color: #aaa;
+    }
+    #caption, #result {
+      width: 250px;
+      max-width: 100%;
     }
     a {
       color: #337ab7;
@@ -236,7 +238,7 @@
   <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </head>
 <body>
-  <div id="result" style="font-family: fantasy;width: 200px;max-width: 100%;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
+  <div id="result" style="font-family: fantasy;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
     <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
     <description style="font-size: 1.75em;">plusstimer</description>
     <div id="caption"><a href="#" onclick="updateSheet()">Klikk her for å oppdatere fravær</a></div>
