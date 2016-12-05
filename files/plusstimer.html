@@ -9,41 +9,42 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico" />
   <style>
-  pre {
-    line-height: 1.5;
-    font-size: 1em !important;
-    white-space: pre-line;
-    word-wrap: break-word;
-  }
-  html {
-    min-height: 100%;
-    display: flex;
-  }
-  body {
-    min-width:100%;
-    display:flex;
-    margin:0;
-  }
+    pre {
+      line-height: 1.5;
+      font-size: 1em !important;
+      white-space: pre-line;
+      word-wrap: break-word;
+    }
+    html {
+      min-height: 100%;
+      display: flex;
+    }
+    body {
+      min-width:100%;
+      display:flex;
+      margin:0;
+    }
   </style>
   <script type="text/javascript">
-  // Your Client ID can be retrieved from your project in the Google
-  // Developer Console, https://console.developers.google.com
-  var CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
+    // Your Client ID can be retrieved from your project in the Google
+    // Developer Console, https://console.developers.google.com
+    var CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
 
-  var SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"];
+    var SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"];
 
-  var spreadSheetId;
+    var spreadSheetId;
 
-  /**
-  * Check if current user has authorized this application.
-  */
-  function checkAuth() {
-    gapi.auth.authorize(
-      {
-        'client_id': CLIENT_ID,
-        'scope': SCOPES.join(' '),
-        'immediate': true
-      }, handleAuthResult);
+    /**
+    * Check if current user has authorized this application.
+    */
+    function checkAuth() {
+      gapi.auth.authorize(
+        {
+          'client_id': CLIENT_ID,
+          'scope': SCOPES.join(' '),
+          'immediate': true
+        }, handleAuthResult
+      );
     }
 
     /**
@@ -175,9 +176,8 @@
       var textContent = document.createTextNode(message + '\n');
       pre.appendChild(textContent);
     }
-
-</script>
-<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </head>
 <body>
   <div id="result" style="font-family: fantasy;width: 200px;max-width: 100%;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
