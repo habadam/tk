@@ -183,6 +183,8 @@
     */
     var days, hours;
     function updateSheet() {
+      days = prompt('Hvor mange hele DAGER fravær har du på skolearena?', '2');
+      hours = prompt('Hvor mange TIMER fravær har du på skolearena?', '23,75');
       q('#output').style.display = 'block';
       appendPre('Oppdaterer fravær…');
       gapi.client.sheets.spreadsheets.values.update({
