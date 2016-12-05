@@ -30,7 +30,9 @@
   // Developer Console, https://console.developers.google.com
   var CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
 
-  var SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+  var SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"];
+
+  var spreadSheetId;
 
   /**
   * Check if current user has authorized this application.
@@ -55,7 +57,8 @@
         // Hide auth UI, then load client library.
         authorizeDiv.style.display = 'none';
         appendPre('Authorizisation successful');
-        loadSheetsApi();
+        loadGDriveApi();
+        //loadSheetsApi();
       } else {
         // Show auth UI, allowing the user to initiate authorization by
         // clicking authorize button.
@@ -71,101 +74,117 @@
     function handleAuthClick(event) {
       gapi.auth.authorize(
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-        handleAuthResult);
-        appendPre('Authorizing...');
-        return false;
-      }
+        handleAuthResult
+      );
+      appendPre('Authorizing...');
+      return false;
+    }
 
-      /**
-      * Load Sheets API client library.
-      */
-      function loadSheetsApi() {
-        appendPre('Loading...');
-        var discoveryUrl =
-        'https://sheets.googleapis.com/$discovery/rest?version=v4';
-        gapi.client.load(discoveryUrl).then(listMajors);
-      }
+    /**
+    * Load Google Drive API library.
+    */
+    function loadGDriveApi() {
+      appendPre('Loading…');
+      gapi.client.load('drive', 'v2', findFile);
+    }
 
-      /**
-      * Print the names and majors of students in a sample spreadsheet:
-      * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-      */
-      var spreadSheetId;
-      function listMajors() {
-        appendPre('Loading completed.');
-        appendPre('Outputting result...');
-        if (typeof Storage !== 'undefined' && 'sid' in localStorage && location.search.length <= 1) {
-          spreadSheetId = localStorage.sid;
-          validSid = true;
-        } else {
-          var input = prompt('Skriv inn url-en til google-regnearket ditt');
-          if (typeof input === 'string' && input.length > 5) {
-            try {
-              spreadSheetId = input.match(/google\.com\/spreadsheets\/.\/(.+)\//)[1];
-            } catch (e) {}
-            console.log(spreadSheetId);
+    /**
+    * Find the right file.
+    */
+    function findFile() {
+      appendPre('Finding file…')
+      var request = gapi.client.drive.files.list({
+        "q": "fullText contains 'Omregning fra klokketimer (60 minutter) til skoletimer (45 minutter) (Summering av fravær i Skolearena er i klokketimer)'"
+      });
+      request.execute(function(resp) {
+        if (!resp.error) {
+          console.log(resp);
+          spreadSheetId = getID(resp.items);
+          if (spreadSheetId) {
+            loadSheetsApi()
           }
-        }
-        if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
-          console.log("spreadSheetId passed line 100 test. Var-dump:","(",typeof spreadSheetId,")",spreadSheetId);
-          gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: spreadSheetId,
-            range: 'Fravær for klassen!G8',
-          }).then(function(response) {
-            var range = response.result;
-            if (range.values.length > 0) {
-              for (i = 0; i < range.values.length; i++) {
-                var row = range.values[i];
-                // Print columns A and E, which correspond to indices 0 and 4.
-                appendPre(row[0] + 'plusstimer');
-                document.querySelector('#result>number').innerHTML = Number(row[0]);
-                document.querySelector('#result').style.display = 'block';
-                document.querySelector('#output').style.display = 'none';
-                // Save spreadsheet-id
-                if (typeof Storage !== 'undefined') {
-                  try {
-                    localStorage.sid = spreadSheetId;
-                  } catch (e) {}
-                }
-              }
-            } else {
-              appendPre('No data found.');
-            }
-          }, function(response) {
-            appendPre('Ooooo, det lukter error: ' + response.result.error.message);
-          });
+        } else if (resp.error.code == 401) {
+          // Access token might have expired.
+          checkAuth();
         } else {
-          alertUser('Something was wrong with the url, refresh the page and try again');
+          appendPre('An error occured: ' + resp.error.message);
+        }
+      });
+    }
+
+    /**
+    * Find ID of the right file or create a file if none exist and return ID
+    */
+    function getID(items) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].mimeType == "application/vnd.google-apps.spreadsheet") {
+          return items[i].id;
         }
       }
+      appendPre('Du har ikke det nødvendige regnearket på din Google Drive, eller så har du endre for mye på det til at det fungerer.')
+      // Generate file on user's drive
+    }
 
-      /**
-      * Append a pre element to the body containing the given message
-      * as its text node.
-      *
-      * @param {string} message Text to be placed in pre element.
-      */
-      function appendPre(message) {
-        var pre = document.getElementById('output');
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
-      }
-    
-      function alertUser(message) {
-        alert(message);
-        appendPre(message);
-        document.querySelector('#error').style.display = "block";
-      }
+    /**
+    * Load Sheets API client library.
+    */
+    function loadSheetsApi() {
+      appendPre('Loading...');
+      var discoveryUrl =
+      'https://sheets.googleapis.com/$discovery/rest?version=v4';
+      gapi.client.load(discoveryUrl).then(outputData);
+    }
 
-      </script>
-      <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
-    </head>
-    <body>
-      <div id="result" style="font-family: fantasy;width: 200px;max-width: 100%;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
-        <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
-        <description style="font-size: 1.75em;">plusstimer</description>
-      </div>
-      <pre id="output"><div id="authorize-div" style="display: none"><span>Authorize access to Google Sheets API</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
-      <div id="reload" style="display:none"><a href=".">Try again</a><div>
-    </body>
-  </html>
+    /**
+    * Print the data:
+    */
+    function outputData() {
+      appendPre('Loading completed.');
+      appendPre('Outputting result...');
+      if (typeof spreadSheetId === 'string' && spreadSheetId.length > 5) {
+        console.log("spreadSheetId passed line 100 test. Var-dump:","(",typeof spreadSheetId,")",spreadSheetId);
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: spreadSheetId,
+          range: 'Fravær for klassen!G8',
+        }).then(function(response) {
+          var range = response.result;
+          if (range.values.length > 0) {
+            appendPre(range.values[0][0] + 'plusstimer');
+            document.querySelector('#result>number').innerHTML = Number(range.values[0][0]);
+            document.querySelector('#result').style.display = 'block';
+            document.querySelector('#output').style.display = 'none';
+          } else {
+            appendPre('No data found.');
+          }
+        }, function(response) {
+          appendPre('Error: ' + response.result.error.message);
+        });
+      } else {
+        appendPre('Something went wrong, refresh the page and try again');
+      }
+    }
+
+    /**
+    * Append a pre element to the body containing the given message
+    * as its text node.
+    *
+    * @param {string} message Text to be placed in pre element.
+    */
+    function appendPre(message) {
+      var pre = document.getElementById('output');
+      var textContent = document.createTextNode(message + '\n');
+      pre.appendChild(textContent);
+    }
+
+</script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+</head>
+<body>
+  <div id="result" style="font-family: fantasy;width: 200px;max-width: 100%;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
+    <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
+    <description style="font-size: 1.75em;">plusstimer</description>
+  </div>
+  <pre id="output"><div id="authorize-div" style="display: none"><span>Authorize access to Google Sheets API</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
+  <div id="reload" style="display:none"><a href=".">Try again</a><div>
+</body>
+</html>
