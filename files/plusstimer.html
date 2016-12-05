@@ -24,6 +24,11 @@
       display:flex;
       margin:0;
     }
+    #caption {
+      margin-bottom: -30px;
+      margin-top: 8px;
+      color: #ddd;
+    }
   </style>
   <script type="text/javascript">
     // Your Client ID can be retrieved from your project in the Google
@@ -155,7 +160,7 @@
             document.querySelector('#result>number').innerHTML = Number(range.values[0][0]);
             document.querySelector('#result').style.display = 'block';
             document.querySelector('#caption').style.display = 'block';
-            document.querySelector('#caption').innerHTML = "Hentet fra regnearket "+spreadSheetName;
+            document.querySelector('#caption').innerHTML = "Hentet fra regnearket \""+spreadSheetName+"\"";
             document.querySelector('#output').style.display = 'none';
           } else {
             appendPre('No data found.');
