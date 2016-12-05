@@ -186,7 +186,9 @@
     */
     var days, hours;
     function updateSheet() {
-      if (days = prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2') && hours = prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75') && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
+      days = prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2');
+      hours = prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75');
+      if (days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
         q('#output').style.display = 'block';
         appendPre('Oppdaterer fravær…');
         gapi.client.sheets.spreadsheets.values.update({
