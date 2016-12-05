@@ -32,7 +32,7 @@
 
     var SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"];
 
-    var spreadSheetId;
+    var spreadSheetId, spreadSheetName;
 
     /**
     * Check if current user has authorized this application.
@@ -119,6 +119,7 @@
     function getID(items) {
       for (var i = 0; i < items.length; i++) {
         if (items[i].mimeType == "application/vnd.google-apps.spreadsheet") {
+          spreadSheetName = items[i].title;
           return items[i].id;
         }
       }
@@ -153,6 +154,8 @@
             appendPre(range.values[0][0] + 'plusstimer');
             document.querySelector('#result>number').innerHTML = Number(range.values[0][0]);
             document.querySelector('#result').style.display = 'block';
+            document.querySelector('#caption').style.display = 'block';
+            document.querySelector('#caption').innerHTML = "Hentet fra regnearket "+spreadSheetName;
             document.querySelector('#output').style.display = 'none';
           } else {
             appendPre('No data found.');
@@ -184,6 +187,7 @@
     <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
     <description style="font-size: 1.75em;">plusstimer</description>
   </div>
+  <div id="caption"></div>
   <pre id="output"><div id="authorize-div" style="display: none"><span>Authorize access to Google Sheets API</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
   <div id="reload" style="display:none"><a href=".">Try again</a><div>
 </body>
