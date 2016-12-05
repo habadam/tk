@@ -165,7 +165,6 @@
             q('#result>number').innerHTML = Number(range.values[0][0]);
             q('#result').style.display = 'block';
             q('#caption').style.display = 'block';
-            q('#caption').innerHTML = "Hentet fra regnearket \""+spreadSheetName+"\"";
             q('#output').style.display = 'none';
           } else {
             appendPre('No data found.');
@@ -185,18 +184,20 @@
     function updateSheet() {
       days = prompt('Hvor mange hele DAGER fravær har du på skolearena?', '2');
       hours = prompt('Hvor mange TIMER fravær har du på skolearena?', '23,75');
-      q('#output').style.display = 'block';
-      appendPre('Oppdaterer fravær…');
-      gapi.client.sheets.spreadsheets.values.update({
-        spreadsheetId: spreadsheetId,
-        range: "'Fravær for klassen'!D8:E9",
-        valueInputOption: 'USER_ENTERED',
-        values: [ [days, hours] ]
-      }).then(function (resp) {
-        console.log(resp);
-        appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
-        outputData();
-      })
+      if (confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
+        q('#output').style.display = 'block';
+        appendPre('Oppdaterer fravær…');
+        gapi.client.sheets.spreadsheets.values.update({
+          spreadsheetId: spreadsheetId,
+          range: "'Fravær for klassen'!D8:E9",
+          valueInputOption: 'USER_ENTERED',
+          values: [ [days, hours] ]
+        }).then(function (resp) {
+          console.log(resp);
+          appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
+          outputData();
+        })
+      }
     }
 
     /**
@@ -217,7 +218,7 @@
   <div id="result" style="font-family: fantasy;width: 200px;max-width: 100%;margin: auto;border-radius: 15px;background-color: #222021;color: white;padding: 2em;display:none;">
     <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
     <description style="font-size: 1.75em;">plusstimer</description>
-    <div id="caption"></div>
+    <div id="caption"><a href="#" onclick="updateSheet()">Klikk her for å oppdatere fravær</a></div>
   </div>
   <pre id="output"><div id="authorize-div" style="display: none"><span>Authorize access to Google Sheets API</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
   <div id="reload" style="display:none"><a href=".">Try again</a><div>
