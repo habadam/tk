@@ -193,7 +193,8 @@
       });
       request.execute(function(resp) {
         console.log('Copy ID: ' + resp.id);
-        return resp.id;
+        spreadsheetId = resp.id;
+        loadSheetsApi();
       });
     }
 
