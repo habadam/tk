@@ -168,10 +168,13 @@
           var range = response.result;
           if (range.values.length > 0) {
             console.log(range.values);
-            appendPre(range.values[0][0] + 'plusstimer');
-            q('#result>number').innerHTML = Number(range.values[0][0]);
+            days = range.values[0][0];
+            hours = range.values[0][1];
+            appendPre(range.values[0][3] + 'plusstimer');
+            q('#result>number').innerHTML = Number(range.values[0][3]);
             q('#result').style.display = 'block';
             q('#caption').style.display = 'block';
+            q('#caption>a').innerText = "Jeg har ikke lenger "+days+" dager og "+hours+" timer fravær. Oppdater";
             q('#output').style.display = 'none';
           } else {
             appendPre('Fant ingen data.');
