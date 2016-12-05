@@ -92,7 +92,7 @@
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
         handleAuthResult
       );
-      appendPre('Authorizing…');
+      appendPre('Autoriserer…');
       return false;
     }
 
@@ -100,7 +100,7 @@
     * Load Google Drive API library.
     */
     function loadGDriveApi() {
-      appendPre('Loading…');
+      appendPre('Laster…');
       gapi.client.load('drive', 'v2', findFile);
     }
 
@@ -108,7 +108,7 @@
     * Find the right file.
     */
     function findFile() {
-      appendPre('Finding file…')
+      appendPre('Finner regnearket…')
       var request = gapi.client.drive.files.list({
         "q": "fullText contains 'Omregning fra klokketimer (60 minutter) til skoletimer (45 minutter) (Summering av fravær i Skolearena er i klokketimer)'"
       });
@@ -123,7 +123,7 @@
           // Access token might have expired.
           checkAuth();
         } else {
-          appendPre('An error occured: ' + resp.error.message);
+          appendPre('En feil oppsto: ' + resp.error.message);
         }
       });
     }
@@ -147,7 +147,7 @@
     * Load Sheets API client library.
     */
     function loadSheetsApi() {
-      appendPre('Loading…');
+      appendPre('Laster…');
       var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
       gapi.client.load(discoveryUrl).then(outputData);
@@ -157,27 +157,26 @@
     * Print the data:
     */
     function outputData() {
-      appendPre('Loading file…');
+      appendPre('Laster inn plusstimer…');
       if (typeof spreadsheetId === 'string' && spreadsheetId.length > 5) {
         console.log("spreadsheetId passed line 100 test. Var-dump:","(",typeof spreadsheetId,")",spreadsheetId);
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadsheetId,
           range: 'Fravær for klassen!G8',
         }).then(function(response) {
-          appendPre('Loading completed.');
+          appendPre('Lasting fullført.');
           var range = response.result;
           if (range.values.length > 0) {
-            appendPre('Outputting result…');
             appendPre(range.values[0][0] + 'plusstimer');
             q('#result>number').innerHTML = Number(range.values[0][0]);
             q('#result').style.display = 'block';
             q('#caption').style.display = 'block';
             q('#output').style.display = 'none';
           } else {
-            appendPre('No data found.');
+            appendPre('Fant ingen data.');
           }
         }, function(response) {
-          appendPre('Error: ' + response.result.error.message);
+          appendPre('Feil: ' + response.result.error.message);
         });
       } else {
         appendPre('Something went wrong, refresh the page and try again');
