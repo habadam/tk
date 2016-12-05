@@ -136,8 +136,9 @@
           return items[i].id;
         }
       }
-      appendPre('Du har ikke det nødvendige regnearket på din Google Drive, eller så har du endre for mye på det til at det fungerer.')
-      // Generate file on user's drive
+      appendPre('Oppretter regneark…');
+      spreadSheetName = "Plusstimer";
+      return copyFile();
     }
 
     /**
@@ -179,6 +180,21 @@
       } else {
         appendPre('Something went wrong, refresh the page and try again');
       }
+    }
+
+    /**
+    * Copy an existing file.
+    */
+    function copyFile() {
+      var body = {'title': 'Plusstimer'};
+      var request = gapi.client.drive.files.copy({
+        'fileId': '1cZTs5TdXlUFiUMseywxCq_z9KRwznZsSIOAoTNla_gI',
+        'resource': body
+      });
+      request.execute(function(resp) {
+        console.log('Copy ID: ' + resp.id);
+        return resp.id;
+      });
     }
 
     /*
