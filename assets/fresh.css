@@ -1,0 +1,74 @@
+/* General CSS: */
+body {
+  font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+.noselect, .file-list {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Heading CSS: */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 200;
+}
+h1 {
+  border-bottom: 1px solid #ddd;
+  white-space:nowrap;
+}
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 8vw;
+  }
+}
+h2 {
+  color: hsl(0, 0%, 30%);
+}
+
+/* List CSS: */
+.file-list {
+  list-style:none;
+  margin-top:0px;
+}
+.file-list li {
+  color: #337ab7;
+  padding-left: 1em;
+  text-indent: -.7em;
+  height:45px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.file-list li:before {
+  content: "–";
+  color: #bbb;
+  margin-right: 10px;
+}
+.file-list li span {
+  display: inline-block; padding: 10px 15px;
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+}
+
+/* Links CSS */
+a {
+  cursor:pointer;
+}
+
+/* Ripple ink CSS: */
+.ink {
+  display: block; position: absolute;
+  background: hsl(180, 40%, 80%);
+  border-radius: 100%;
+  transform: scale(0);
+}
+
+.ink.animate {animation: ripple 0.65s linear;}
+@keyframes ripple {
+  100% {opacity: 0; transform: scale(2.5);}
+}
