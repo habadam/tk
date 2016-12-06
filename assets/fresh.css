@@ -39,6 +39,7 @@ h2 {
   padding-left: 1em;
   text-indent: -.7em;
   height:45px;
+  line-height:45px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -48,11 +49,8 @@ h2 {
   color: #bbb;
   margin-right: 10px;
 }
-.ink-list li span {
-  display: inline-block; padding: 10px 15px;
-  text-decoration: none;
-  user-select: none;
-  position: relative;
+.file-list li .glyphicon {
+  margin: auto 15px;
 }
 
 /* Links CSS */
@@ -62,7 +60,7 @@ a {
 
 /* Ripple ink CSS: */
 .ink {
-  display: block; position: absolute;
+  display: block!important; position: absolute!important;
   background: hsl(180, 40%, 80%);
   border-radius: 100%;
   transform: scale(0);

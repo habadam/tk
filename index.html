@@ -23,7 +23,7 @@
     $.getJSON("https://api.github.com/repos/tjespe/tk/contents/files?"+Date.now(), function(data) {
       var items = [];
       $.each(data, function(key, val) {
-        items.push("<li><span>" + val.name + "</span></li>");
+        items.push("<li>" + val.name + "</li>");
       });
       $("<ul/>", {
         "class": "ink-list",
