@@ -62,7 +62,7 @@ a {
 
 /* Ripple ink CSS: */
 .ink {
-  display: block; position: absolute;
+  display: block!important; position: absolute!important;
   background: hsl(180, 40%, 80%);
   border-radius: 100%;
   transform: scale(0);
