@@ -26,7 +26,7 @@
         items.push("<li><span>" + val.name + "</span></li>");
       });
       $("<ul/>", {
-        "class": "file-list",
+        "class": "ink-list",
         html: items.join("")
       }).appendTo("body");
       $('h5').remove();
@@ -35,7 +35,7 @@
     });
 
     function bindEvents() {
-      $('.file-list>li').click(function() {
+      $('.ink-list>li').click(function() {
         var filename = $(this)[0].textContent;
         setTimeout(function(){
           window.location.href = "https://tjespe.github.io/tk/files/" + filename;
@@ -43,7 +43,7 @@
       });
       //jQuery time
       var parent, ink, d, x, y;
-      $(".file-list>li").on("click touchstart", function(e) {
+      $(".ink-list>li").on("click touchstart", function(e) {
         parent = $(this);
         //create .ink element if it doesn't exist
         if (parent.find(".ink").length == 0)
