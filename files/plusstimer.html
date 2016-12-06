@@ -41,14 +41,14 @@
   <script type="text/javascript">
     // Your Client ID can be retrieved from your project in the Google
     // Developer Console, https://console.developers.google.com
-    var CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
+    let CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
 
-    var SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"];
+    let SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"];
 
-    var spreadsheetId, spreadSheetName;
+    let spreadsheetId, spreadSheetName;
 
-    let q = (s)=> document.querySelector(s);
-    let emptyPre = () => q('pre').innerHTML = "";
+    let q = (s)=>document.querySelector(s);
+    let emptyPre = ()=>q('pre').innerHTML = "";
 
     /**
     * Check if current user has authorized this application.
