@@ -39,6 +39,7 @@ h2 {
   padding-left: 1em;
   text-indent: -.7em;
   height:45px;
+  line-height:45px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
