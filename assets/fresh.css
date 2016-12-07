@@ -70,3 +70,7 @@ a {
 @keyframes ripple {
   100% {opacity: 0; transform: scale(2.5);}
 }
+
+/* Loader CSS */
+@keyframes spin {0% {transform: rotate(45deg);}17% {transform: rotate(300deg);}34% {transform: rotate(90deg);}51% {transform: rotate(450deg);}66% {transform: rotate(135deg);}83% {transform: rotate(495deg);}100% {transform: rotate(405deg);}}
+.loader{animation-name: spin;animation-duration: 5s;animation-iteration-count: infinite;}
