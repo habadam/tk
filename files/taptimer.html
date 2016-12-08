@@ -100,7 +100,7 @@
                     }
                     this.numb = 0;
                     this.plusOne = function(x) {
-                        that.numb = that.numb + x;
+                        if (that.numb<30) that.numb = that.numb + x;
                         console.log(that.numb);
                         if (that.numb >= 30) {
                             that.stop();
