@@ -106,7 +106,7 @@
                             that.stop();
                             that.done = true;
                         }
-                        if (/cl34g/gi.test(location.search)) $timeout(()=>that.plusOne(x), 40)
+                        if (/cl34g/gi.test(location.search)) $timeout(()=>that.plusOne(x), 100)
                     }
                     this.ifDone = function() {
                         return that.done === true;
