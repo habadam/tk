@@ -22,18 +22,18 @@
 
             <div style="height:100px"></div>
 
-            <div class="content" ng-show="size.ifMobile()">
+            <div class="content" ng-show="size.ifMobile() && !size.android">
                 <ul class="nav nav-pills tid">
                     <li><a href="">Tid: {{album.counter | number:2}}</a>
                     </li>
                 </ul>
             </div>
 
-            <div class="content" ng-show="size.ifMobile()">
+            <div class="content" ng-show="size.ifMobile() && !size.android">
                  <pre>{{album.numb}}/30</pre>
             </div>
 
-            <div class="content" ng-show="size.ifMobile()" ng-hide="album.ifDone()">
+            <div class="content" ng-show="size.ifMobile() && !size.android" ng-hide="album.ifDone()">
                 <ul class="nav nav-pills app">
                     <li><a ng-click="album.plusOne()">Legg til 1</a>
                     </li>
@@ -45,6 +45,8 @@
                 <br>
                 <br>Gå til telefonen din for å være med i konkurransen.
             </div>
+            
+            <div class="content" ng-show="size.android">Android er juks ass. Lån en iPhone</div>
 
             <script>
                 var app = angular.module('eksponenskalkulator', [])
@@ -65,6 +67,7 @@
                     this.ifMobile = function() {
                         return this.width < 1050;
                     };
+                    this.android = navigator.userAgent.indexOf('android')>-1;
                     this.ifNarrowerThan = function(x) {
                         return this.width < x;
                     };
