@@ -24,7 +24,7 @@
 
             <div class="content" ng-show="size.ifMobile() && !size.android">
                 <ul class="nav nav-pills tid">
-                    <li><a href="">Tid: {{album.counter | number:2}}</a>
+                    <li ng-click="album.plusOne(5)"><a href="">Tid: {{album.counter | number:2}}</a>
                     </li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@
 
             <div class="content" ng-show="size.ifMobile() && !size.android" ng-hide="album.ifDone()">
                 <ul class="nav nav-pills app">
-                    <li><a ng-click="album.plusOne()">Legg til 1</a>
+                    <li><a ng-click="album.plusOne(1)">Legg til 1</a>
                     </li>
                 </ul>
             </div>
@@ -99,8 +99,8 @@
                         $timeout.cancel(mytimeout);
                     }
                     this.numb = 0;
-                    this.plusOne = function() {
-                        that.numb = that.numb + 1;
+                    this.plusOne = function(x) {
+                        that.numb = that.numb + x;
                         console.log(that.numb);
                         if (that.numb >= 30) {
                             that.stop();
