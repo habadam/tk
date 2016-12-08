@@ -67,7 +67,7 @@
                     this.ifMobile = function() {
                         return this.width < 1050;
                     };
-                    this.android = navigator.userAgent.indexOf('android')>-1;
+                    this.android = /android/gi.test(navigator.userAgent);
                     this.ifNarrowerThan = function(x) {
                         return this.width < x;
                     };
