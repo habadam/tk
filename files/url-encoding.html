@@ -92,7 +92,7 @@
           for (var i = 0; i < vm.latex.length; i++) {
             var regex = new RegExp(vm.latex[i][0], "g");
             console.log("Creating regex of",vm.latex[i][0]);
-            vm.output = vm.output.replace(regex, vm.latex[i][0]);
+            vm.output = vm.output.replace(regex, vm.latex[i][1]);
           }
         });
       };
