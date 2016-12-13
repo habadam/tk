@@ -87,6 +87,7 @@
       });
 
       vm.process = function () {
+        console.log(vm.input);
         vm.output = vm.input;
         request.success(function () {
           for (var i = 0; i < vm.latex.length; i++) {
