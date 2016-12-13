@@ -94,6 +94,7 @@
             var regex = new RegExp(vm.latex[i][0], "g");
             vm.output = vm.output.replace(regex, vm.latex[i][1]);
           }
+          vm.output = vm.output.replace(/\%2524$/g, '');
         });
       };
     }]);
