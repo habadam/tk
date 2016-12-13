@@ -91,11 +91,17 @@
       vm.process = function () {
         console.log(vm.input);
         vm.output = vm.input;
-        request.success(function () {
+        request.success(() => {
+          let protocol = "";
+          if (vm.output.split(/^https?.\/\//g).length>1) {
+            protocol = vm.output.split(/:\/\//)[0]+"://";
+          }
+          let changeAble = vm.output.split(/^https?:\/\//g)[vm.output.split(/^https?:\/\//g).length-1];
           for (var i = 0; i < vm.latex.length; i++) {
             var regex = new RegExp(vm.latex[i][0], "g");
-            vm.output = vm.output.replace(regex, vm.latex[i][1]);
+            changeAble = changeAble.replace(regex, vm.latex[i][1]);
           }
+          vm.output = protocol+changea
           vm.output = vm.output.replace(/\%2524$/g, '');
         });
       };
