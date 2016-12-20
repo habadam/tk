@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>#Aveland</title>
+</head>
+<body>
+  <h1>Veland.tk</h1>
+<p>Info om Lollan</p>
+  <p>Litt info</p>
+  <ul>
+    <li>rand</li>
+    <li>tk</li>
+    <li>Andre ting</li>
+    <li>heh</li>
+  </ul>
+  <p>HAllle </p>
+  <ol>
+      <li>YEYEYEYEYEYE</li>
+      <li>loooooololo</li>
+      <li>haaaahaha</li>
+  </ol>
+  <p>Halla gutor<br>hva skjera</p>
+  <!-- dette er den beste kommentaren du kommer til  se-->
+
+  <a href="http://www.thorin-games.tk/"target="_blank">
+ <img src="https://kiwicdn.akamaized.net/EVRNvmrakzznxcy7ekV85V.jpg"alt="Dett er Arin"
+      /></a>
+</body> 
+</html>
