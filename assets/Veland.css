@@ -3,9 +3,11 @@ a {
 }
 .Veland {
   display: block;
+  text-align: center;
 }
 h1 {
-  color:#466bbb
+  color:#466bbb;
+  text-align: center;
 }
 body {
   font-family: harrington, ubuntu, Verdana, sans-serif;
