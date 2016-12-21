@@ -6,4 +6,10 @@ h1 {
 }
 body {
   font-family: harrington, ubuntu, Verdana, sans-serif;
+  background: #bb4;
+}
+body>* {
+  background: white;
+  padding: 24px;
+  border-radius: 20px;
 }
