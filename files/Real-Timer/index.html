@@ -19,8 +19,8 @@
 
   </div>
 
-  <div class="content" ng-repeat="object in m.data">
-    <h6 ng-bind="object.Name"></h6>
+  <div class="content" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
+    <h4 ng-bind="object.Name"></h4>
     <iframe ng-src="{{'https://ruter.no/iframe-realtime.html#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
   </div>
 
