@@ -20,7 +20,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
-    $.getJSON("https://api.github.com/repos/tjespe/tk/contents/files?"+Date.now(), function(data) {
+    $.getJSON("https://api.github.com/repos/habadam/tk/contents/files?"+Date.now(), function(data) {
       var items = [];
       $.each(data, function(key, val) {
         items.push("<li>" + val.name + "</li>");
