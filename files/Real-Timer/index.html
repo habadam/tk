@@ -32,11 +32,14 @@
   var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
   // Listen for a message from the iframe.
   eventer(messageEvent, function(e) {
+    console.log(e);
     if (isNaN(e.data)) return;
+    console.log(e);
 
     // replace #sizetracker with what ever what ever iframe id you need
     var iframes = document.querySelectorAll('iframe');
     for (var i = 0; i < iframes.length; i++) {
+      console.log(iframes[i]);
       iframes[i].style.height = e.data + 'px';
     }
 
