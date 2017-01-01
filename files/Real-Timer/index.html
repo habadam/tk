@@ -21,10 +21,27 @@
 
   <div class="content" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
     <h4 ng-bind="object.Name"></h4>
-    <iframe ng-src="{{'//thorin-apps.tk/cors/widget.php?id=#('+object.ID+')'+object.Name+'%20('+object.District+')'}}" onload="FrameManager.registerFrame(this)"></iframe>
+    <iframe ng-src="{{'//thorin-apps.tk/cors/widget.php?id=#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <script>
+  // Create browser compatible event handler.
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var eventer = window[eventMethod];
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+  // Listen for a message from the iframe.
+  eventer(messageEvent, function(e) {
+    if (isNaN(e.data)) return;
+
+    // replace #sizetracker with what ever what ever iframe id you need
+    var iframes = document.querySelectorAll('iframe');
+    for (var i = 0; i < iframes.length; i++) {
+      iframes[i].style.height = e.data + 'px';
+    }
+
+  }, false);
+  </script>
   <script>
   let app = angular.module('app', []);
 
