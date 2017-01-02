@@ -1,0 +1,69 @@
+body {
+  font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+  background-color: #333;
+}
+header {
+  width: 100%;
+  background: #FEFEFE;
+  margin: auto;
+  border: 1px solid #CCC;
+  letter-spacing: 1px;
+  height: 66px;
+  text-align: center;
+  z-index: 1000;
+}
+@media screen and (min-height: 570px) {
+  header {
+    position: fixed;
+  }
+  spacer {
+    display: block;
+    height: 66px;
+  }
+}
+.impanded>iframe {
+  height: 0 !important;
+}
+iframe {
+  border: 0;
+  height: 0;
+  width: 100%;
+  max-width: 500px;
+  transition: height 0.5s ease-in-out;
+  border-radius: 15px;
+}
+.content {
+  width: 85%;
+  background: #FEFEFE;
+  border: 1px solid #CCC;
+  margin: 35px auto;
+  /*padding: 0 11px 0 11px;*/
+  max-width: 500px;
+  padding-bottom: 30px;
+  border-radius: 15px;
+}
+.top-padded {
+  padding-top: 30px;
+}
+.no-padding {
+  padding-bottom: 0;
+}
+.content-row {
+  display: flex;
+  padding: 15px;
+  cursor: pointer;
+  justify-content: space-between;
+}
+.content-row>* {
+  flex: 1;
+}
+.content-row>*:first-child {
+  text-align: left;
+}
+.content-row>* {
+  text-align: center;
+}
+.content-row>*:last-child {
+  text-align: right;
+}
