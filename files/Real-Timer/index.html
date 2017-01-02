@@ -26,21 +26,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
   <script>
-  // Create browser compatible event handler.
-  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-  var eventer = window[eventMethod];
-  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-  // Listen for a message from the iframe.
-  eventer(messageEvent, function(e) {
-    if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
-      let id = e.data.split(',')[0];
-      let height = e.data.split(',')[1]+"px";
-      console.log(id, height);
-      $('#'+id).css("height", height);
-    } else {
-      console.error(e.data);
-    }
-  }, false);
+
   </script>
   <script>
   let app = angular.module('app', []);
@@ -112,6 +98,22 @@
       vm.status = "Fikk ikke tilgang til stedstjenester";
       vm.errors.position = true;
     }
+    vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
+    vm.jq.then(()=>{
+      let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+      let eventer = window[eventMethod];
+      let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+      eventer(messageEvent, function(e) {
+        if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
+          let id = e.data.split(',')[0];
+          let height = e.data.split(',')[1]+"px";
+          console.log(id, height);
+          $('#'+id).css("height", height);
+        } else {
+          console.error(e.data);
+        }
+      }, false);
+    })
   }]);
 
   app.service('$lazy', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
