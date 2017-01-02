@@ -27,7 +27,6 @@ header {
 }
 .area.impanded>.stop {
   height: 0 !important;
-  display: none;
 }
 iframe {
   border: 0;
@@ -40,6 +39,7 @@ iframe {
 .content {
   width: 85%;
   background: #FEFEFE;
+  overflow-y: hidden;
   border: 1px solid #CCC;
   margin: 35px auto;
   text-align: center;
