@@ -99,7 +99,8 @@
       vm.errors.position = true;
     }
     vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
-    vm.jq.then(()=>{
+    vm.jq.then((data)=>{
+      eval(data);
       let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
       let eventer = window[eventMethod];
       let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
