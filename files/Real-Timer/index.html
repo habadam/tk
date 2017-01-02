@@ -21,7 +21,7 @@
   <div class="content" ng-if="m.success">
     <div class="content-row" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded}">
       <h4 ng-bind="object.Name"></h4>
-      <iframe id="{{object.ID}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
+      <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
   </div>
 
@@ -53,8 +53,10 @@
     }
     iframe {
       border: 0;
+      height: 0;
       width: 100%;
       max-width: 500px;
+      transition: height 0.5s ease-in-out;
     }
     .content {
       width: 85%;
@@ -117,6 +119,7 @@
           vm.data = data;
           for (var i = 0; i < vm.data.length; i++) {
             vm.data[i].expanded = false;
+            vm.data[i].height = 0;
           }
         }).catch(()=>{
           vm.status = "Kunne ikke laste inn data.";
@@ -152,7 +155,11 @@
         if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
           let id = e.data.split(',')[0];
           let height = e.data.split(',')[1]+"px";
-          $('#'+id).css("height", height);
+          for (var i = 0; i < vm.data.length; i++) {
+            if (vm.data[i].ID == id) {
+              vm.data[i].height = height;
+            }
+          }
         }
       }, false);
     })
