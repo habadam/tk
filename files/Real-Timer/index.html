@@ -19,7 +19,7 @@
   <div class="content top-padded" ng-if="!m.success" ng-bind="m.status"></div>
 
   <div class="content" ng-if="m.success">
-    <div class="content-row" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
+    <div class="content-row" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded}">
       <h4 ng-bind="object.Name"></h4>
       <iframe id="{{object.ID}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
@@ -115,7 +115,9 @@
         $lazy.get('//thorin-apps.tk/cors.php?url=reisapi.ruter.no%2FPlace%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12', 0).then(function (data) {
           vm.success = true;
           vm.data = data;
-          console.log('Recieved data from Ruter:',data);
+          for (var i = 0; i < vm.data.length; i++) {
+            vm.data[i].expanded = false;
+          }
         }).catch(()=>{
           vm.status = "Kunne ikke laste inn data.";
         });
