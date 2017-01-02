@@ -120,7 +120,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
             }, 0);
           } else if (vm.data[i].PlaceType == "Area") {
             //console.log("No match. Checking area");
-            for (var j = 0; j < vm.data[i].Stops.length; j++) {
+            for (let j = 0; j < vm.data[i].Stops.length; j++) {
               //console.log("Checking",vm.data[i].Stops[j].Name);
               //console.log("vm.data[i].Stops[j].ID =",vm.data[i].Stops[j].ID," and id =",id);
               if (vm.data[i].Stops[j].ID == id) {
