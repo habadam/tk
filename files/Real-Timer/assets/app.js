@@ -106,6 +106,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
     let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
     eventer(messageEvent, function(e) {
       if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
+        console.log("Recieved message:",e.data);
         let id = e.data.split(',')[0];
         let height = e.data.split(',')[1]+"px";
         for (let i = 0; i < vm.data.length; i++) {
@@ -114,8 +115,11 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
               vm.data[i].height = height;
             }, 0);
           } else if (vm.data[i].PlaceType == "Area") {
+            console.log("No match. Checking area");
             for (var j = 0; j < vm.data[i].Stops.length; j++) {
+              console.log("Checking",vm.data[i].Stops[j].Name);
               if (vm.data[i].Stops[j].ID == id) {
+                console.log("Match!");
                 $timeout(()=>{
                   vm.data[i].height = height;
                 }, 0);
