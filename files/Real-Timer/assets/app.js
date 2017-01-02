@@ -9,7 +9,7 @@ app.config(["$sceProvider", '$controllerProvider', '$provide', '$sceDelegateProv
     'https://ruter.no/**'
   ]);
   $sceProvider.enabled(true);
-  
+
   // Provider-based controller.
   app.controller = function( name, constructor ) {
     $controllerProvider.register( name, constructor );
@@ -17,7 +17,7 @@ app.config(["$sceProvider", '$controllerProvider', '$provide', '$sceDelegateProv
   };
 }]);
 
-app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $lazy, $timeout) {
+app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $chttp, $timeout) {
   let vm = this;
   vm.css = "";
   vm.jqLoaded = false;
@@ -29,7 +29,7 @@ app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $la
   };
   vm.data = [];
   vm.coords = [0,0];
-  vm.conv = $lazy.get('assets/converter.min.js').then((data)=>{
+  vm.conv = $chttp.get('assets/converter.min.js').then((data)=>{
     eval(data);
   }).catch((data, status)=>{
     console.log(data,status);
@@ -42,7 +42,7 @@ app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $la
       vm.coords = convert(position.coords.latitude, position.coords.longitude);
       vm.status = "Laster inn data…";
       console.log(vm.coords);
-      $lazy.get('//real-timer.tk/cors/cors.php?url=reisapi.ruter.no%2FPlace%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12', 0).then(function (data) {
+      $chttp.get('//real-timer.tk/cors/cors.php?url=reisapi.ruter.no%2FPlace%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12', 0).then(function (data) {
         vm.success = true;
         vm.data = data;
         for (var i = 0; i < vm.data.length; i++) {
@@ -76,10 +76,10 @@ app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $la
   vm.toggle = (i)=>{
     vm.data[i].expanded = !vm.data[i].expanded;
   };
-  $lazy.get('assets/glyphicons.min.css').then((data)=>{
+  $chttp.get('assets/glyphicons.min.css').then((data)=>{
     vm.css += data;
   });
-  vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
+  vm.jq = $chttp.get('https://code.jquery.com/jquery-3.1.1.min.js');
   vm.jq.then((data)=>{
     eval(data);
     vm.jqLoaded = true;
@@ -102,7 +102,7 @@ app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $la
   })
 }]);
 
-app.service('$lazy', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
+app.service('$chttp', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
   let vm = this;
 
   vm.get = (url, timeout, options)=>{
