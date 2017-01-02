@@ -20,7 +20,8 @@
 
   <div class="content" ng-if="m.success">
     <div class="content-row" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded}">
-      <h4 ng-bind="object.Name"></h4>
+      <div ng-bind="object.Name"></div>
+      <div ng-bind="m.linesString(object.Lines)"></div>
       <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
   </div>
@@ -144,6 +145,13 @@
     } else {
       vm.status = "Fikk ikke tilgang til stedstjenester";
       vm.errors.position = true;
+    }
+    vm.linesString = (arr)=>{
+      let str = arr[0].ID;
+      for (var i = 1; i < arr.length; i++) {
+        str += ","+arr[i];
+      }
+      return str;
     }
     vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
     vm.jq.then((data)=>{
