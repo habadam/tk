@@ -44,14 +44,11 @@ iframe {
   margin: 35px auto;
   text-align: center;
   max-width: 500px;
-  padding-bottom: 30px;
   border-radius: 15px;
 }
 .top-padded {
+  padding-bottom: 30px;
   padding-top: 30px;
-}
-.no-padding {
-  padding-bottom: 0;
 }
 .content-row {
   display: flex;
