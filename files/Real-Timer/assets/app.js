@@ -125,7 +125,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
               //console.log("vm.data[i].Stops[j].ID =",vm.data[i].Stops[j].ID," and id =",id);
               if (vm.data[i].Stops[j].ID == id) {
                 matched = true;
-                //console.log("Area stop match!");
+                console.log("Area stop match!");
                 $timeout(()=>{
                   vm.data[i].height = height;
                 }, 0);
