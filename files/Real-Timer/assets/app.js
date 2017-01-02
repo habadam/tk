@@ -43,7 +43,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
       vm.coords = convert(position.coords.latitude, position.coords.longitude);
       vm.status = "Laster inn data…";
       console.log(vm.coords);
-      $chttp.get('http://real-timer.tk/cors/cors.php?url=reisapi.ruter.no%2FPlace%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12', 0).then(function (data) {
+      $chttp.get('//real-timer.tk/cors/cors.php?url=reisapi.ruter.no%2FPlace%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12', 0).then(function (data) {
         vm.success = true;
         vm.data = data;
         for (let i = 0; i < vm.data.length; i++) {
@@ -58,18 +58,6 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
         }
       }).catch(()=>{
         vm.status = "Kunne ikke laste inn data.";
-        vm.success = true;
-        vm.data = JSON.parse(prompt('Skriv inn data'));
-        for (let i = 0; i < vm.data.length; i++) {
-          vm.data[i].expanded = false;
-          vm.data[i].height = "25px";
-          if (vm.data[i].PlaceType == 'Area') {
-            for (var j = 0; j < vm.data[i].Stops.length; j++) {
-              vm.data[i].Stops[j].expanded = false;
-              vm.data[i].Stops[j].height = "25px";
-            }
-          }
-        }
       });
     });
     $timeout(()=>{
