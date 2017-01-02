@@ -92,8 +92,12 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
     vm.status = "Fikk ikke tilgang til stedstjenester";
     vm.errors.position = true;
   }
-  vm.toggle = (i)=>{
-    vm.data[i].expanded = !vm.data[i].expanded;
+  vm.toggle = (i, j)=>{
+    if (typeof j === 'undefined') {
+      vm.data[i].expanded = !vm.data[i].expanded;
+    } else {
+      vm.data[i].Stops[j].expanded = !vm.data[i].Stops[j].expanded;
+    }
   };
   $chttp.get('assets/glyphicons.min.css').then((data)=>{
     vm.css += data;

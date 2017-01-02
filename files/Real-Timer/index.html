@@ -33,7 +33,7 @@
         <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
       </div>
       <div class="stop content-row-wrapper" ng-repeat="(key, stop) in object.Stops" ng-class="{'expanded':stop.expanded, 'impanded':!stop.expanded}">
-        <div class="content-row" ng-click="m.toggle(index+'['+key+']')">
+        <div class="content-row" ng-click="m.toggle(index, key)">
           <div ng-bind="stop.Name"></div>
           <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':stop.expanded, 'glyphicon-chevron-down':!stop.expanded}"></div>
         </div>
