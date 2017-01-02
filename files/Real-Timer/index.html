@@ -24,7 +24,7 @@
       <div class="content-row">
         <div ng-bind="object.Name"></div>
         <div ng-click="m.reload(object.ID, $index)" class="glyphicon glyphicon-refresh" ng-if="object.expanded && m.jqLoaded"></div>
-        <div class="glyphicon" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+        <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
       </div>
       <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
@@ -181,7 +181,7 @@
     };
     vm.reload = (id, i)=>{
       vm.toggle(i);
-      $('#'+id).src += " ";
+      $('#'+id)[0].src += " ";
     };
     $lazy.get('assets/glyphicons.min.css').then((data)=>{
       vm.css += data;
