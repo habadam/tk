@@ -127,7 +127,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
                 matched = true;
                 console.log("Area stop match!");
                 $timeout(()=>{
-                  vm.data[i].height = height;
+                  vm.data[i].Stops[j].height = height;
                 }, 0);
               }
             }
