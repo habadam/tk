@@ -9,6 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Real-Timer">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="icon" href="assets/favicon.ico">
+  <style ng-bind="m.css"></style>
 </head>
 <body>
   <header>
@@ -114,6 +115,7 @@
 
   app.controller('masterCtrl', ['$http', '$lazy', '$timeout', function ($http, $lazy, $timeout) {
     let vm = this;
+    vm.css = "";
     vm.status = "Lokaliserer…";
     vm.success = false;
     vm.errors = {
@@ -176,6 +178,9 @@
     vm.toggle = (i)=>{
       vm.data[i].expanded = !vm.data[i].expanded;
     }
+    $lazy.get('https://static.thorin-games.tk/custom_bootstrap/css/glyphicons.min.css').then((data)=>{
+      vm.css += data;
+    });
     vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
     vm.jq.then((data)=>{
       eval(data);
