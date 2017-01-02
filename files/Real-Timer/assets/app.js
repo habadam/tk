@@ -45,7 +45,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
       $chttp.get('//real-timer.tk/cors/cors.php?url=reisapi.ruter.no%2FPlace%2FGetClosestPlacesExtension%3Fcoordinates%3Dx%3D'+Math.round(vm.coords[0])+'%2Cy%3D'+Math.round(vm.coords[1])+'%26proposals%3D12', 0).then(function (data) {
         vm.success = true;
         vm.data = data;
-        for (var i = 0; i < vm.data.length; i++) {
+        for (let i = 0; i < vm.data.length; i++) {
           vm.data[i].expanded = false;
           vm.data[i].height = "25px";
         }
