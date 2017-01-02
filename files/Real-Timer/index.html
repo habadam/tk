@@ -83,6 +83,15 @@
     .content-row>* {
       flex: 1;
     }
+    .content-row:first-child {
+      text-align: left;
+    }
+    .content-row:nth-child(1) {
+      text-align: center;
+    }
+    .content-row:last-child {
+      text-align: right;
+    }
   </style>
   <script>
   let app = angular.module('app', []);
