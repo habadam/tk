@@ -6,6 +6,7 @@ app.config(["$sceProvider", '$controllerProvider', '$provide', '$sceDelegateProv
     'http://static.thorin-games.tk/**',
     'https://thorin-apps.tk/**',
     'https://real-timer.tk/**',
+    'http://real-timer.tk/**',
     'https://ruter.no/**'
   ]);
   $sceProvider.enabled(true);
