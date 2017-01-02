@@ -21,7 +21,7 @@
 
   <div class="content" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
     <h4 ng-bind="object.Name"></h4>
-    <iframe ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
+    <iframe id="{{object.ID}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
@@ -32,18 +32,9 @@
   var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
   // Listen for a message from the iframe.
   eventer(messageEvent, function(e) {
-    console.log("Message recieved");
-    console.log(e);
-    if (isNaN(e.data)) return;
-    console.log(e);
-
-    // replace #sizetracker with what ever what ever iframe id you need
-    var iframes = document.querySelectorAll('iframe');
-    for (var i = 0; i < iframes.length; i++) {
-      console.log(iframes[i]);
-      iframes[i].style.height = e.data + 'px';
+    if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
+      $('#'+e.data.split(',')[0]).css("height", e.data.split(',')[1]+"px");
     }
-
   }, false);
   </script>
   <script>
