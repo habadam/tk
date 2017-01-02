@@ -27,6 +27,7 @@ header {
 }
 .area.impanded>.stop {
   height: 0 !important;
+  display: none;
 }
 iframe {
   border: 0;
