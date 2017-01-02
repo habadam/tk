@@ -101,7 +101,10 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
   };
   $chttp.get('assets/glyphicons.min.css').then((data)=>{
     vm.css += data;
-  });
+  }, 0);
+  $chttp.get('http://static.thorin-games.tk/css/ubuntu.php').then((data)=>{
+    vm.css += data;
+  }, 0);
   vm.jq = $chttp.get('https://code.jquery.com/jquery-3.1.1.min.js');
   vm.jq.then((data)=>{
     eval(data);
@@ -131,6 +134,8 @@ app.service('$chttp', ['$http', '$q', '$timeout', function ($http, $q, $timeout)
   vm.get = (url, timeout, options)=>{
     let deferred = $q.defer();
     let resolved = false;
+    if (typeof options === 'undefined') var options = {};
+    options.timeout = deferred.promise;
     let request = $http.get(url, options);
     request.success(function (data) {
       if (typeof Storage !== "undefined") {
@@ -145,7 +150,7 @@ app.service('$chttp', ['$http', '$q', '$timeout', function ($http, $q, $timeout)
     });
     request.error(function (data, status) {
       if (typeof Storage !== "undefined" && url in localStorage) {
-        console.info("The request to",url,"failed, but data existed locally");
+        //console.info("The request to",url,"failed, but data existed locally");
         deferred.resolve(JSON.parse(localStorage[url]));
         resolved = true;
       } else {
@@ -156,10 +161,10 @@ app.service('$chttp', ['$http', '$q', '$timeout', function ($http, $q, $timeout)
       $timeout(function () {
         if (!resolved && typeof Storage !== "undefined" && url in localStorage) {
           deferred.resolve(JSON.parse(localStorage[url]));
-          console.info("Timeout reached for",url,"but data existed locally");
+          //console.info("Timeout reached for",url,"but data existed locally");
         }
       }, timeout);
     }
     return deferred.promise;
-  };
+  }
 }]);
