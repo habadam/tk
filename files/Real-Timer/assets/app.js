@@ -109,6 +109,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
         //console.log("Recieved message:",e.data);
         let id = e.data.split(',')[0];
         let height = e.data.split(',')[1]+"px";
+        let matched = false;
         for (let i = 0; i < vm.data.length; i++) {
           if (vm.data[i].ID == id) {
             $timeout(()=>{
@@ -119,7 +120,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
             //console.log("No match. Checking area");
             for (var j = 0; j < vm.data[i].Stops.length; j++) {
               //console.log("Checking",vm.data[i].Stops[j].Name);
-              //console.log("vm.data[i].Stops[j].ID =",vm.data[i].Stops[j].ID," and id =",id);
+              console.log("vm.data[i].Stops[j].ID =",vm.data[i].Stops[j].ID," and id =",id);
               if (vm.data[i].Stops[j].ID == id) {
                 console.log("Area stop match!");
                 $timeout(()=>{
@@ -127,9 +128,10 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
                 }, 0);
               }
             }
-          } else {
-            console.log("Found no match for ",id);
           }
+        }
+        if (!matched) {
+          console.warn("No match for ",e.data);
         }
       }
     }, false);
