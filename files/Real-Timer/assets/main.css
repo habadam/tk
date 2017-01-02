@@ -31,6 +31,9 @@ spacer {
 .area.impanded>.stop {
   height: 0 !important;
 }
+.impanded>.content-row {
+  margin-bottom: -15px;
+}
 iframe {
   border: 0;
   height: 0;
@@ -58,6 +61,7 @@ iframe {
   padding: 15px;
   cursor: pointer;
   justify-content: space-between;
+  transition: margin 1s ease-in-out;
 }
 .content-row>* {
   flex: 1;
