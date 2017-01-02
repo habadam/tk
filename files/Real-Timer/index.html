@@ -33,7 +33,12 @@
   // Listen for a message from the iframe.
   eventer(messageEvent, function(e) {
     if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
-      $('#'+e.data.split(',')[0]).css("height", e.data.split(',')[1]+"px");
+      let id = e.data.split(',')[0];
+      let height = e.data.split(',')[1]+"px";
+      console.log(id, height);
+      $('#'+id).css("height", height);
+    } else {
+      console.error(e.data);
     }
   }, false);
   </script>
