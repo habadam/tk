@@ -20,7 +20,7 @@
   <div class="content top-padded" ng-if="!m.success" ng-bind="m.status"></div>
 
   <div class="content" ng-if="m.success">
-    <div ng-repeat="object in m.data track by $index" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded}">
+    <div ng-repeat="object in m.data track by $index" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}">
       <div class="content-row">
         <div ng-bind="object.Name"></div>
         <div ng-bind="m.linesString(object.Lines)"></div>
@@ -55,6 +55,9 @@
         display: block;
         height: 66px;
       }
+    }
+    .impanded>iframe {
+      height: 0 !important;
     }
     iframe {
       border: 0;
