@@ -181,6 +181,7 @@
     };
     vm.reload = (id, i)=>{
       vm.toggle(i);
+      console.log($('#'+id)[0].src);
       $('#'+id)[0].src += " ";
     };
     $lazy.get('assets/glyphicons.min.css').then((data)=>{
