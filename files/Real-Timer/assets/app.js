@@ -105,6 +105,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
     let eventer = window[eventMethod];
     let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
     eventer(messageEvent, function(e) {
+      console.log(e);
       if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
         //console.log("Recieved message:",e.data);
         let id = e.data.split(',')[0];
