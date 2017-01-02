@@ -72,6 +72,9 @@
     .top-padded {
       padding-top: 30px;
     }
+    .content-row {
+      display: flex;
+    }
   </style>
   <script>
   let app = angular.module('app', []);
@@ -165,7 +168,9 @@
           let height = e.data.split(',')[1]+"px";
           for (var i = 0; i < vm.data.length; i++) {
             if (vm.data[i].ID == id) {
-              vm.data[i].height = height;
+              $timeout(()=>{
+                vm.data[i].height = height;
+              }, 0);
             }
           }
         }
