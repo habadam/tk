@@ -61,7 +61,7 @@ iframe {
   padding: 15px;
   cursor: pointer;
   justify-content: space-between;
-  transition: margin 1s ease-in-out;
+  transition: margin 0.5s ease-in-out;
 }
 .content-row>* {
   flex: 1;
