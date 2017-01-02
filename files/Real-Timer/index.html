@@ -15,13 +15,13 @@
     <h1>Real-Timer</h1>
   </header>
 
-  <div class="content" ng-if="!m.success" ng-bind="m.status">
+  <div class="content" ng-if="!m.success" ng-bind="m.status"></div>
 
-  </div>
-
-  <div class="content" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
-    <h4 ng-bind="object.Name"></h4>
-    <iframe id="{{object.ID}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
+  <div class="content">
+    <div class="content-row" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
+      <h4 ng-bind="object.Name"></h4>
+      <iframe id="{{object.ID}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
