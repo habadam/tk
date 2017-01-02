@@ -23,7 +23,7 @@
       <div class="content-row">
         <div ng-bind="object.Name"></div>
         <div ng-bind="m.linesString(object.Lines)"></div>
-        <div class="glyphicon glyphicon-chevron-down" ng-click="m.toggle($index)"></div>
+        <div class="glyphicon" ng-click="m.toggle($index)" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
       </div>
       <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
