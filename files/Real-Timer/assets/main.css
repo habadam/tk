@@ -27,6 +27,8 @@ spacer {
 }
 .stop.impanded>iframe {
   height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
 }
 .area.impanded>.stop {
   height: 0 !important;
