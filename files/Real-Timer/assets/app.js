@@ -90,7 +90,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
   $chttp.get('assets/glyphicons.min.css').then((data)=>{
     vm.css += data;
   }, 0);
-  $chttp.get('http://static.thorin-games.tk/css/ubuntu.php').then((data)=>{
+  $chttp.get('//static.thorin-games.tk/css/ubuntu.php').then((data)=>{
     vm.css += data;
   }, 0);
   vm.jq = $chttp.get('https://code.jquery.com/jquery-3.1.1.min.js');
