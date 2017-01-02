@@ -22,7 +22,10 @@ header {
     height: 66px;
   }
 }
-.impanded>iframe {
+.stop.impanded>iframe {
+  height: 0 !important;
+}
+.area.impanded>.stop {
   height: 0 !important;
 }
 iframe {

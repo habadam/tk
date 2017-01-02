@@ -18,14 +18,30 @@
   <spacer></spacer>
 
   <div class="content top-padded" ng-if="!m.success" ng-bind="m.status"></div>
-  
-  <div class="content content-row-wrapper" ng-repeat="object in m.data track by $index" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}" ng-click="m.toggle($index)" ng-if="m.success">
-    <div class="content-row">
-      <div ng-bind="object.Name"></div>
-      <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+
+  <div ng-repeat="(index, object) in m.data" ng-if="m.success">
+    <div class="content stop content-row-wrapper" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}">
+      <div class="content-row" ng-click="m.toggle(index)">
+        <div ng-bind="object.Name"></div>
+        <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+      </div>
+      <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//real-timer.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
-    <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//real-timer.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
+    <div class="content area content-row-wrapper" ng-if="object.PlaceType == 'Area'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}">
+      <div class="content-row" ng-click="m.toggle(index)">
+        <div ng-bind="object.Name"></div>
+        <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+      </div>
+      <div class="stop content-row-wrapper" ng-repeat="(key, stop) in object.Stops" ng-class="{'expanded':stop.expanded, 'impanded':!stop.expanded}">
+        <div class="content-row" ng-click="m.toggle(index+'['+key+']')">
+          <div ng-bind="stop.Name"></div>
+          <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':stop.expanded, 'glyphicon-chevron-down':!stop.expanded}"></div>
+        </div>
+        <iframe id="{{stop.ID}}" style="{{'height:'+stop.height}}" ng-src="{{'//real-timer.tk/cors/widget.php#('+stop.ID+')'+stop.Name+'%20('+stop.District+')'}}"></iframe>
+      </div>
+    </div>
   </div>
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
   <link rel="stylesheet" href="assets/main.css">
