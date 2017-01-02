@@ -166,7 +166,7 @@
         if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
           let id = e.data.split(',')[0];
           let height = e.data.split(',')[1]+"px";
-          for (var i = 0; i < vm.data.length; i++) {
+          for (let i = 0; i < vm.data.length; i++) {
             if (vm.data[i].ID == id) {
               $timeout(()=>{
                 vm.data[i].height = height;
