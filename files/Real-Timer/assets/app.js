@@ -105,36 +105,23 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
     let eventer = window[eventMethod];
     let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
     eventer(messageEvent, function(e) {
-      //console.log(e);
       if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
-        //console.log("Recieved message:",e.data);
         let id = e.data.split(',')[0];
         let height = e.data.split(',')[1]+"px";
-        let matched = false;
         for (let i = 0; i < vm.data.length; i++) {
           if (vm.data[i].ID == id) {
-            matched = true;
             $timeout(()=>{
               vm.data[i].height = height;
-              //console.log("Match - ", vm.data[i].Name);
             }, 0);
           } else if (vm.data[i].PlaceType == "Area") {
-            //console.log("No match. Checking area");
             for (let j = 0; j < vm.data[i].Stops.length; j++) {
-              //console.log("Checking",vm.data[i].Stops[j].Name);
-              //console.log("vm.data[i].Stops[j].ID =",vm.data[i].Stops[j].ID," and id =",id);
               if (vm.data[i].Stops[j].ID == id) {
-                matched = true;
-                console.log("Area stop match!");
                 $timeout(()=>{
                   vm.data[i].Stops[j].height = height;
                 }, 0);
               }
             }
           }
-        }
-        if (!matched) {
-          console.warn("No match for ",e.data);
         }
       }
     }, false);
