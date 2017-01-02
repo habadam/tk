@@ -20,11 +20,10 @@
   <div class="content top-padded" ng-if="!m.success" ng-bind="m.status"></div>
 
   <div class="content no-padding" ng-if="m.success">
-    <div ng-repeat="object in m.data track by $index" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}">
+    <div ng-repeat="object in m.data track by $index" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}" ng-click="m.toggle($index)">
       <div class="content-row">
         <div ng-bind="object.Name"></div>
-        <div ng-bind="m.linesString(object.Lines)"></div>
-        <div class="glyphicon" ng-click="m.toggle($index)" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+        <div class="glyphicon" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
       </div>
       <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
@@ -93,7 +92,7 @@
     .content-row>*:first-child {
       text-align: left;
     }
-    .content-row>*:nth-child(2) {
+    .content-row>* {
       text-align: center;
     }
     .content-row>*:last-child {
@@ -173,13 +172,6 @@
     } else {
       vm.status = "Fikk ikke tilgang til stedstjenester";
       vm.errors.position = true;
-    }
-    vm.linesString = (arr)=>{
-      let str = arr[0].ID;
-      for (var i = 1; i < arr.length; i++) {
-        str += ", "+arr[i].ID;
-      }
-      return str;
     }
     vm.toggle = (i)=>{
       vm.data[i].expanded = !vm.data[i].expanded;
