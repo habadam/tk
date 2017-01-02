@@ -113,6 +113,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
           if (vm.data[i].ID == id) {
             $timeout(()=>{
               vm.data[i].height = height;
+              console.log("Match - ", vm.data[i].Name);
             }, 0);
           } else if (vm.data[i].PlaceType == "Area") {
             console.log("No match. Checking area");
