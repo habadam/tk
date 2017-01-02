@@ -31,7 +31,7 @@ spacer {
 .area.impanded>.stop {
   height: 0 !important;
 }
-.impanded>.content-row {
+.stop.impanded>.content-row {
   margin-bottom: -15px;
 }
 iframe {
