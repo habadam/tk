@@ -178,7 +178,7 @@
     vm.toggle = (i)=>{
       vm.data[i].expanded = !vm.data[i].expanded;
     }
-    $lazy.get('https://static.thorin-games.tk/custom_bootstrap/css/glyphicons.min.css').then((data)=>{
+    $lazy.get('assets/glyphicons.min.css').then((data)=>{
       vm.css += data;
     });
     vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
