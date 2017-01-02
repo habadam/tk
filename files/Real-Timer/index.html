@@ -19,10 +19,11 @@
   <div class="content top-padded" ng-if="!m.success" ng-bind="m.status"></div>
 
   <div class="content" ng-if="m.success">
-    <div ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded}">
+    <div ng-repeat="object in m.data track by $index" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded}">
       <div class="content-row">
         <div ng-bind="object.Name"></div>
         <div ng-bind="m.linesString(object.Lines)"></div>
+        <div class="glyphicon glyphicon-chevron-down" ng-click="m.toggle($index)"></div>
       </div>
       <iframe id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
@@ -162,6 +163,9 @@
         str += ","+arr[i].ID;
       }
       return str;
+    }
+    vm.toggle = (i)=>{
+      vm.data[i].expanded = !vm.data[i].expanded;
     }
     vm.jq = $lazy.get('https://code.jquery.com/jquery-3.1.1.min.js');
     vm.jq.then((data)=>{
