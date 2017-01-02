@@ -41,6 +41,7 @@ iframe {
   max-width: 500px;
   transition: height 0.5s ease-in-out;
   border-radius: 15px;
+  margin-bottom: -5px;
 }
 .content {
   width: 85%;

@@ -109,6 +109,14 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
             $timeout(()=>{
               vm.data[i].height = height;
             }, 0);
+          } else if (vm.data[i].PlaceType == "Area") {
+            for (var j = 0; j < vm.data[i].Stops.length; j++) {
+              if (vm.data[i].Stops[j].ID == id) {
+                $timeout(()=>{
+                  vm.data[i].height = height;
+                }, 0);
+              }
+            }
           }
         }
       }
