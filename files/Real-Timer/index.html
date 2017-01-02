@@ -108,10 +108,7 @@
         if (typeof e.data === "string" && e.data.indexOf(",")>-1) {
           let id = e.data.split(',')[0];
           let height = e.data.split(',')[1]+"px";
-          console.log(id, height);
           $('#'+id).css("height", height);
-        } else {
-          console.error(e.data);
         }
       }, false);
     })
