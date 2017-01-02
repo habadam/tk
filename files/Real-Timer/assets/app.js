@@ -57,6 +57,18 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
         }
       }).catch(()=>{
         vm.status = "Kunne ikke laste inn data.";
+        vm.success = true;
+        vm.data = JSON.parse(prompt('Skriv inn data'));
+        for (let i = 0; i < vm.data.length; i++) {
+          vm.data[i].expanded = false;
+          vm.data[i].height = "25px";
+          if (vm.data[i].PlaceType == 'Area') {
+            for (var j = 0; j < vm.data[i].Stops.length; j++) {
+              vm.data[i].Stops[j].expanded = false;
+              vm.data[i].Stops[j].height = "25px";
+            }
+          }
+        }
       });
     });
     $timeout(()=>{
