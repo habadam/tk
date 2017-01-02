@@ -179,10 +179,9 @@
     vm.toggle = (i)=>{
       vm.data[i].expanded = !vm.data[i].expanded;
     };
-    vm.reload = (id, i)=>{
+    vm.reload = (i)=>{
       vm.toggle(i);
-      console.log($('#'+id)[0].src);
-      $('#'+id)[0].src += " ";
+      vm.data[i].ID = vm.data[i].ID+1-1;
     };
     $lazy.get('assets/glyphicons.min.css').then((data)=>{
       vm.css += data;
