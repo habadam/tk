@@ -16,9 +16,9 @@
   </header>
   <spacer></spacer>
 
-  <div class="content" ng-if="!m.success" ng-bind="m.status"></div>
+  <div class="content top-padded" ng-if="!m.success" ng-bind="m.status"></div>
 
-  <div class="content">
+  <div class="content" ng-if="m.success">
     <div class="content-row" ng-repeat="object in m.data" ng-if="object.PlaceType == 'Stop'">
       <h4 ng-bind="object.Name"></h4>
       <iframe id="{{object.ID}}" ng-src="{{'//thorin-apps.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
