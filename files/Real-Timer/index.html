@@ -23,14 +23,14 @@
     <div class="content stop content-row-wrapper" ng-if="object.PlaceType == 'Stop'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}">
       <div class="content-row" ng-click="m.toggle(index)">
         <div ng-bind="object.Name"></div>
-        <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+        <div class="glyphicon" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
       </div>
       <iframe ng-if="index <= 5 || object.hasExpanded" id="{{object.ID}}" style="{{'height:'+object.height}}" ng-src="{{'//real-timer.tk/cors/widget.php#('+object.ID+')'+object.Name+'%20('+object.District+')'}}"></iframe>
     </div>
     <div class="content area content-row-wrapper" ng-if="object.PlaceType == 'Area'" ng-class="{'expanded':object.expanded, 'impanded':!object.expanded}">
       <div class="content-row" ng-click="m.toggle(index)">
         <div ng-bind="object.Name"></div>
-        <div class="glyphicon" ng-if="m.jqLoaded" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
+        <div class="glyphicon" ng-class="{'glyphicon-chevron-up':object.expanded, 'glyphicon-chevron-down':!object.expanded}"></div>
       </div>
       <div class="stop content-row-wrapper" ng-repeat="(key, stop) in object.Stops" ng-class="{'expanded':stop.expanded, 'impanded':!stop.expanded}">
         <div class="content-row" ng-click="m.toggle(index, key)">
