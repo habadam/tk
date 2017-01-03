@@ -97,7 +97,7 @@ app.controller('masterCtrl', ['$http', '$chttp', '$timeout', function ($http, $c
   $chttp.get('//static.thorin-games.tk/css/ubuntu.php').then((data)=>{
     vm.css += data;
   }, 0);
-  vm.jq = $chttp.get('https://code.jquery.com/jquery-3.1.1.min.js');
+  vm.jq = $chttp.get('https://code.jquery.com/jquery-3.1.1.min.js', 0);
   vm.jq.then((data)=>{
     eval(data);
     vm.jqLoaded = true;
