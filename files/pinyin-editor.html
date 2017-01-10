@@ -98,9 +98,7 @@
           letters.pop();
           let tone = match.substr(match.length - 1);
           console.log("Letters:",letters,"\nTone:",tone);
-          addTones(letters);
-          console.log("Letters now:",letters);
-          match = letters.join("");
+          match = addTones(letters);
           console.log("Returning:",match);
           return match;
         });
@@ -109,10 +107,6 @@
       
       function isVowel(c) {
         return ['a', 'e', 'i', 'o', 'u'].indexOf(c.toLowerCase()) !== -1
-      }
-      
-      function addTone(l, tone) {
-        return tones[l][tone];
       }
       
       function addTones(letters, tone) {
