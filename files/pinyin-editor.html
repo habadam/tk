@@ -73,6 +73,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script type="text/javascript">
     var app = angular.module('app', []);
+    app.config(function($sceProvider) {
+      $sceProvider.enabled(false);
+    });
     app.controller('mainCtrl', ['$http', function ($http) {
       var vm = this;
       vm.input = "";
