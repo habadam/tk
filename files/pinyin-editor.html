@@ -117,6 +117,7 @@
         }
         console.log("Replacement index:", index, "\nShould be replaced with:",tones[letters[index]][tone]);
         letters[index] = tones[letters[index]][tone];
+        console.log("Returning:",letters.join(""));
         return letters.join("");
       }
     }]);
