@@ -115,7 +115,7 @@
         for (let i = 0;i<letters.length;i++) {
           letters[i] == "a" ? index = i : isVowel(letters[i]) && i>index ? index = i : null;
         }
-        console.log("Replacement index:", index, "\nShould be replaced with:",tones[letters[index]][tone]);
+        console.log("Replacement index:", index, "\nLetter:", letters[index], "\nTone:", tone, "\nShould be replaced with:",tones[letters[index]][tone]);
         letters[index] = tones[letters[index]][tone];
         console.log("Returning:",letters.join(""));
         return letters.join("");
