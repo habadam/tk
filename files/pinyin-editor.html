@@ -98,7 +98,7 @@
           letters.pop();
           let tone = match.substr(match.length - 1);
           console.log("Letters:",letters,"\nTone:",tone);
-          match = addTones(letters);
+          match = addTones(letters, tone);
           console.log("Returning:",match);
           return match;
         });
