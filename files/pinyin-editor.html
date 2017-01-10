@@ -91,10 +91,13 @@
           console.log("Letters:",letters,"\nTone:",tone);
           for (let i = 0; i<letters.length; i++) {
             if (isVowel(letters[i])) {
+              console.log(letters[i],"is a vowel! It should be changed to",addTone(letters[i], tone));
               letters[i] = addTone(letters[i], tone);
             }
           }
+          console.log("Letters now:",letters);
           match = letters.join("");
+          console.log("Returning:",match);
           return match;
         });
         console.log(vm.output);
