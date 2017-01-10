@@ -98,12 +98,7 @@
           letters.pop();
           let tone = match.substr(match.length - 1);
           console.log("Letters:",letters,"\nTone:",tone);
-          for (let i = 0; i<letters.length; i++) {
-            if (isVowel(letters[i])) {
-              console.log(letters[i],"is a vowel! It should be changed to",addTone(letters[i], tone));
-              letters[i] = addTone(letters[i], tone);
-            }
-          }
+          addTones(letters);
           console.log("Letters now:",letters);
           match = letters.join("");
           console.log("Returning:",match);
@@ -118,6 +113,15 @@
       
       function addTone(l, tone) {
         return tones[l][tone];
+      }
+      
+      function addTones(letters, tone) {
+        let index = 0;
+        for (let i = letters.length - 1;i>=0) {
+          letters[i] == "a" ? index = i : isVowel(letters[i]) && i>index ? index = i : null;
+        }
+        letters[index] = tones[letters[index][tone];
+        return letters.join("");
       }
     }]);
   </script>
