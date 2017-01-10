@@ -111,7 +111,7 @@
       
       function addTones(letters, tone) {
         let index = 0;
-        console.log("Letters:";letters);
+        console.log("Letters:",letters);
         for (let i = 0;i<letters.length;i++) {
           letters[i] == "a" ? index = i : isVowel(letters[i]) && i>index ? index = i : null;
         }
