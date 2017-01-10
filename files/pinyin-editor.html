@@ -95,6 +95,7 @@
         vm.output = vm.output.replace(/\w+[1-4]/gi, (match)=>{
           console.log("Match:",match);
           let letters = match.split("");
+          letters.pop();
           let tone = match.substr(match.length - 1);
           console.log("Letters:",letters,"\nTone:",tone);
           for (let i = 0; i<letters.length; i++) {
