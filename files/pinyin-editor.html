@@ -71,9 +71,8 @@
   <pre placeholder="The output will come here…" ng-bind-html="m.output"></pre>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.min.js"></script>
   <script type="text/javascript">
-    var app = angular.module('app', ['ngSanitize']);
+    var app = angular.module('app', []);
     app.controller('mainCtrl', ['$http', function ($http) {
       var vm = this;
       vm.input = "";
