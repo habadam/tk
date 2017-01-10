@@ -85,7 +85,7 @@
           let letters = match.split("");
           let tone = match.substr(match.length - 1);
           for (let i = 0; i<letters.length; i++) {
-            if (isVowel(letters[i]) {
+            if (isVowel(letters[i])) {
               letters[i] = addTone(letters[i], tone);
             }
           }
