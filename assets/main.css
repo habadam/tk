@@ -16,6 +16,7 @@ ul {
 }
 li {
     color: yellow;
+    display: inline;
 }
 img {
     width:100%;
