@@ -24,7 +24,7 @@
     app.config(function($sceProvider) {
       $sceProvider.enabled(false);
     });
-    app.controller('mainCtrl', ['$http', function ($http) {
+    app.controller('mainCtrl', ['$http', '$timeout', function ($http, $timeout) {
       var vm = this;
       vm.input = "";
       vm.output = "";
@@ -77,8 +77,10 @@
         }
         try {
           document.execCommand('copy');
-          window.getSelection().removeAllRanges();
-        } catch (e) { }
+          $timeout(()=>{
+            window.getSelection().removeAllRanges();
+          }, 100);
+        } catch (e) { console.warn("Error", e); }
       }
     }]);
   </script>
