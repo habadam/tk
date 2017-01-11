@@ -1,31 +1,35 @@
 body {
-    background-color: #cc0000;
-    font-size:2em;
-    font-family: kremlin;
-    text-align: center;
+  background-color: #cc0000;
+  font-size:2em;
+  font-family: kremlin;
+  text-align: center;
 }
 h1 {
-    color: yellow;
+  color: yellow;
 }
 p {
-    color: yellow;
+  color: yellow;
 }
 ul {
   list-style-position: inside;
   list-style-type: upper-roman;
 }
 li {
-    color: yellow;
+  color: yellow;
 }
 img {
-    width:100%;
-    max-width: 500px;
+  width:100%;
+  max-width: 500px;
 }
 button {
-    font-size:1em;
-    font-family: kremlin;
+  font-size:1em;
+  font-family: kremlin;
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid #bbb;
+  background-color: #ddd;
 }
 @font-face {
-    font-family: kremlin;
-    src: url('kremlin.ttf');
+  font-family: kremlin;
+  src: url('kremlin.ttf');
 }
