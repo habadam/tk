@@ -80,7 +80,7 @@
       var vm = this;
       vm.input = "";
       vm.output = "";
-      
+
       let tones = {
         "a": ["ā", "á", "ǎ", "à"],
         "e": ["ē", "é", "ě", "è"],
@@ -90,25 +90,20 @@
       }
 
       vm.process = function () {
-        console.log(vm.input);
         vm.output = vm.input;
         vm.output = vm.output.replace(/\w+[1-4]/gi, (match)=>{
-          console.log("Match:",match);
           let letters = match.split("");
           letters.pop();
           let tone = match.substr(match.length - 1);
-          console.log("Letters:",letters,"\nTone:",tone);
           match = addTones(letters, tone);
-          console.log("Returning:",match);
           return match;
         });
-        console.log(vm.output);
       };
-      
+
       function isVowel(c) {
         return ['a', 'e', 'i', 'o', 'u'].indexOf(c.toLowerCase()) !== -1
       }
-      
+
       function addTones(letters, tone) {
         let index = 0;
         console.log("Letters:",letters);
@@ -116,6 +111,7 @@
           isVowel(letters[i]) && i>index ? index = i : null;
         }
         if (letters.join("").indexOf("a")>-1) index = letters.join("").indexOf("a");
+        if (letters.join("").indexOf("ou")>-1) index = letters.join("").indexOf("ou");
         console.log("Replacement index:", index, "\nLetter:", letters[index], "\nTone:", tone, "\nShould be replaced with:",tones[letters[index]][tone]);
         letters[index] = tones[letters[index]][tone-1];
         console.log("Returning:",letters.join(""));
