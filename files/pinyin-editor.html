@@ -10,10 +10,10 @@
   <h1>Pinyin writer</h1>
 
   <h3>Input:</h3>
-  <textarea name="input" placeholder="Write here…" ng-model="m.input" ng-keyup="m.process()"></textarea>
+  <textarea name="input" placeholder="ni3 shi4 wo3de xiao3 ping2guo3" ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <pre placeholder="The output will come here…" ng-bind-html="m.output"></pre>
+  <pre placeholder="nǐ shì wǒde xiǎo píngguǒ" ng-bind-html="m.output"></pre>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script type="text/javascript">
@@ -36,7 +36,7 @@
 
       vm.process = function () {
         vm.output = vm.input;
-        vm.output = vm.output.replace(/\w+[1-4]/gi, (match)=>{
+        vm.output = vm.output.replace(/[a-z]+[1-4]/gi, (match)=>{
           let letters = match.split("");
           letters.pop();
           let tone = match.substr(match.length - 1);
