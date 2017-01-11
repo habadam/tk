@@ -1,6 +1,7 @@
 body {
     background-color: red;
     font-size:1em;
+    font-family: kremlin;
 }
 h1 {
     color: yellow;
@@ -13,11 +14,12 @@ li {
 }
 img {
     width:100%;
-    max-width: 500px; 
+    max-width: 500px;
 }
 button {
     font-size:2em;
 }
 @font-face {
+    font-family: kremlin;
     src: kremlin.ttf;
 }
