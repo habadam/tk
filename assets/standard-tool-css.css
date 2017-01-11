@@ -29,7 +29,7 @@ pre:empty:before{
 }
 
 /* Form CSS */
-select, input[type=text], input[type=url], input[type=password], input[type=number], textarea, a[type=submit], pre {
+select, input[type=text], input[type=url], input[type=password], input[type=number], textarea, [type=submit], button, pre {
   border-radius: 5px;
   background: #eee;
   font-size: 16px;
@@ -43,10 +43,21 @@ select, input[type=text], input[type=url], input[type=password], input[type=numb
 textarea {
   height: 90px;
 }
-select:focus, input:focus, textarea:focus {
+select:focus, input:focus, textarea:focus, button:focus {
   outline: 0;
   border: 2px solid #bbb;
 }
 [ng-click] {
   cursor: pointer;
+}
+button {
+  margin: 15px auto -5px;
+  width: 115px;
+  padding: 7.5px;
+}
+a[type=submit]:active, button:active {
+  background-color: #ccc;
+}
+textarea[disabled] {
+  height: auto;
 }

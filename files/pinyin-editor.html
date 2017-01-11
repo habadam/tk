@@ -13,7 +13,10 @@
   <textarea name="input" placeholder="ni3 shi4 wo3de xiao3 ping2guo3" ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <pre placeholder="nǐ shì wǒde xiǎo píngguǒ" ng-bind-html="m.output"></pre>
+  <textarea placeholder="nǐ shì wǒde xiǎo píngguǒ" ng-model="m.output" id="output" disabled=""></textarea>
+  <div class="block">
+    <button ng-click="m.selectText()">Copy output</button>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script type="text/javascript">
@@ -57,6 +60,24 @@
         if (letters.join("").indexOf("a")>-1) index = letters.join("").indexOf("a");
         letters[index] = tones[letters[index]][tone-1];
         return letters.join("");
+      }
+
+      vm.selectText = ()=>{
+        var doc = document, text = doc.getElementById("output"), range, selection;
+        if (doc.body.createTextRange) {
+          range = document.body.createTextRange();
+          range.moveToElementText(text);
+          range.select();
+        } else if (window.getSelection) {
+          selection = window.getSelection();
+          range = document.createRange();
+          range.selectNodeContents(text);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        try {
+          document.execCommand('copy');
+        } catch (e) { }
       }
     }]);
   </script>
