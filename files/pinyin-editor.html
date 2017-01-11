@@ -52,8 +52,9 @@
       function addTones(letters, tone) {
         let index = 0;
         for (let i = 0;i<letters.length;i++) if (isVowel(letters[i]) && i>index) index = i;
-        if (letters.join("").indexOf("a")>-1) index = letters.join("").indexOf("a");
         if (letters.join("").indexOf("ou")>-1) index = letters.join("").indexOf("ou");
+        if (letters.join("").indexOf("e")>-1) index = letters.join("").indexOf("e");
+        if (letters.join("").indexOf("a")>-1) index = letters.join("").indexOf("a");
         letters[index] = tones[letters[index]][tone-1];
         return letters.join("");
       }
