@@ -8,9 +8,15 @@ h1 {
 p {
     color: yellow;
 }
+li {
+    color: yellow;
+}
 img {
     width:100%;
 }
 button {
     font-size:2em;
+}
+@font-face {
+    src: kremlin.ttf;
 }
