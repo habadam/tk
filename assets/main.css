@@ -29,6 +29,9 @@ button {
   border: 1px solid #bbb;
   background-color: #ddd;
 }
+button:active {
+  background-color: #bbb;
+}
 @font-face {
   font-family: kremlin;
   src: url('kremlin.ttf');
