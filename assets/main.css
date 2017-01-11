@@ -19,6 +19,10 @@ img {
 button {
     font-size:2em;
 }
+button, img {
+  margin: auto;
+  display: block;
+}
 @font-face {
     font-family: kremlin;
     src: url('kremlin.ttf');
