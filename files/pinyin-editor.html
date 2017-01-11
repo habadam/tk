@@ -106,15 +106,12 @@
 
       function addTones(letters, tone) {
         let index = 0;
-        console.log("Letters:",letters);
         for (let i = 0;i<letters.length;i++) {
           isVowel(letters[i]) && i>index ? index = i : null;
         }
         if (letters.join("").indexOf("a")>-1) index = letters.join("").indexOf("a");
         if (letters.join("").indexOf("ou")>-1) index = letters.join("").indexOf("ou");
-        console.log("Replacement index:", index, "\nLetter:", letters[index], "\nTone:", tone, "\nShould be replaced with:",tones[letters[index]][tone]);
         letters[index] = tones[letters[index]][tone-1];
-        console.log("Returning:",letters.join(""));
         return letters.join("");
       }
     }]);
