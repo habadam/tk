@@ -13,7 +13,7 @@
   <textarea name="input" placeholder="ni3 shi4 wo3de xiao3 ping2guo3" ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-  <textarea placeholder="nǐ shì wǒde xiǎo píngguǒ" ng-model="m.output" id="output" disabled=""></textarea>
+  <pre placeholder="nǐ shì wǒde xiǎo píngguǒ" ng-bind="m.output" id="output"></pre>
   <div class="block">
     <button ng-click="m.selectText()">Copy output</button>
   </div>
@@ -63,9 +63,21 @@
       }
 
       vm.selectText = ()=>{
-        document.getElementById('output').select();
+        var doc = document, text = doc.getElementById("output"), range, selection;
+        if (doc.body.createTextRange) {
+          range = document.body.createTextRange();
+          range.moveToElementText(text);
+          range.select();
+        } else if (window.getSelection) {
+          selection = window.getSelection();
+          range = document.createRange();
+          range.selectNodeContents(text);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
         try {
           document.execCommand('copy');
+          window.getSelection().removeAllRanges();
         } catch (e) { }
       }
     }]);
