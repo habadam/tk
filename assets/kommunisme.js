@@ -4,7 +4,7 @@ var title = Math.random();
 
 var surname = Math.random();
 
-var userName = prompt ("Hva er ditt fornavn?");
+var userName = prompt ("What is your first name?");
 
 if (title <= 0.2) {
 title = "Comrade";
