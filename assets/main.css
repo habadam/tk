@@ -1,8 +1,11 @@
 body {
   background-color: #cc0000;
-  font-size:2em;
+  font-size:1.6em;
   font-family: kremlin;
   text-align: center;
+}
+* {
+  max-width: 100%;
 }
 h1, p, li {
   color: gold;
