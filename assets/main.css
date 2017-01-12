@@ -15,10 +15,12 @@ ul {
   list-style-type: upper-roman;
 }
 img {
+  transition: 0.5s max-width ease-in-out;
   width:100%;
   max-width: 500px;
 }
 button {
+  transition: 0.5s font-size ease-in-out;
   font-size:1em;
   font-family: kremlin;
   border-radius: 10px;
@@ -32,9 +34,6 @@ button:active {
 @font-face {
   font-family: kremlin;
   src: url('kremlin.ttf');
-}
-img, button {
-  transition: 0.5s max-width, font-size ease-in-out;
 }
 img:hover {max-width:600px}
 button:hover {font-size:1.4em}
