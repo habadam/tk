@@ -4,18 +4,12 @@ body {
   font-family: kremlin;
   text-align: center;
 }
-h1 {
-  color: yellow;
-}
-p {
-  color: yellow;
+h1, p, li {
+  color: gold;
 }
 ul {
   list-style-position: inside;
   list-style-type: upper-roman;
-}
-li {
-  color: yellow;
 }
 img {
   width:100%;
