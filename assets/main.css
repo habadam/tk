@@ -13,6 +13,13 @@ h1, p, li {
 ul {
   list-style-position: inside;
   list-style-type: upper-roman;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 0;
+}
+li {
+  min-width: 33%;
 }
 img {
   width:100%;
