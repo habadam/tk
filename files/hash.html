@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="mainCtrl as m">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+	<title>Hasj, but no salt</title>
+  <link rel="stylesheet" href="../assets/standard-tool-css.css">
+	<link rel="icon" href="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/cannabis-128.png" type="image/png">
+</head>
+<body>
+  <h1>Simple hash function</h1>
+
+  <h3>Input:</h3>
+  <textarea name="input" placeholder="A secret message…" ng-model="m.input" ng-keyup="m.process()"></textarea>
+
+  <h3>Output:</h3>
+  <pre placeholder="ľȔѥЌɈɜˀĀĀЄ҈ǈ" ng-bind="m.output" id="output"></pre>
+  <div class="block">
+    <button ng-click="m.selectText()">Copy output</button>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.config(function($sceProvider) {
+      $sceProvider.enabled(false);
+    });
+    app.controller('mainCtrl', ['$http', '$timeout', function ($http, $timeout) {
+      var vm = this;
+      vm.input = "";
+      vm.output = "";
+
+      vm.process = function () {
+				vm.output = "";
+				let code = 0;
+				for (let i = 0; i < vm.input.length; i++) {
+					code += vm.input.charCodeAt(i);
+				}
+				code = ((code%4+2+code%3)*(4+(code%5+1)+13*Math.ceil(Math.pow(code,code%6)+1)*(1+Math.pow(code%4+1,3)))%5 + 1)*((code%8+1)*(code%17+1)%29)*(code%11+2) + 200 + (code % 421 + code % 4 + 2*code % 233) + (1400*(code%800 + 133)+10*code);
+				for (let i = 0;i<12+(code % 10)+Math.floor(vm.input.length*0.05);i++) {
+					let charcode = ((code % 41)*(code % 52 + 12)%1000) + 200;
+					vm.output += String.fromCharCode(charcode);
+					code -= charcode;
+				}
+      };
+
+      vm.selectText = ()=>{
+        var doc = document, text = doc.getElementById("output"), range, selection;
+        if (doc.body.createTextRange) {
+          range = document.body.createTextRange();
+          range.moveToElementText(text);
+          range.select();
+        } else if (window.getSelection) {
+          selection = window.getSelection();
+          range = document.createRange();
+          range.selectNodeContents(text);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        try {
+          document.execCommand('copy');
+          $timeout(()=>{
+            window.getSelection().removeAllRanges();
+          }, 100);
+        } catch (e) { console.warn("Error", e); }
+      }
+    }]);
+  </script>
+</body>
+</html>
