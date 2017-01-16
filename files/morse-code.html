@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="mainCtrl as m">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+		<title>Morse encoder/decoder</title>
+		<link rel="stylesheet" href="../assets/standard-tool-css.css">
+		<link rel="icon" href="https://cdn1.iconfinder.com/data/icons/morse/154/morse-alphabel-letter-h-256.png" type="image/png">
+	</head>
+	<body>
+		<h1>Morse encoding/decoding tool</h1>
+
+	<ul class="menu">
+		<li ng-click="m.setMode(0)" ng-class="{active: m.encode}">Encode</li>
+		<li ng-click="m.setMode(1)" ng-class="{active: !m.encode}">Decode</li>
+	</ul>
+
+  <h3>Input:</h3>
+	<textarea name="input" placeholder="{{m.inputPlaceholder()}}" ng-model="m.input" ng-keyup="m.process()"></textarea>
+
+  <h3>Output:</h3>
+	<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.output" id="output"></pre>
+  <div class="block">
+    <button ng-click="m.selectText()">Copy output</button>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.config(function($sceProvider) {
+      $sceProvider.enabled(false);
+    });
+    app.controller('mainCtrl', ['$http', '$timeout', function ($http, $timeout) {
+      var vm = this;
+      vm.input = "";
+      vm.output = "";
+			vm.encode = true;
+			vm.morseStr = "•••• • •-•• •-•• --- •-- --- •-• •-•• -••";
+			vm.enStr = "Hello World";
+
+			vm.setMode = (mode)=>{
+				vm.encode = !mode;
+				vm.process();
+			};
+
+			vm.inputPlaceholder = ()=>{
+				return vm.encode ? vm.enStr : vm.morseStr;
+			};
+
+			vm.outputPlaceholder = ()=>{
+				return vm.encode ? vm.morseStr : vm.enStr;
+			};
+
+      vm.process = function () {
+        vm.output = vm.input;
+				if (vm.encode) {
+					vm.output = vm.output.replace(" ", "   ");
+					vm.output = vm.output.replace(/[a-z0-9,?•]/gi, (match)=>{
+						return " "+vm.code[match.toUpperCase()];
+					});
+				} else {
+					vm.output = vm.output.replace(/(^[\.•-]+)|\s[\.•-]+/gi, (match)=>{
+						match = match.replace(/\./g, "•");
+						return vm.rcode[match.trim()] || match;
+					})
+					vm.output = vm.output.charAt(0).toUpperCase() + vm.output.slice(1).toLowerCase();
+				}
+				vm.output = vm.output.trim();
+      };
+
+      vm.selectText = ()=>{
+        var doc = document, text = doc.getElementById("output"), range, selection;
+        if (doc.body.createTextRange) {
+          range = document.body.createTextRange();
+          range.moveToElementText(text);
+          range.select();
+        } else if (window.getSelection) {
+          selection = window.getSelection();
+          range = document.createRange();
+          range.selectNodeContents(text);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        try {
+          document.execCommand('copy');
+          $timeout(()=>{
+            window.getSelection().removeAllRanges();
+          }, 100);
+        } catch (e) { console.warn("Error", e); }
+      }
+
+
+			vm.code = {
+				"0": "-----",
+				"1": "•----",
+				"2": "••---",
+				"3": "•••--",
+				"4": "••••-",
+				"5": "•••••",
+				"6": "-••••",
+				"7": "--•••",
+				"8": "---••",
+				"9": "----•",
+				"A": "•-",
+				"N": "-•",
+				"B": "-•••",
+				"O": "---",
+				"C": "-•-•",
+				"P": "•--•",
+				"D": "-••",
+				"Q": "--•-",
+				"E": "•",
+				"R": "•-•",
+				"F": "••-•",
+				"S": "•••",
+				"G": "--•",
+				"T": "-",
+				"H": "••••",
+				"U": "••-",
+				"I": "••",
+				"V": "•••-",
+				"J": "•---",
+				"W": "•--",
+				"K": "-•-",
+				"X": "-••-",
+				"L": "•-••",
+				"Y": "-•--",
+				"M": "--",
+				"Z": "--••",
+				",": "--••--",
+				"•": "•-•-•-",
+				"?": "••--••"
+			};
+
+			vm.rcode = {};
+			for (let key in vm.code) {
+				vm.rcode[vm.code[key]] = key;
+			};
+    }]);
+
+  </script>
+</body>
+</html>
