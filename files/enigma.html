@@ -51,41 +51,22 @@
 			};
 
       vm.process = function () {
+				vm.newKey(true);
 				if (vm.encode) {
 					// kode for å enkode
 					vm.output = vm.input.replace(/./gi, (match)=>{
-						let char_code = match.charCodeAt(0);
-						if (char_code >= 32 && char_code <= 126) {
-							char_code = char_code * vm.key;
-							let iterations = [];
-							iterations[0] = 158;
-							while ((char_code)%9 !== 0 && char_code >= 32) {
-								char_code -= 8;
-								iterations[0]++;
-							}
-							iterations[1] = 158;
-							while (char_code%2 !== 0 && iterations[1] < 256) {
-								char_code -= 3;
-								iterations[1]++;
-							}
-							iterations[2] = 158;
-							while (char_code > 1500) {
-								char_code -= 19;
-								for (let i = 0;i<11;i++) {
-									char_code = !char_code%i ? char_code/i : char_code;
-								}
-								iterations[2]++;
-							}
-							let retstr = String.fromCharCode(char_code);
-							for (let i = 0; i < iterations.length; i++) {
-								retstr += String.fromCharCode(iterations[i]);
-							}
-							return retstr;
-						}
+						enc_code = 5*vm.key - match.charCodeAt(0);
+						vm.key -= 19;
+						return String.fromCharCode(enc_code);
 					});
 				} else {
 					// kode for å dekode
 					vm.output = "Dekrypteringsfunksjonen er ikke laget ennå";
+					vm.output = vm.input.replace(/./gi, (match)=>{
+						char_code = 5*vm.key - match.charCodeAt(0);
+						vm.key -= 19;
+						return String.fromCharCode(char_code);
+					})
 				}
       };
 
@@ -96,17 +77,17 @@
 				return vm.encode ? vm.morseStr : vm.enStr;
 			};
 
-			vm.newKey = ()=>{
+			vm.newKey = (skip)=>{
 				let d = new Date().getDate()*(new Date().getMonth()+2);
-				let date_code = Math.ceil((d%9+((d*(d%9+2)*(d*(d+d%2))))%23)*(d%13+d*(d%19) + 2)/2);
+				let date_code = Math.ceil((d%9+((d*(d%9+2)*(d*(d+d%2))))%23)*(d%13+d*(d%19) + 2)/25);
 				let keycode = 0;
 				for (i=0;i<vm.keyphrase.length;i++) {
 					let char_code = vm.keyphrase.charCodeAt(i);
 					keycode += (char_code % 9 + (char_code % 19) % 13 + 12)*(Math.ceil(Math.pow(char_code, 1.7)) + char_code  % 5 + 3)%(423-(i*(i%7)));
 				}
-				vm.key = date_code + keycode;
+				vm.key = date_code + keycode % 2500;
 				console.log("vm.key now:", vm.key);
-				vm.process();
+				!skip ? vm.process() : "";
 			}
 			vm.newKey();
       vm.selectText = ()=>{
