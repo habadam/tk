@@ -50,13 +50,42 @@
 			};
 
       vm.process = function () {
-        vm.output = vm.input.toUpperCase();
 				if (vm.encode) {
 					// kode for å enkode
+					vm.output = vm.input.replace(/./gi, (match)=>{
+						let char_code = match.charCodeAt(0);
+						if (char_code >= 32 && char_code <= 126) {
+							char_code = char_code * vm.key;
+							let iterations = [];
+							iterations[0] = 158;
+							while ((char_code)%9 !== 0 && char_code >= 32) {
+								char_code -= 8;
+								iterations[0]++;
+							}
+							iterations[1] = 158;
+							while (char_code%2 !== 0 && iterations[1] < 256) {
+								char_code -= 3;
+								iterations[1]++;
+							}
+							iterations[2] = 158;
+							while (char_code > 1500) {
+								char_code -= 19;
+								for (let i = 0;i<11;i++) {
+									char_code = !char_code%i ? char_code/i : char_code;
+								}
+								iterations[2]++;
+							}
+							let retstr = String.fromCharCode(char_code);
+							for (let i = 0; i < iterations.length; i++) {
+								retstr += String.fromCharCode(iterations[i]);
+							}
+							return retstr;
+						}
+					});
 				} else {
 					// kode for å dekode
+					vm.output = "Dekrypteringsfunksjonen er ikke laget ennå";
 				}
-				vm.output = vm.output.trim();
       };
 
 			vm.inputPlaceholder = ()=>{
@@ -76,6 +105,7 @@
 				}
 				vm.key = date_code + keycode;
 				console.log("vm.key now:", vm.key);
+				vm.process();
 			}
 			vm.newKey();
       vm.selectText = ()=>{
