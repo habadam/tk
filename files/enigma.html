@@ -39,9 +39,7 @@
 			vm.enStr = "Type a message that you wish to encrypt";
 			vm.setMode = (mode)=>{
 				vm.encode = !mode;
-				if (/^[\w\s,?]+$/.test(vm.input) && mode == 1 || /^[-•\s]+$/.test(vm.input) && mode == 0) {
-					vm.input = vm.output;
-				}
+				vm.input = vm.output;
 				vm.process();
 			};
 			vm.inputPlaceholder = ()=>{
@@ -53,17 +51,9 @@
       vm.process = function () {
         vm.output = vm.input.toUpperCase();
 				if (vm.encode) {
-					vm.output = vm.output.replace(/\s+/g, "	");
-					vm.output = vm.output.replace(/[a-z0-9,?•]/gi, (match)=>{
-						return " "+vm.code[match.toUpperCase()];
-					});
+					// kode for å enkode
 				} else {
-					vm.output = vm.output.replace(/(^[\.•-]+)|\s[\.•-]+/gi, (match)=>{
-						match = match.replace(/\./g, "•");
-						return vm.rcode[match.trim()] || match;
-					})
-					vm.output = vm.output.charAt(0).toUpperCase() + vm.output.slice(1).toLowerCase();
-					vm.output = vm.output.replace(/\s+/g, " ");
+					// kode for å dekode
 				}
 				vm.output = vm.output.trim();
       };
