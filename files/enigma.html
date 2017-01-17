@@ -48,6 +48,24 @@
 				vm.input = vm.output;
 				vm.process();
 			};
+
+      vm.process = function () {
+        vm.output = vm.input.toUpperCase();
+				if (vm.encode) {
+					// kode for å enkode
+				} else {
+					// kode for å dekode
+				}
+				vm.output = vm.output.trim();
+      };
+
+			vm.inputPlaceholder = ()=>{
+				return vm.encode ? vm.enStr : vm.morseStr;
+			};
+			vm.outputPlaceholder = ()=>{
+				return vm.encode ? vm.morseStr : vm.enStr;
+			};
+
 			vm.newKey = ()=>{
 				let d = new Date().getDate()*(new Date().getMonth()+2);
 				let date_code = Math.ceil((d%9+((d*(d%9+2)*(d*(d+d%2))))%23)*(d%13+d*(d%19) + 2)/2);
@@ -60,21 +78,6 @@
 				console.log("vm.key now:", vm.key);
 			}
 			vm.newKey();
-			vm.inputPlaceholder = ()=>{
-				return vm.encode ? vm.enStr : vm.morseStr;
-			};
-			vm.outputPlaceholder = ()=>{
-				return vm.encode ? vm.morseStr : vm.enStr;
-			};
-      vm.process = function () {
-        vm.output = vm.input.toUpperCase();
-				if (vm.encode) {
-					// kode for å enkode
-				} else {
-					// kode for å dekode
-				}
-				vm.output = vm.output.trim();
-      };
       vm.selectText = ()=>{
         var doc = document, text = doc.getElementById("output"), range, selection;
         if (doc.body.createTextRange) {
