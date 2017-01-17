@@ -58,6 +58,9 @@
         vm.output = vm.input;
 				if (vm.encode) {
 					vm.output = vm.output.replace(/\s+/g, "	");
+					vm.output = vm.output.replace(/å+/g, "aa");
+					vm.output = vm.output.replace(/ø+/g, "oe");
+					vm.output = vm.output.replace(/æ+/g, "ae");
 					vm.output = vm.output.replace(/[a-z0-9,?•]/gi, (match)=>{
 						return " "+vm.code[match.toUpperCase()];
 					});
