@@ -5,27 +5,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
 		<title>Enigma Machine</title>
 		<link rel="stylesheet" href="../assets/standard-tool-css.css">
+		<link rel="stylesheet" href="../assets/enigma.css">
 		<link rel="apple-touch-icon" href="https://static-s.aa-cdn.net/img/gp/20600005222152/5VqSpUgxQQkRTyPfatTm3KaVzOXzzFjnjEizGrrbot0fdM-arn7fM-_yKy3p98JxnQ=w300?v=1" type="image/png"> 
 		<link rel="icon" href="https://static-s.aa-cdn.net/img/gp/20600005222152/5VqSpUgxQQkRTyPfatTm3KaVzOXzzFjnjEizGrrbot0fdM-arn7fM-_yKy3p98JxnQ=w300?v=1" type="image/png">
 	</head>
 	<body>
-		<h1>𝕯𝖎𝖌𝖎𝖙𝖆𝖑 𝕰𝖓𝖎𝖌𝖒𝖆 𝕸𝖆𝖈𝖍𝖎𝖓𝖊</h1>
+		<h1>Digital Enigma Machine</h1>
 
 	<ul class="menu">
-		<li ng-click="m.setMode(0)" ng-class="{active: m.encode}">𝕰𝖓𝖈𝖗𝖞𝖕𝖙 𝕸𝖊𝖘𝖘𝖆𝖌𝖊</li>
-		<li ng-click="m.setMode(1)" ng-class="{active: !m.encode}">𝕯𝖊𝖈𝖗𝖞𝖕𝖙 𝕸𝖊𝖘𝖘𝖆𝖌𝖊</li>
+		<li ng-click="m.setMode(0)" ng-class="{active: m.encode}">Encrypt Message</li>
+		<li ng-click="m.setMode(1)" ng-class="{active: !m.encode}">Decrypt Message</li>
 	</ul>
 
-	<h3>𝕶𝖊𝖞:</h3>
+	<h3>Key:</h3>
 	<input name="keyphrase" placeholder="• • • • • • • •" ng-model="m.keyphrase" ng-keyup="m.newKey()" type="text">
 
-  <h3>𝕴𝖓𝖕𝖚𝖙:</h3>
+  <h3>Input:</h3>
 	<textarea name="input" placeholder="{{m.inputPlaceholder()}}" ng-model="m.input" ng-keyup="m.process()"></textarea>
 
-  <h3>𝕺𝖚𝖙𝖕𝖚𝖙:</h3>
+  <h3>Output</h3>
 	<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.output" id="output"></pre>
   <div class="block">
-    <button ng-click="m.selectText()">𝕮𝖔𝖕𝖞 𝕺𝖚𝖙𝖕𝖚𝖙</button>
+    <button ng-click="m.selectText()">Copy Output</button>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
