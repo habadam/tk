@@ -40,7 +40,7 @@
 
 			vm.setMode = (mode)=>{
 				vm.encode = !mode;
-				if (/^[\w\s]+$/.test(vm.input) && mode == 1 || /^[-•\s]+$/.test(vm.input) && mode == 0) {
+				if (/^[\w\s,?]+$/.test(vm.input) && mode == 1 || /^[-•\s]+$/.test(vm.input) && mode == 0) {
 					vm.input = vm.output;
 				}
 				vm.process();
@@ -57,7 +57,7 @@
       vm.process = function () {
         vm.output = vm.input;
 				if (vm.encode) {
-					vm.output = vm.output.replace(" ", "   ");
+					vm.output = vm.output.replace(/\s+/g, "	");
 					vm.output = vm.output.replace(/[a-z0-9,?•]/gi, (match)=>{
 						return " "+vm.code[match.toUpperCase()];
 					});
@@ -67,6 +67,7 @@
 						return vm.rcode[match.trim()] || match;
 					})
 					vm.output = vm.output.charAt(0).toUpperCase() + vm.output.slice(1).toLowerCase();
+					vm.output = vm.output.replace(/\s+/g, " ");
 				}
 				vm.output = vm.output.trim();
       };
