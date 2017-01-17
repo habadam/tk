@@ -40,9 +40,7 @@
 
 			vm.setMode = (mode)=>{
 				vm.encode = !mode;
-				if (/^[\w\s,?]+$/.test(vm.input) && mode == 1 || /^[-•\s]+$/.test(vm.input) && mode == 0) {
-					vm.input = vm.output;
-				}
+				vm.input = vm.output;
 				vm.process();
 			};
 
