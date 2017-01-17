@@ -42,8 +42,9 @@
 			vm.key = 0;
 			vm.keyphrase = "";
 			vm.encode = true;
-			vm.morseStr = "HAOC H LDGSSKD KFKB FVK JDHF GK VLVHKTY";
+			vm.morseStr = "⫯⪡⨿⧛⥺⤥⢻⢨⟾➩❅⛦⚈♮◂╯⓾⒧⑊⏦⎐⍶⋀≯∅↲↛";
 			vm.enStr = "Unencrypted message";
+
 			vm.setMode = (mode)=>{
 				vm.encode = !mode;
 				vm.input = vm.output;
@@ -90,6 +91,7 @@
 				!skip ? vm.process() : "";
 			}
 			vm.newKey();
+
       vm.selectText = ()=>{
         var doc = document, text = doc.getElementById("output"), range, selection;
         if (doc.body.createTextRange) {
