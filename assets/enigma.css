@@ -1,0 +1,7 @@
+body, button {
+  font-family: BreitkopfFraktur;
+}
+@font-face {
+  font-family: BreitkopfFraktur;
+  src: url('BreitkopfFraktur.ttf');
+}
