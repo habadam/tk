@@ -52,6 +52,11 @@ h2 {
 .ink-list li .glyphicon {
   margin: auto 15px;
 }
+.ink-list li img {
+	max-height: 26px;
+	vertical-align: middle;
+	margin: 0 15px 0 6px;
+}
 
 /* Links CSS */
 a {
