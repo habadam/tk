@@ -1,94 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Habatools - Encoding and decoding made easy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="TK">
-  <link rel="apple-touch-icon" href="http://www.iconarchive.com/download/i29196/rade8/minium-2/Sidebar-Utilities.ico" />
-  <link rel="icon" href="http://www.iconarchive.com/download/i29196/rade8/minium-2/Sidebar-Utilities.ico">
-  <link rel="stylesheet" href="../assets/fresh.css">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Habatools - Encoding and decoding made easy</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="TK">
+		<link rel="apple-touch-icon" href="http://www.iconarchive.com/download/i29196/rade8/minium-2/Sidebar-Utilities.ico" />
+		<link rel="icon" href="http://www.iconarchive.com/download/i29196/rade8/minium-2/Sidebar-Utilities.ico">
+		<link rel="stylesheet" href="../assets/fresh.css">
+	</head>
+	<body>
+		<h1>Habatools</h1>
+		<h2>Currently released tools:</h2>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			var data = [{
+				name: "Pinyin Editor",
+				filename: "pinyin-editor.html",
+				icon: "http://www.i2clipart.com/cliparts/c/2/9/9/clipart-kanji-o-c299.png"
+			}, {
+				name: "Simple Hash Function",
+				filename: "hash.html",
+				icon: "https://cdn2.iconfinder.com/data/icons/agriculture-1/512/cannabis-128.png"
+			}, {
+				name: "Digital Enigma Machine",
+				filename: "enigma.html",
+				icon: "https://static-s.aa-cdn.net/img/gp/20600005222152/5VqSpUgxQQkRTyPfatTm3KaVzOXzzFjnjEizGrrbot0fdM-arn7fM-_yKy3p98JxnQ=w300?v=1"
+			}, {
+				name: "Morse encoder and decoder",
+				filename: "morse-code.html",
+				icon: "https://cdn1.iconfinder.com/data/icons/morse/154/morse-alphabel-letter-h-256.png"
+			}, {
+				name: "MathTyper",
+				filename: "mathtyper.html",
+				icon: "http://www.iconarchive.com/download/i94336/bokehlicia/captiva/libreoffice-math.ico"
+			}];
+			var items = [];
+			$.each(data, function(key, val) {
+				items.push("<li href=\""+val.filename+"\"><img src=\""+val.icon+"\"><span>" + val.name + "</span></li>");
+			});
+			$("<ul/>", {
+				"class": "ink-list",
+				html: items.join("")
+			}).appendTo("body");
+			$('h5').remove();
+			$('.ink-list>li').click(function() {
+				var filename = $(this).attr('href');
+				setTimeout(function(){
+					window.location.href = filename;
+				}, 500);
+			});
+			var parent, ink, d, x, y;
+			$(".ink-list>li").on("click touchstart", function(e) {
+				parent = $(this);
+				if (parent.find(".ink").length == 0)
+					parent.prepend("<span class='ink'></span>");
 
-  <h1>Habatools</h1>
+				ink = parent.find(".ink");
+				ink.removeClass("animate");
 
-  <h2>Currently released tools:</h2>
+				if (!ink.height() && !ink.width()) {
+					//use parent's width or height whichever is larger for the diameter to make a circle which can cover the entire element.
+					d = Math.max(parent.outerWidth(), parent.outerHeight());
+					ink.css({
+						height: d,
+						width: d
+					});
+				}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script>
-	var data = [
-		{
-			name: "Pinyin Editor",
-			filename: "pinyin-editor.html",
-			icon: "http://www.i2clipart.com/cliparts/c/2/9/9/clipart-kanji-o-c299.png"
-		}, {
-			name: "Simple Hash Function",
-			filename: "hash.html",
-			icon: "https://cdn2.iconfinder.com/data/icons/agriculture-1/512/cannabis-128.png"
-		}, {
-			name: "Digital Enigma Machine",
-			filename: "enigma.html",
-			icon: "https://static-s.aa-cdn.net/img/gp/20600005222152/5VqSpUgxQQkRTyPfatTm3KaVzOXzzFjnjEizGrrbot0fdM-arn7fM-_yKy3p98JxnQ=w300?v=1"
-		}, {
-			name: "Morse encoder and decoder",
-			filename: "morse-code.html",
-			icon: "https://cdn1.iconfinder.com/data/icons/morse/154/morse-alphabel-letter-h-256.png"
-		}, {
-			name: "MathTyper",
-			filename: "mathtyper.html",
-			icon: "http://www.iconarchive.com/download/i94336/bokehlicia/captiva/libreoffice-math.ico"
-		}
-	];
-	var items = [];
-	$.each(data, function(key, val) {
-		items.push("<li href=\""+val.filename+"\"><img src=\""+val.icon+"\"><span>" + val.name + "</span></li>");
-	});
-	$("<ul/>", {
-		"class": "ink-list",
-		html: items.join("")
-	}).appendTo("body");
-	$('h5').remove();
+				x = e.pageX - parent.offset().left - ink.width() / 2;
+				y = e.pageY - parent.offset().top - ink.height() / 2;
 
-	bindEvents();
-
-	function bindEvents() {
-		$('.ink-list>li').click(function() {
-			var filename = $(this).attr('href');
-			setTimeout(function(){
-				window.location.href = filename;
-			}, 500);
-		});
-		var parent, ink, d, x, y;
-		$(".ink-list>li").on("click touchstart", function(e) {
-			parent = $(this);
-			if (parent.find(".ink").length == 0)
-				parent.prepend("<span class='ink'></span>");
-
-			ink = parent.find(".ink");
-			ink.removeClass("animate");
-
-			if (!ink.height() && !ink.width()) {
-				//use parent's width or height whichever is larger for the diameter to make a circle which can cover the entire element.
-				d = Math.max(parent.outerWidth(), parent.outerHeight());
 				ink.css({
-					height: d,
-					width: d
-				});
-			}
-
-			x = e.pageX - parent.offset().left - ink.width() / 2;
-			y = e.pageY - parent.offset().top - ink.height() / 2;
-
-			ink.css({
-				top: y + 'px',
-				left: x + 'px'
-			}).addClass("animate");
-		})
-	}
-	</script>
-
-</body>
+					top: y + 'px',
+					left: x + 'px'
+				}).addClass("animate");
+			})
+		</script>
+	</body>
 </html>

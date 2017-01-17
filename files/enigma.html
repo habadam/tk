@@ -13,107 +13,107 @@
 	<body>
 		<h1>Digital Enigma Machine</h1>
 
-	<ul class="menu">
-		<li ng-click="m.setMode(0)" ng-class="{active: m.encode}">Encrypt Message</li>
-		<li ng-click="m.setMode(1)" ng-class="{active: !m.encode}">Decrypt Message</li>
-	</ul>
+		<ul class="menu">
+			<li ng-click="m.setMode(0)" ng-class="{active: m.encode}">Encrypt Message</li>
+			<li ng-click="m.setMode(1)" ng-class="{active: !m.encode}">Decrypt Message</li>
+		</ul>
 
-	<h3>Key:</h3>
-	<input name="keyphrase" placeholder="• • • • • • • •" ng-model="m.keyphrase" ng-keyup="m.newKey()" type="text">
+		<h3>Key:</h3>
+		<input name="keyphrase" placeholder="• • • • • • • •" ng-model="m.keyphrase" ng-keyup="m.newKey()" type="text">
 
-  <h3>Input:</h3>
-	<textarea name="input" placeholder="{{m.inputPlaceholder()}}" ng-model="m.input" ng-keyup="m.process()"></textarea>
+		<h3>Input:</h3>
+		<textarea name="input" placeholder="{{m.inputPlaceholder()}}" ng-model="m.input" ng-keyup="m.process()"></textarea>
 
-  <h3>Output</h3>
-	<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.output" id="output"></pre>
-  <div class="block">
-    <button ng-click="m.selectText()">Copy Output</button>
-  </div>
+		<h3>Output</h3>
+		<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.output" id="output"></pre>
+		<div class="block">
+			<button ng-click="m.selectText()">Copy Output</button>
+		</div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-  <script type="text/javascript">
-    var app = angular.module('app', []);
-    app.config(function($sceProvider) {
-      $sceProvider.enabled(false);
-    });
-    app.controller('mainCtrl', ['$http', '$timeout', function ($http, $timeout) {
-      var vm = this;
-      vm.input = "";
-      vm.output = "";
-			vm.key = 0;
-			vm.keyphrase = "";
-			vm.encode = true;
-			vm.morseStr = "⫯⪡⨿⧛⥺⤥⢻⢨⟾➩❅⛦⚈♮◂╯⓾⒧⑊⏦⎐⍶⋀≯∅↲↛";
-			vm.enStr = "Unencrypted message";
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('app', []);
+			app.config(function($sceProvider) {
+				$sceProvider.enabled(false);
+			});
+			app.controller('mainCtrl', ['$http', '$timeout', function ($http, $timeout) {
+				var vm = this;
+				vm.input = "";
+				vm.output = "";
+				vm.key = 0;
+				vm.keyphrase = "";
+				vm.encode = true;
+				vm.morseStr = "⫯⪡⨿⧛⥺⤥⢻⢨⟾➩❅⛦⚈♮◂╯⓾⒧⑊⏦⎐⍶⋀≯∅↲↛";
+				vm.enStr = "Unencrypted message";
 
-			vm.setMode = (mode)=>{
-				vm.encode = !mode;
-				vm.input = vm.output;
-				vm.process();
-			};
+				vm.setMode = (mode)=>{
+					vm.encode = !mode;
+					vm.input = vm.output;
+					vm.process();
+				};
 
-      vm.process = function () {
-				vm.newKey(true);
-				if (vm.encode) {
-					// kode for å enkode
-					vm.output = vm.input.replace(/./gi, (match)=>{
-						enc_code = 5*vm.key - match.charCodeAt(0);
-						vm.key -= 19;
-						return String.fromCharCode(enc_code);
-					});
-				} else {
-					// kode for å dekode
-					vm.output = "Dekrypteringsfunksjonen er ikke laget ennå";
-					vm.output = vm.input.replace(/./gi, (match)=>{
-						char_code = 5*vm.key - match.charCodeAt(0);
-						vm.key -= 19;
-						return String.fromCharCode(char_code);
-					})
+				vm.process = function () {
+					vm.newKey(true);
+					if (vm.encode) {
+						// kode for å enkode
+						vm.output = vm.input.replace(/./gi, (match)=>{
+							enc_code = 5*vm.key - match.charCodeAt(0);
+							vm.key -= 19;
+							return String.fromCharCode(enc_code);
+						});
+					} else {
+						// kode for å dekode
+						vm.output = "Dekrypteringsfunksjonen er ikke laget ennå";
+						vm.output = vm.input.replace(/./gi, (match)=>{
+							char_code = 5*vm.key - match.charCodeAt(0);
+							vm.key -= 19;
+							return String.fromCharCode(char_code);
+						})
+					}
+				};
+
+				vm.inputPlaceholder = ()=>{
+					return vm.encode ? vm.enStr : vm.morseStr;
+				};
+				vm.outputPlaceholder = ()=>{
+					return vm.encode ? vm.morseStr : vm.enStr;
+				};
+
+				vm.newKey = (skip)=>{
+					let d = new Date().getDate()*(new Date().getMonth()+2);
+					let date_code = Math.ceil((d%9+((d*(d%9+2)*(d*(d+d%2))))%23)*(d%13+d*(d%19) + 2)/25);
+					let keycode = 0;
+					for (i=0;i<vm.keyphrase.length;i++) {
+						let char_code = vm.keyphrase.charCodeAt(i);
+						keycode += (char_code % 9 + (char_code % 19) % 13 + 12)*(Math.ceil(Math.pow(char_code, 1.7)) + char_code  % 5 + 3)%(423-(i*(i%7)));
+					}
+					vm.key = date_code + keycode % 2500;
+					console.log("vm.key now:", vm.key);
+					!skip ? vm.process() : "";
 				}
-      };
+				vm.newKey();
 
-			vm.inputPlaceholder = ()=>{
-				return vm.encode ? vm.enStr : vm.morseStr;
-			};
-			vm.outputPlaceholder = ()=>{
-				return vm.encode ? vm.morseStr : vm.enStr;
-			};
-
-			vm.newKey = (skip)=>{
-				let d = new Date().getDate()*(new Date().getMonth()+2);
-				let date_code = Math.ceil((d%9+((d*(d%9+2)*(d*(d+d%2))))%23)*(d%13+d*(d%19) + 2)/25);
-				let keycode = 0;
-				for (i=0;i<vm.keyphrase.length;i++) {
-					let char_code = vm.keyphrase.charCodeAt(i);
-					keycode += (char_code % 9 + (char_code % 19) % 13 + 12)*(Math.ceil(Math.pow(char_code, 1.7)) + char_code  % 5 + 3)%(423-(i*(i%7)));
+				vm.selectText = ()=>{
+					var doc = document, text = doc.getElementById("output"), range, selection;
+					if (doc.body.createTextRange) {
+						range = document.body.createTextRange();
+						range.moveToElementText(text);
+						range.select();
+					} else if (window.getSelection) {
+						selection = window.getSelection();
+						range = document.createRange();
+						range.selectNodeContents(text);
+						selection.removeAllRanges();
+						selection.addRange(range);
+					}
+					try {
+						document.execCommand('copy');
+						$timeout(()=>{
+							window.getSelection().removeAllRanges();
+						}, 100);
+					} catch (e) { console.warn("Error", e); }
 				}
-				vm.key = date_code + keycode % 2500;
-				console.log("vm.key now:", vm.key);
-				!skip ? vm.process() : "";
-			}
-			vm.newKey();
-
-      vm.selectText = ()=>{
-        var doc = document, text = doc.getElementById("output"), range, selection;
-        if (doc.body.createTextRange) {
-          range = document.body.createTextRange();
-          range.moveToElementText(text);
-          range.select();
-        } else if (window.getSelection) {
-          selection = window.getSelection();
-          range = document.createRange();
-          range.selectNodeContents(text);
-          selection.removeAllRanges();
-          selection.addRange(range);
-        }
-        try {
-          document.execCommand('copy');
-          $timeout(()=>{
-            window.getSelection().removeAllRanges();
-          }, 100);
-        } catch (e) { console.warn("Error", e); }
-      }
-    }]);
-  </script>
+			}]);
+		</script>
 </body>
 </html>

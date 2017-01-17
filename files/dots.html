@@ -1,73 +1,56 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)http://www.thorin-games.tk/sites/files/Dots.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <title>Dots!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
-  <style>
-  body, p {
-    margin: 0px;
-    font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  }
-  .dot {
-    width: 2px;
-    height: 2px;
-    background-color: black;
-    position: absolute;
-    transition: height, width, opacity 1s;
-    animation-name: bubble;
-    animation-duration: 2.5s;
-    border-radius:100%;
-    background-color:rgba(51,122,183,.5);
-  }
-  @keyframes bubble {
-    0%   {height:0px;width:0px;}
-    /*50%  {height:20px;width:20px;}*/
-    100% {height:40px;width:40px;opacity: 0;}
-  }
-  </style>
-</head>
-<body>
-  <script>
-  (function() {
-    "use strict";
-
-    if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())) {
-      if (navigator.language.indexOf('no') > -1 || navigator.language.indexOf('nb') > -1) {
-        document.write('<h3>Denne nettsiden funker ikke på mobiler og nettbrett</h3>')
-      } else {
-        document.write('<h3>This webpage does not work on mobile devices</h3>')
-      }
-    } else {
-      document.write('<p>Dots: <span id="damount">1</span></p>');
-
-      document.getElementsByTagName('body')[0].setAttribute('style', 'height:'+window.innerHeight+'px');
-
-      setInterval(function(){
-        document.getElementById('damount').innerHTML = document.getElementsByClassName('dot').length;
-      }, 10);
-
-      document.onmousemove = handleMouseMove;
-      function handleMouseMove(event) {
-        var dot, eventDoc, doc, body, pageX, pageY;
-
-        event = event || window.event; // IE-ism
-
-      // Add a dot to follow the cursor
-      dot = document.createElement('div');
-      dot.className = "dot";
-      var randStr = Math.round((Math.pow(36, 6 + 1) - Math.random() * Math.pow(36, 6))).toString(36).slice(1);
-      dot.setAttribute('id', randStr);
-      dot.style.left = event.pageX-10 + "px";
-      dot.style.top = event.pageY-10 + "px";
-      document.body.appendChild(dot);
-      setTimeout(function(){
-        document.getElementsByTagName("body")[0].removeChild(document.getElementById(randStr));
-      }, 2500);
-    }
-
-  }
-})();
-</script>
-
-<div class="dot" id="d8o3ql" style="left: 579px; top: 277px;"></div></body></html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Dots!</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+		<style>
+			body, p {
+				margin: 0px;
+				font-family: ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			}
+			.dot {
+				width: 2px;
+				height: 2px;
+				background-color: black;
+				position: absolute;
+				transition: height, width, opacity 1s;
+				animation-name: bubble;
+				animation-duration: 2.5s;
+				border-radius:100%;
+				background-color:rgba(51,122,183,.5);
+			}
+			@keyframes bubble {
+				0%   {height:0px;width:0px;}
+				/*50%  {height:20px;width:20px;}*/
+				100% {height:40px;width:40px;opacity: 0;}
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			(function() {
+				document.write('<p>Dots: <span id="damount">1</span></p>');
+				document.getElementsByTagName('body')[0].setAttribute('style', 'height:'+window.innerHeight+'px');
+				setInterval(function(){
+					document.getElementById('damount').innerHTML = document.getElementsByClassName('dot').length;
+				}, 10);
+				document.onmousemove = handleMouseMove;
+				function handleMouseMove(event) {
+					var dot, eventDoc, doc, body, pageX, pageY;
+					dot = document.createElement('div');
+					dot.className = "dot";
+					var randStr = Math.round((Math.pow(36, 6 + 1) - Math.random() * Math.pow(36, 6))).toString(36).slice(1);
+					dot.setAttribute('id', randStr);
+					dot.style.left = event.pageX-10 + "px";
+					dot.style.top = event.pageY-10 + "px";
+					document.body.appendChild(dot);
+					setTimeout(function(){
+						document.getElementsByTagName("body")[0].removeChild(document.getElementById(randStr));
+					}, 2500);
+				}
+			})();
+		</script>
+		<div class="dot" id="d8o3ql" style="left: 579px; top: 277px;"></div>
+	</body>
+</html>
