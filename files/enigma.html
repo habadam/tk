@@ -63,7 +63,6 @@
 						});
 					} else {
 						// kode for å dekode
-						vm.output = "Dekrypteringsfunksjonen er ikke laget ennå";
 						vm.output = vm.input.replace(/./gi, (match)=>{
 							char_code = 5*vm.key - match.charCodeAt(0);
 							vm.key -= 19;
