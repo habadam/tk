@@ -1,14 +1,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
 <script>
-document.write('Working...')
-var calcs = 0;
-var start = Date.now();
-var inter = setInterval(function(){
-  calcs += 1;
-  if (calcs == 1048) {
-    clearInterval(inter);
-    var dur = Date.now()-start;
-    document.write('1024 calculations made in '+dur+' ms')
-  }
+var calcs = 0, start = Date.now(), inter = setInterval(function(){
+  calcs++;
+	calcs == 1048 ? clearInterval(inter) : "";
+  document.write(calcs + 'calculations made in '+(Date.now()-start)+' ms')
 }, 0);
 </script>
