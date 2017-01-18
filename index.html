@@ -11,12 +11,9 @@
   <link rel="stylesheet" href="assets/fresh.css">
 </head>
 <body>
-
   <h1>TK — Technological Kapoo</h1>
-
   <h2>Sider:</h2>
   <h5>Loading...</h5>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
     $.getJSON("https://api.github.com/repos/habadam/tk/contents/files?"+Date.now(), function(data) {
@@ -32,7 +29,6 @@
 
       bindEvents();
     });
-
     function bindEvents() {
       $('.ink-list>li').click(function() {
         var filename = $(this)[0].textContent;
@@ -48,19 +44,15 @@
 
         ink = parent.find(".ink");
         ink.removeClass("animate");
-
         if (!ink.height() && !ink.width()) {
-          //use parent's width or height whichever is larger for the diameter to make a circle which can cover the entire element.
           d = Math.max(parent.outerWidth(), parent.outerHeight());
           ink.css({
             height: d,
             width: d
           });
         }
-
         x = e.pageX - parent.offset().left - ink.width() / 2;
         y = e.pageY - parent.offset().top - ink.height() / 2;
-
         ink.css({
           top: y + 'px',
           left: x + 'px'
@@ -68,6 +60,5 @@
       })
     }
   </script>
-
 </body>
 </html>
