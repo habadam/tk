@@ -11,7 +11,7 @@ newKey = (input)=>{
 }
 crack = (input)=>{
   console.log('working');
-  str+=" ";
+  str+="0";
   key = newKey(str);
   decoded = input.replace(/./gi, (match)=>{
     enc_code = 5*key - match.charCodeAt(0);
