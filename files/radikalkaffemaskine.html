@@ -16,6 +16,15 @@
 				display: flex;
 				justify-content: center;
 			}
+      @keyframes spin {
+        0% {transform:scaleX(2)}
+        50% {transform:scaleX(0.0000001)}
+        100% {transform:scaleX(2)}
+      }
+      img {
+        animation: spin 1s infinite;
+        transition: 1s all ease-in-out;
+      }
 		</style>
 	</head>
 	<body>
