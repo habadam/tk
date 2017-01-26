@@ -164,7 +164,7 @@
         console.log("spreadsheetId passed line 100 test. Var-dump:","(",typeof spreadsheetId,")",spreadsheetId);
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadsheetId,
-          range: 'Fravær for klassen!B11:B14',
+          range: 'Plusstimer!B11:B14',
         }).then(function(response) {
           appendPre('Lasting fullført.');
           var range = response.result;
