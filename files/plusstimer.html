@@ -218,7 +218,7 @@
         appendPre('Oppdaterer fravær…');
         gapi.client.sheets.spreadsheets.values.update({
           spreadsheetId: spreadsheetId,
-          range: "'Fravær for klassen'!B11:B12",
+          range: "'Plusstimer'!B11:B12",
           valueInputOption: 'USER_ENTERED',
           values: [ [days], [hours] ]
         }).then(function (resp) {
