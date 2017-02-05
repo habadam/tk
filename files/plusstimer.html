@@ -249,7 +249,7 @@
       emptyPre();
       days = typeof preset_days !== "undefined" ? preset_days : prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
       hours = typeof preset_hours !== "undefined" ? preset_hours : prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
-      if (!(typeof skip_conf !== "undefined" && skip_conf) && days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
+      if ((typeof skip_conf !== "undefined" && skip_conf) || (days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours))) {
         q('#output').style.display = 'block';
         appendPre('Oppdaterer fravær…');
         gapi.client.sheets.spreadsheets.values.update({
