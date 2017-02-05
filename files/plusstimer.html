@@ -205,6 +205,7 @@
         if (!resp.error) {
           console.log(resp);
           let oldSheet;
+          let items = resp.items;
           for (var i = 0; i < items.length; i++) {
             if (items[i].mimeType == "application/vnd.google-apps.spreadsheet") {
               appendPre('Fant et gammelt regneark');
