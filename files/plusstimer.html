@@ -49,8 +49,12 @@
 
     let q = (s)=>document.querySelector(s);
     let emptyPre = ()=>q('pre').innerHTML = "";
-    let version = "Uoffisielt midlertidig regneark for plusstimer";
-    let compatible_versions = {};
+    let version = "Plusstimer vår 2017 versjon Kanada";
+    let compatible_version = {
+      "key": "Uoffisielt midlertidig regneark for plusstimer",
+      "hours": "Plusstimer!B12",
+      "days": "Plusstimer!B11"
+    };
 
     /**
     * Check if current user has authorized this application.
@@ -164,16 +168,16 @@
         console.log("spreadsheetId passed line 100 test. Var-dump:","(",typeof spreadsheetId,")",spreadsheetId);
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadsheetId,
-          range: 'Plusstimer!B11:B14',
+          range: 'Plusstimer!D7:G7',
         }).then(function(response) {
           appendPre('Lasting fullført.');
           var range = response.result;
           if (range.values.length > 0) {
             console.log(range.values);
             days = range.values[0][0];
-            hours = range.values[1][0];
-            appendPre(range.values[3][0] + 'plusstimer');
-            q('#result>number').innerHTML = Number(range.values[3][0]);
+            hours = range.values[0][1];
+            appendPre(range.values[0][3] + 'plusstimer');
+            q('#result>number').innerHTML = Number(range.values[0][3]);
             q('#result').style.display = 'block';
             q('#caption').style.display = 'block';
             q('#caption>a').innerText = "Jeg har ikke "+days+" dager og "+hours+" timer fravær. Oppdater";
@@ -193,9 +197,38 @@
     * Copy an existing file.
     */
     function copyFile() {
-      var body = {'title': 'Plusstimer'};
+      appendPre('Prøver å finne et gammelt regneark…')
+      var version_request = gapi.client.drive.files.list({
+        "q": "fullText contains '"+compatible_version.key+"'"
+      });
+      version_request.execute(function(resp) {
+        if (!resp.error) {
+          console.log(resp);
+          let oldSheet;
+          for (var i = 0; i < items.length; i++) {
+            if (items[i].mimeType == "application/vnd.google-apps.spreadsheet") {
+              appendPre('Fant et gammelt regneark');
+              oldSheetId = items[i].id;
+              gapi.client.sheets.spreadsheets.values.get({
+                spreadsheetId: oldSheetId,
+                range: compatible_version.days,
+              }).then(function(response) {
+                let days = response.result.values[0][0]
+                gapi.client.sheets.spreadsheets.values.get({
+                  spreadsheetId: oldSheetId,
+                  range: compatible_version.hours,
+                }).then(function(response) {
+                  let hours = response.result.values[0][0]
+                  updateSheet(days, hours);
+                });
+              });
+            }
+          }
+        }
+      });
+      var body = {'title': 'Plusstimer vår 2017'};
       var request = gapi.client.drive.files.copy({
-        'fileId': '16DxR8c_7T4leBoYpHtWi_RrlYb6V64LTcc3LjY_WE08',
+        'fileId': '1HpjoFCbvekFvwN9SSkBPkgrfXPPqXT6mat8UDQPMiYs',
         'resource': body
       });
       request.execute(function(resp) {
@@ -205,22 +238,22 @@
       });
     }
 
-    /*
-    * Oppdater fravær
+/*
+ * Oppdater fravær
     */
     var days, hours;
-    function updateSheet() {
+    function updateSheet(preset_days, preset_hours) {
       emptyPre();
-      days = prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
-      hours = prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
+      days = typeof preset_days !== "undefined" ? preset_days : prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
+      hours = typeof preset_hours !== "undefined" ? preset_hours : prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
       if (days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours)) {
         q('#output').style.display = 'block';
         appendPre('Oppdaterer fravær…');
         gapi.client.sheets.spreadsheets.values.update({
           spreadsheetId: spreadsheetId,
-          range: "'Plusstimer'!B11:B12",
+          range: "'Plusstimer'!D7:E7",
           valueInputOption: 'USER_ENTERED',
-          values: [ [days], [hours] ]
+          values: [ [days, hours] ]
         }).then(function (resp) {
           console.log(resp);
           appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
