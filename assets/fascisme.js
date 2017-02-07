@@ -8,10 +8,10 @@ document.write (i)
 }
 }
 
-var event = prompt ("About which event are you angry? (E.g. The Recession, Taxes, The Treaty of Versailles))"
-var scapegoat = prompt ("Whom do You blame for the Event about which you are angry? (E.g. The Jews, The Communists, The French))"
-var action = prompt ("What do you desire be done to the Persons You blame for the Event about which You are angry? (Only VERBS in the INDICATIVE PRESENT TENSE, separated by "and"))"  
-var extra = prompt ("Are there any other qualifications your dictator must meet? (Only ADJECTIVES and/or PARTICIPLE VERBS separated by "and"!))"
+var event = prompt ("About which event are you angry? (E.g. The Recession, Taxes, The Treaty of Versailles)")
+var scapegoat = prompt ("Whom do You blame for the Event about which you are angry? (E.g. The Jews, The Communists, The French)")
+var action = prompt ("What do you desire be done to the Persons You blame for the Event about which You are angry? (Only VERBS in the INDICATIVE PRESENT TENSE, separated by 'and')")  
+var extra = prompt ("Are there any other qualifications your dictator must meet? (Only ADJECTIVES and/or PARTICIPLE VERBS separated by 'and'!)")
 var dictator = Math.random()
 
 if (dictator < 0.33) {
@@ -24,4 +24,3 @@ else {
   dictator = alert ("'¡No pasarán!' the Communists said. But the "+extra+" Generalissimo passed, and the Communists died. As we all know, "+scapegoat+" recently caused "+event+". The Generalissimo will therefore aid you in your quest to "+action+" them.")
   }
 }
-
