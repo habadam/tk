@@ -7,7 +7,7 @@ body {
 * {
   max-width: 100%;
 }
-h1, p, li {
+h1, h2, h3, p, li {
   color: gold;
 }
 ul {
