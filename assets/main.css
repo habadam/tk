@@ -7,7 +7,7 @@ body {
 * {
   max-width: 100%;
 }
-h1, h2, h3, p, li, a {
+h1, h2, h3, p, li, a:link, a:visited, a:hover, a:active {
   color: gold;
 }
 ul {
