@@ -46,7 +46,12 @@ button:active {
   src: url('kremlin.ttf');
 }
 button:hover {font-size:1.4em}
-
+.nav {
+  font-size: smaller;
+}
+.nav span {
+  color: #fff;
+}
 .frame {
   border: 1px solid #ccc;
 }
