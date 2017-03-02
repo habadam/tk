@@ -1,5 +1,5 @@
 var putin = function () {
-	confirm("Er du klar for et ekte eventyr i norsk natur?");φ
+	confirm("Er du klar for et ekte eventyr i norsk natur?");
 	alert("Tenkte meg det, ja");
 	if (prompt("Før vi begynner må jeg bare vite en ting, hvor gammel er du?").toLowerCase()<13) {
 		alert("Dette spillet er ikke for småbarn som deg, men hvis du er en ekte våghals, kan du spille spillet sammen med en voksen.");
