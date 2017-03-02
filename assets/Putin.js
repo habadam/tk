@@ -1,5 +1,5 @@
 var putin = function () {
-	confirm("Er du klar for et ekte eventyr i norsk natur?");
+	confirm("Er du klar for et ekte eventyr i norsk natur?");φ
 	alert("Tenkte meg det, ja");
 	if (prompt("Før vi begynner må jeg bare vite en ting, hvor gammel er du?").toLowerCase()<13) {
 		alert("Dette spillet er ikke for småbarn som deg, men hvis du er en ekte våghals, kan du spille spillet sammen med en voksen.");
@@ -15,7 +15,7 @@ var putin = function () {
 		if (userAnswer2 === "ja") {
 			alert("Du slakter Putin og bjørnen hans uten at de hadde provosert deg på noen måte, dette fører til at tredje verdenskrig bryter ut og millioner av mennesker dør på grunn av deg! Nå er du vel fornøyd med deg selv, hva?");
 		} else {
-			alert("Du angriper Putin med en pinne som du kjøpte av en rar dame i Bergen. Dessverre er den russiske presidenten villt god med en AK-47, og han skyter deg gjentatte ganger i hodet mens han roper 'Headshot, dobro, dobro!'");
+			alert("Du angriper Putin med en pinne som du kjøpte av en rar dame i Bergen. Dessverre er den russiske presidenten villt nicolas cage med en AK-47, og han skyter deg gjentatte ganger i hodet mens han roper 'Headshot, dobro, dobro!'");
 		}
 	}	else if (userAnswer === "stikke") {
 		var userAnswer2 = prompt("Er du raskere enn en bjørn? (Svar: 'Ja, jeg er rask som sonic', eller 'Nei, jeg er treig')");
