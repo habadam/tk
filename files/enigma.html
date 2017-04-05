@@ -18,9 +18,13 @@
 
     <h3>Input:</h3>
     <textarea name="input" placeholder="Text to encrypt or decrypt" ng-model="m.input"></textarea>
+    <ul class="menu">
+      <label style="max-width: 160px; margin: 0 -3px 10px auto" for="file-input">Insert image or video <span class="glyphicon glyphicon-picture"></span></label>
+      <input style="display:none" id="file-input" type="file" onchange="angular.element(this).scope().m.insertFile()">
+    </ul>
 
     <h3>Output</h3>
-    <pre placeholder="⫯⪡⨿⧛⥺⤥⢻⢨⟾➩❅⛦⚈♮◂╯⓾⒧⑊⏦⎐⍶⋀≯∅↲↛" ng-bind="m.processText()" id="output"></pre>
+    <pre placeholder="⫯⪡⨿⧛⥺⤥⢻⢨⟾➩❅⛦⚈♮◂╯⓾⒧⑊⏦⎐⍶⋀≯∅↲↛" ng-bind-html="m.processText()" id="output"></pre>
     <div class="block">
       <button ng-click="m.selectText()">Copy Output</button>
     </div>
@@ -35,6 +39,7 @@
         var vm = this;
         vm.input = "";
         vm.keyphrase = "";
+        vm.images = {};
 
         vm.processText = function () {
           let d = new Date().getDate()*(new Date().getMonth()+2);
@@ -45,11 +50,51 @@
             keycode += (char_code % 9 + (char_code % 19) % 13 + 12)*(Math.ceil(Math.pow(char_code, 1.7)) + char_code  % 5 + 3)%(423-(i*(i%7)));
           }
           let key = date_code + keycode % 2500;
-          return vm.input.replace(/./gi, (match)=>{
+          let output = vm.input.replace(/./gi, (match)=>{
             enc_code = 5*key - match.charCodeAt(0);
             key -= 19;
             return String.fromCharCode(enc_code);
           });
+          output = output.replace(/file\(\((\S+)\)\)/g, (match, id)=>{
+            if(vm.images.hasOwnProperty(id)) {
+              return '<img src="'+vm.images[id]+'">'
+            } else {
+              vm.images[id] = "";
+              $http.get('//script.google.com/macros/s/AKfycbyb4S33gEAYMf28qhsZOE2JQ4I0HBsMINO47BHlWkuENkBEs4xs/exec?id='+id).then((response)=>{
+                vm.images[id] = decodeURIComponent(response.data);
+              }).catch((e)=>{
+                vm.images[id] = "";
+              });
+              return match;
+            }
+          });
+          return output;
+        };
+
+        vm.insertFile = ()=>{
+          let filesSelected = document.getElementById("file-input").files;
+          if (filesSelected.length > 0) {
+            let fileToLoad = filesSelected[0];
+
+            let fileReader = new FileReader();
+            fileReader.onload = function(fileLoadedEvent) {
+              let id = "file((Uploading #"+Math.floor(Math.random()*1000)+"…))";
+              vm.input += " "+id+" ";
+              let srcData = fileLoadedEvent.target.result; // <--- data: base64
+              $http.post("https://script.google.com/macros/s/AKfycbw2Dg34fYcQOth1GgAk6Qq_TWMhVp61ftwKjNSC5zwj62B-Rrb0/exec", encodeURIComponent(srcData), {headers: {'Content-Type': undefined}}).then((data)=>{
+                let key = data.data.match(/https:\/\/pastebin.com\/(.*)/)[1];
+                $timeout(()=>{
+                  vm.input = vm.input.replace(id, "file(("+key+"))");
+                }, 0)
+              }).catch(()=>{
+                alert("Unfortunately your file could not be uploaded");
+                $timeout(()=>{
+                  vm.input = vm.input.replace(id, "");
+                }, 0)
+              });
+            }
+            fileReader.readAsDataURL(fileToLoad);
+          }
         };
 
         vm.selectText = ()=>{
