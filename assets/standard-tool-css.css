@@ -37,8 +37,8 @@ select, input[type=text], input[type=url], input[type=password], input[type=numb
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 450px;
-  max-width: 100%;
+  max-width: 450px;
+  width: 100%;
 	padding: 2px;
 }
 textarea {
