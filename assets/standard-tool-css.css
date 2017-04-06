@@ -24,6 +24,9 @@ pre {
 pre>* {
   max-width:100%;
 }
+pre>iframe {
+  min-width: 100%;
+}
 pre:empty:before{
   content: attr(placeholder);
   color: #a9a9a9;
