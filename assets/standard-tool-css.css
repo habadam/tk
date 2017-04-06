@@ -23,9 +23,8 @@ pre {
 }
 pre>* {
   max-width:100%;
-}
-pre>iframe {
   min-width: 100%;
+  border:0;
 }
 pre:empty:before{
   content: attr(placeholder);

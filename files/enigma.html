@@ -57,7 +57,13 @@
           });
           output = output.replace(/file\(\((\S+)\)\)/g, (match, id)=>{
             if(vm.images.hasOwnProperty(id)) {
-              return '<iframe src="'+vm.images[id]+'"></iframe>'
+              let filetype = vm.images[id].match(/^data:(\w+)/)[1];
+              switch(filetype) {
+                case 'image':
+                  return '<img src="'+vm.images[id]+'">';
+                default:
+                  return '<iframe src="'+vm.images[id]+'"></iframe>'
+              }
             } else {
               vm.images[id] = "";
               $http.get('//script.google.com/macros/s/AKfycbyb4S33gEAYMf28qhsZOE2JQ4I0HBsMINO47BHlWkuENkBEs4xs/exec?id='+id).then((response)=>{
