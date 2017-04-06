@@ -68,8 +68,6 @@
               vm.images[id] = "";
               $http.get('//script.google.com/macros/s/AKfycbyb4S33gEAYMf28qhsZOE2JQ4I0HBsMINO47BHlWkuENkBEs4xs/exec?id='+id).then((response)=>{
                 vm.images[id] = decodeURIComponent(response.data);
-              }).catch((e)=>{
-                vm.images[id] = "";
               });
               return match;
             }
@@ -81,23 +79,23 @@
           let filesSelected = document.getElementById("file-input").files;
           if (filesSelected.length > 0) {
             let fileToLoad = filesSelected[0];
-
             let fileReader = new FileReader();
             fileReader.onload = function(fileLoadedEvent) {
               let id = "file((Uploading #"+Math.floor(Math.random()*1000)+"…))";
               vm.input += " "+id+" ";
               let srcData = fileLoadedEvent.target.result; // <--- data: base64
               $http.post("https://script.google.com/macros/s/AKfycbw2Dg34fYcQOth1GgAk6Qq_TWMhVp61ftwKjNSC5zwj62B-Rrb0/exec", encodeURIComponent(srcData), {headers: {'Content-Type': undefined}}).then((data)=>{
-                let key = data.data.match(/https:\/\/pastebin.com\/(.*)/)[1];
-                $timeout(()=>{
-                  vm.input = vm.input.replace(id, "file(("+key+"))");
-                }, 0)
-              }).catch(()=>{
-                alert("Unfortunately your file could not be uploaded");
-                $timeout(()=>{
-                  vm.input = vm.input.replace(id, "");
-                }, 0)
-              });
+                try {
+                  let key = data.data.match(/https:\/\/pastebin.com\/(.*)/)[1];
+                  $timeout(()=>{
+                    vm.input = vm.input.replace(id, "file(("+key+"))");
+                  }, 0)
+                } catch (e) {uploadError(data, e)}
+              }).catch((response)=>uploadError(response));
+              function uploadError(err) {
+                alert("Unfortunately your file could not be uploaded, please try a smaller file");
+                $timeout(()=>vm.input = vm.input.replace(id, ""), 0)
+              }
             }
             fileReader.readAsDataURL(fileToLoad);
           }
