@@ -93,7 +93,7 @@
                 } catch (e) {uploadError(data, e)}
               }).catch((response)=>uploadError(response));
               function uploadError(err) {
-                alert("Unfortunately your file could not be uploaded, please try a smaller file");
+                alert("Unfortunately your file could not be uploaded, only files smaller than 375 kB are supported. Please try a smaller file.");
                 $timeout(()=>vm.input = vm.input.replace(id, ""), 0)
               }
             }
