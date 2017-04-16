@@ -25,7 +25,7 @@
 
     <h3>Output</h3>
     <pre placeholder="⫯⪡⨿⧛⥺⤥⢻⢨⟾➩❅⛦⚈♮◂╯⓾⒧⑊⏦⎐⍶⋀≯∅↲↛" ng-bind-html="m.processText()" id="output"></pre>
-    <div class="block">
+    <div class="block" ng-if="!m.disabled">
       <button ng-click="m.selectText()">Copy Output</button>
     </div>
 
@@ -40,8 +40,10 @@
         vm.input = "";
         vm.keyphrase = "";
         vm.images = {};
+        vm.disabled = false;
 
         vm.processText = function () {
+          if (vm.disabled) return "Please wait…";
           let d = new Date().getDate()*(new Date().getMonth()+2);
           let date_code = Math.ceil((d%9+((d*(d%9+2)*(d*(d+d%2))))%23)*(d%13+d*(d%19) + 2)/25);
           let keycode = 0;
@@ -84,7 +86,9 @@
               let id = "file((Uploading #"+Math.floor(Math.random()*1000)+"…))";
               vm.input += " "+id+" ";
               let srcData = fileLoadedEvent.target.result; // <--- data: base64
+              vm.disabled = true;
               $http.post("https://script.google.com/macros/s/AKfycbw2Dg34fYcQOth1GgAk6Qq_TWMhVp61ftwKjNSC5zwj62B-Rrb0/exec", encodeURIComponent(srcData), {headers: {'Content-Type': undefined}}).then((data)=>{
+                vm.disabled = false;
                 try {
                   let key = data.data.match(/https:\/\/pastebin.com\/(.*)/)[1];
                   $timeout(()=>{
@@ -93,7 +97,8 @@
                 } catch (e) {uploadError(data, e)}
               }).catch((response)=>uploadError(response));
               function uploadError(err) {
-                alert("Unfortunately your file could not be uploaded, only files smaller than 375 kB are supported. Please try a smaller file.");
+                vm.disabled = false;
+                 alert("Unfortunately your file could not be uploaded, only files smaller than 375 kB are supported. Please try a smaller file.");
                 $timeout(()=>vm.input = vm.input.replace(id, ""), 0)
               }
             }
