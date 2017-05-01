@@ -158,6 +158,7 @@
       var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
       gapi.client.load(discoveryUrl).then(outputData);
+      if (typeof update !== "undefined" && update) updateSheet();
     }
 
     /**
