@@ -267,6 +267,8 @@
           appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
           outputData();
         })
+      } else {
+        updateSheet(preset_days, preset_hours, skip_conf);
       }
     }
 
