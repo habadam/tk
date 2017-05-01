@@ -152,11 +152,12 @@
     /**
     * Load Sheets API client library.
     */
-    function loadSheetsApi() {
+    function loadSheetsApi(update) {
       appendPre('Laster…');
       var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
       gapi.client.load(discoveryUrl).then(outputData);
+      if (typeof update !== "undefined" && update) updateSheet();
     }
 
     /**
@@ -220,8 +221,8 @@
                       spreadsheetId: oldSheetId,
                       range: compatible_version.hours,
                     }).then(function(response) {
-                      let hours = response.result.values[0][0]
-                        updateSheet(days, hours, true);
+                      let hours = response.result.values[0][0];
+                      updateSheet(days, hours, true);
                     });
                 });
               });
@@ -237,7 +238,7 @@
       request.execute(function(resp) {
         console.log('Copy ID: ' + resp.id);
         spreadsheetId = resp.id;
-        loadSheetsApi();
+        loadSheetsApi(true);
       });
     }
 
