@@ -50,6 +50,7 @@
     let q = (s)=>document.querySelector(s);
     let emptyPre = ()=>q('pre').innerHTML = "";
     let version = "Plusstimer vår 2017 versjon Kanada";
+    let firstVisit = false;
     let compatible_version = {
       "key": "Uoffisielt midlertidig regneark for plusstimer",
       "hours": "Plusstimer!B12",
@@ -152,7 +153,7 @@
     /**
     * Load Sheets API client library.
     */
-    function loadSheetsApi() {
+    function loadSheetsApi(update) {
       appendPre('Laster…');
       var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
@@ -185,6 +186,7 @@
           } else {
             appendPre('Fant ingen data.');
           }
+          if (firstVisit) updateSheet();
         }, function(response) {
           appendPre('Feil: ' + response.result.error.message);
         });
@@ -220,8 +222,8 @@
                       spreadsheetId: oldSheetId,
                       range: compatible_version.hours,
                     }).then(function(response) {
-                      let hours = response.result.values[0][0]
-                        updateSheet(days, hours, true);
+                      let hours = response.result.values[0][0];
+                      updateSheet(days, hours, true);
                     });
                 });
               });
@@ -238,6 +240,7 @@
         console.log('Copy ID: ' + resp.id);
         spreadsheetId = resp.id;
         loadSheetsApi();
+        firstVisit = true;
       });
     }
 
