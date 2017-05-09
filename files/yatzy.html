@@ -21,7 +21,7 @@
           border-radius: 2px;
           border: 1px solid #fff;
         }
-        textarea.ng-touched.ng-invalid {
+        textarea.ng-invalid {
           background:#f2dede;
           border:1px solid #a94442;
         }
@@ -59,15 +59,12 @@ app.directive('alike', [function () {
       let vm = this;
       vm.rolls = 3;
       vm.calculate = ()=>{
-        if (vm.rolls <= 25) {
-          let chance = 0;
-          for (let i = 0;i<vm.rolls;i++) {
-            chance += $scope.probs[i];
-          }
-          chance = Math.round(chance*10000)/100;
+        if (vm.rolls > 0 && vm.rolls <= 25) {
+          let chance = $scope.probs[vm.rolls-1]*100;
+          chance = Math.round(chance*100)/100;
           return chance < 100 ? chance+"%" : "100%";
         }
-        return "Please choose a lower number";
+        return "Please choose a number in the range 1-25";
       };
     },
     controllerAs: 'a'
