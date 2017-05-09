@@ -18,10 +18,12 @@
           width: 17px;
           resize: none;
           overflow: hidden;
+          border-radius: 2px;
+          border: 1px solid #fff;
         }
         textarea.ng-touched.ng-invalid {
-          background:red;
-          border:1px solid grey;
+          background:#f2dede;
+          border:1px solid #a94442;
         }
         table {
           width:100%;
@@ -37,7 +39,7 @@
       <tr>
         <th>Type</th>
         <th>Rolls</th>
-        <th>Chance</th>
+        <th>Chance if you make the right choices</th>
       </tr>
       <tr alike ng-repeat="(description, probs) in m.alikes"></tr>
     </table>
@@ -57,11 +59,12 @@ app.directive('alike', [function () {
       let vm = this;
       vm.rolls = 3;
       vm.calculate = ()=>{
-        let fail_chance = 1;
+        let chance = 0;
         for (let i = 0;i<vm.rolls;i++) {
-          fail_chance = fail_chance*(1-$scope.probs[i]);
+          chance += $scope.probs[i];
         }
-        return Math.round((1-fail_chance)*10000)/100+"%";
+        chance = Math.round(chance*10000)/100;
+        return chance < 100 ? chance+"%" : "100%";
       };
     },
     controllerAs: 'a'
