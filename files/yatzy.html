@@ -59,7 +59,7 @@ app.directive('alike', [function () {
       let vm = this;
       vm.rolls = 3;
       vm.calculate = ()=>{
-        if (vm.rolls > 25) {
+        if (vm.rolls <= 25) {
           let chance = 0;
           for (let i = 0;i<vm.rolls;i++) {
             chance += $scope.probs[i];
