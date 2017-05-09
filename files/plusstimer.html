@@ -54,7 +54,9 @@
   </style>
   <script type="text/javascript">
     // Hide console if requested in URL
-    if (location.hash.indexOf('hidepre') > -1) document.querySelector("pre").style.display = "none";
+    if (location.hash.indexOf('hidepre') > -1) setTimeout(()=>{
+      document.querySelector("pre").style.display = "none";
+    }, 100);
 
     // Your Client ID can be retrieved from your project in the Google
     // Developer Console, https://console.developers.google.com
