@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="mainCtrl as m">
+  <head>
+    <meta charset="UTF-8">
+    <title>Yatzy!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="TK">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="../assets/fresh.css">
+    <style>
+        textarea {
+          display: inline;
+          height: 13px;
+          padding: 0;
+          border: 0;
+          width: 17px;
+          resize: none;
+          overflow: hidden;
+        }
+        textarea.ng-touched.ng-invalid {
+          background:red;
+          border:1px solid grey;
+        }
+        table {
+          width:100%;
+          text-align:left;
+          font-weight:200;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Yatzy!</h1>
+    <h4>What are the odds?</h4>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Rolls</th>
+        <th>Chance</th>
+      </tr>
+      <tr alike ng-repeat="(description, probs) in m.alikes"></tr>
+    </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script>
+let app = angular.module("app", []);
+
+app.controller("mainCtrl", [function (){
+  let vm = this;
+  vm.alikes = {"Pair":[0.69444,0.4501,0.25601,0.14278,0.07937,0.0441,0.0245,0.01361,0.00756,0.0042,0.00233,0.0013,0.00072,0.0004,0.00022,0.00012,0.00007,0.00004,0.00002,0.00001,0.00001,0,0,0,0],"Three of a kind":[0.1929,0.40902,0.4524,0.40914,0.33702,0.26344,0.19928,0.14746,0.10745,0.07742,0.05532,0.03928,0.02776,0.01954,0.01372,0.00961,0.00672,0.00469,0.00327,0.00228,0.00159,0.00111,0.00077,0.00053,0.00037],"Four of a kind":[0.01929,0.11967,0.24476,0.34743,0.41309,0.44337,0.44572,0.42849,0.39898,0.36286,0.32418,0.28567,0.24906,0.21531,0.18488,0.1579,0.13426,0.11375,0.0961,0.08099,0.06813,0.05722,0.04799,0.0402,0.03365],"Yatzy":[0.00077,0.01263,0.04603,0.10058,0.17051,0.24908,0.3305,0.41044,0.48601,0.55553,0.61817,0.67375,0.72246,0.76474,0.80117,0.83237,0.85895,0.88152,0.90061,0.91671,0.93028,0.94168,0.95124,0.95926,0.96598]};
+}]);
+
+app.directive('alike', [function () {
+  return {
+    template: '<td ng-bind="description"></td><td>in <textarea type="number" min="0" max="25" ng-model="a.rolls" maxlength="2">3</textarea> rolls</td><td ng-bind="a.calculate()"></td>',
+    controller: function ($scope, $element, $attrs) {
+      let vm = this;
+      vm.rolls = 3;
+      vm.calculate = ()=>{
+        let fail_chance = 1;
+        for (let i = 0;i<vm.rolls;i++) {
+          fail_chance = fail_chance*(1-$scope.probs[i]);
+        }
+        return Math.round((1-fail_chance)*10000)/100+"%";
+      };
+    },
+    controllerAs: 'a'
+  }
+}]);
+    </script>
+    <script>!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-69446843-9","auto"),ga("send","pageview");</script>
+  </body>
+</html>
