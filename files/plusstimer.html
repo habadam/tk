@@ -53,6 +53,9 @@
     }
   </style>
   <script type="text/javascript">
+    // Hide console if requested in URL
+    if (location.hash.indexOf('hidepre') > -1) document.querySelector("pre").style.display = "none";
+
     // Your Client ID can be retrieved from your project in the Google
     // Developer Console, https://console.developers.google.com
     let CLIENT_ID = '1068107389496-sapmb6nh9l85vccdke6ju2jsbv5ibs51.apps.googleusercontent.com';
