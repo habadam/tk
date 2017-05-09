@@ -28,12 +28,16 @@
       position: absolute;
       margin: 40px 0 -30px 0;
       color: #aaa;
+      width: 62vw;
     }
-    #caption, #result {
-      width: 100vw;
-      height: calc(100vw - 16px);
+    #result {
+      width: 62vw;
+      height: 65vw;
       max-width: 210px;
+      margin-top: 0;
       max-height: 180px;
+      margin: auto;
+      border-radius: 5px;
     }
 
     a {
@@ -290,8 +294,8 @@
   <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </head>
 <body>
-  <div id="result" style="margin: auto;border-radius: 15px;background-color: rgba(0,0,0,0.8);color: white;padding: 2em;display:none;">
-    <number style="font-size: 8em;display: block;width: 100%;letter-spacing: 20px;"></number>
+  <div id="result" style=background-color: rgba(0, 0, 0, 0.8);color: white;padding: 2em;display:none;">
+    <number style="font-size: 50vw;display: block;width: 100%;letter-spacing: 10px;"></number>
     <description style="font-size: 1.75em;">plusstimer</description>
     <div id="caption"><a href="#" onclick="updateSheet()">Klikk her for å oppdatere fravær</a></div>
   </div>
