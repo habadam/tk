@@ -59,12 +59,15 @@ app.directive('alike', [function () {
       let vm = this;
       vm.rolls = 3;
       vm.calculate = ()=>{
-        let chance = 0;
-        for (let i = 0;i<vm.rolls;i++) {
-          chance += $scope.probs[i];
+        if (vm.rolls > 25) {
+          let chance = 0;
+          for (let i = 0;i<vm.rolls;i++) {
+            chance += $scope.probs[i];
+          }
+          chance = Math.round(chance*10000)/100;
+          return chance < 100 ? chance+"%" : "100%";
         }
-        chance = Math.round(chance*10000)/100;
-        return chance < 100 ? chance+"%" : "100%";
+        return "Please choose a lower number";
       };
     },
     controllerAs: 'a'
