@@ -14,7 +14,7 @@ table, list {
   text-align: center;
 }
 body {
-  font-family: ubuntu, harrington, Verdana, sans-serif;
+  font-family: ubuntu, Verdana, harrington, sans-serif;
   background: #466bbb;
 }
 body>* {
