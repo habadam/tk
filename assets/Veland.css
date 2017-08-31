@@ -1,9 +1,10 @@
 a {
   color:#943a4d;
-}
-.Veland {
   display: block;
-  text-align: center;
+}
+img {
+  text-align: Center;
+  max-width: 200px;
 }
 h1, h3 {
   color:#466bbb;
