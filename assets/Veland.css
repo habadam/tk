@@ -9,6 +9,9 @@ h1, h3 {
   color:#466bbb;
   text-align: center;
 }
+table {
+  text-align: center;
+}
 body {
   font-family: harrington, ubuntu, Verdana, sans-serif;
   background: #466bbb;
