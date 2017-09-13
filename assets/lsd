@@ -1,0 +1,11 @@
+#!/usr/bin/env python
+import os, random
+
+bcolors = ('\033[95m', '\033[94m', '\033[92m', '\033[93m', '\033[91m', '\033[1m', '\033[0m')
+while True:
+    rows, columns = os.popen('stty size', 'r').read().split()
+    txt = ""
+    for i in range(int(columns)):
+        txt += random.choice(bcolors) + str(random.randint(0,9))
+    print txt
+
