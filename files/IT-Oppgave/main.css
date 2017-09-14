@@ -1,0 +1,145 @@
+body{
+  margin: 0;
+  background-image: url(http://notatraceofgrace.com/wp-content/uploads/sites/5/2016/11/sky.jpg);
+  color: #fff;
+  font-family: ubuntu,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  text-align: center;
+}
+
+header{
+  background: #fff;
+  top: 0;
+  font-size: 1.4em;
+  padding: 15px;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+h4 {
+  font-weight: lighter;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.content-container>div, nav {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px 15px;
+  color: #333;
+  width: 415px;
+}
+
+table {
+  font-size: 0.8em;
+}
+
+.news-title {
+  display: block;
+  font-weight: 500;
+}
+
+.news-author {
+  display: block;
+  color: #777;
+}
+
+.news-author::before {
+  content: "— "
+}
+
+td>a{
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 22px;
+}
+
+.schedule {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f7f7f7;
+  margin: auto;
+  max-width: 290px;
+}
+
+.schedule>tbody>tr>td>div {
+  line-height: 62.5px;
+  background: #ff4535;
+  color: #fff;
+  margin: 10px 0;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.schedule>tbody>tr:nth-child(2)>td>div {
+  margin-top: 0;
+}
+
+.schedule>tbody>tr:last-child>td>div {
+  margin-bottom: 0;
+}
+
+th {
+  border-bottom: 2px solid #ccc;
+  background: #ddd;
+  border-radius: 4px;
+}
+
+a {
+  color: #337ab7;
+}
+
+[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.link {
+  display:block;
+  margin-top:5px;
+  margin-bottom: 5px;
+}
+
+li {
+  margin: 10px auto;
+}
+
+nav {
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+  width: -webkit-fill-available;
+  margin-top: 18px;
+}
+
+nav>a {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+nav>a[href="#"] {
+  color: #000;
+  text-decoration: none;
+}
+
+nav>a[href="#"]:hover {
+  cursor: initial;
+}

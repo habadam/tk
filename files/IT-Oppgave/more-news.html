@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>IT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <header>
+      <span>Nyheter</span>
+    </header>
+
+    <nav>
+      <a href="index.html">Forside</a>
+      <a href="full-timeplan.html">Timeplan</a>
+      <a href="#">Nyheter</a>
+    </nav>
+
+    <div class="content-container" ng-controller="newsCtrl as news">
+      <div ng-repeat="(source, data) in news.data">
+        <h4 ng-bind="source"></h4>
+        <table>
+          <tr ng-repeat="article in data">
+            <td>
+              <a href="{{article.url}}"><img height="60px" ng-src="{{article.urlToImage}}"></a>
+            </td>
+            <td>
+              <a href="{{article.url}}">
+                <span ng-bind="article.title" class="news-title"></span>
+                <span ng-bind="article.author" class="news-author"></span>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

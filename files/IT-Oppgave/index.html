@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <title>IT</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <header>
+      <span>Forside</span>
+    </header>
+
+    <nav>
+      <a href="#">Forside</a>
+      <a href="full-timeplan.html">Timeplan</a>
+      <a href="more-news.html">Nyheter</a>
+    </nav>
+
+    <div class="content-container">
+      <div ng-controller="scheduleCtrl as s">
+        <h4>Timeplan</h4>
+        <table class="schedule">
+          <tbody>
+            <tr>
+              <th ng-bind="s.weekday"></th>
+            </tr>
+            <tr ng-repeat="class in s.today">
+              <td><div ng-bind="class" style="{{'background:'+s.colors[class]}}"></div></td>
+            </tr>
+          </tbody>
+        </table>
+        <a href="full-timeplan.html" class="link">Se full timeplan</a>
+      </div>
+      <div ng-controller="newsCtrl as news" style="min-width:300px">
+        <h4>Nyheter</h4>
+        <table>
+          <tr ng-repeat="article in news.data['Google News'] | limitTo:4">
+            <td>
+              <a href="{{article.url}}"><img height="60px" ng-src="{{article.urlToImage}}"></a>
+            </td>
+            <td>
+              <a href="{{article.url}}">
+                <span ng-bind="article.title" class="news-title"></span>
+                <span ng-bind="article.author" class="news-author"></span>
+              </a>
+            </td>
+          </tr>
+        </table>
+        <a href="more-news.html" class="link">Se flere nyheter</a>
+      </div>
+      <div>
+        <h4>Gjøremål</h4>
+        <ul class="noselect">
+          <li><input type="checkbox" id="1" checked><label for="1">Innlevering IT</label></li>
+          <li><input type="checkbox" id="2"><label for="2">Oppgaver fysikk</label></li>
+          <li><input type="checkbox" id="3" checked><label for="3">Lekse samfunnsøkonomi</label></li>
+          <li><input type="checkbox" id="4"><label for="4">Historielekse</label></li>
+          <li><input type="checkbox" id="5"><label for="5">Rydde rommet</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

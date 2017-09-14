@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>IT</title>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  </head>
+  <body>
+    <header>
+      <span>Timeplan</span>
+    </header>
+
+    <nav>
+      <a href="index.html">Forside</a>
+      <a href="#">Timeplan</a>
+      <a href="more-news.html">Nyheter</a>
+    </nav>
+
+    <div class="content-container" ng-controller="scheduleCtrl as s">
+      <div style="width:100%">
+        <h5 ng-if="!s.showFull">Snu telefonen sidelengs eller gjør vinduet større for å se hele timeplanen</h5>
+        <table class="schedule" style="width:100%;margin:10px auto;min-width:calc(100% - 20px)">
+          <tbody>
+            <tr>
+              <th ng-repeat="i in [0,1,2,3,4,5,6]" ng-bind="s.weekdays[i]" ng-if="(s.showFull || s.weekdays[i] === s.weekday) && (i < 5 || s.weekdays[i] === s.weekday)"></th>
+            </tr>
+            <tr ng-repeat="hour in [0,1,2]">
+              <td ng-repeat="day in [0,1,2,3,4,5,6]" ng-if="(s.showFull || s.weekdays[day] === s.weekday) && (day < 5 || s.weekdays[day] === s.weekday)">
+                <div ng-bind="s.data[day][hour]" style="{{'background:'+s.colors[s.data[day][hour]]}}"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
