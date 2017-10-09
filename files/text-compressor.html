@@ -22,6 +22,7 @@
 
   <h3>Output:</h3>
 	<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.output" id="output"></pre>
+	<span ng-bind="m.stat+'% compression'" ng-if="m.compress" style="color:#333;font-size:smaller"></span>
   <div class="block">
     <button ng-click="m.selectText()">Copy output</button>
   </div>
@@ -39,6 +40,7 @@
 			vm.compress = true;
 			vm.morseStr = "讫尘ᣝ媃";
 			vm.enStr = "Hello world!";
+			vm.stat = 0;
 
 			vm.setMode = (mode)=>{
 				vm.compress = !mode;
@@ -79,6 +81,8 @@
 						for (var i = 0; i < binary_sum.match(/.{1,16}/g).length; i++) {
 							vm.output += String.fromCharCode(parseInt(binary_sum.match(/.{1,16}/g)[i].padStart(16,"0"), 2));
 						}
+						/* Calculate how much compression */
+						vm.stat = Math.round(10000*(vm.input.length-vm.output.length)/vm.input.length)/100;
 					}
 				} else { // DECOMPRESS STRING
 					/* Calculate a binary sum */
