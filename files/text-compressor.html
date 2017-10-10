@@ -76,7 +76,7 @@
           for (let key in vm.special_replacements) {
             input = input.replace(RegExp(key, "g"), vm.special_replacements[key]);
           }
-					input.concat(" www").replace(/./gi, (match)=>{
+					input.concat(" ww").replace(/./gi, (match)=>{
 						binary_sum += vm.codes[match.toUpperCase()];
 					});
 					/* Turn the binary sum into a string */
@@ -94,6 +94,7 @@
             for (let i = 0; i < vm.input.length; i++) {
               binary_sum += decimal_number_to_binary(vm.input.charCodeAt(i));
             }
+            binary_sum += "00000000"
             /* Turn the binary sum into a string */
             for (let i = 0; i < binary_sum.length; i += 5) {
               output += vm.reversed_codes[binary_sum.substr(i, 5).padStart(5,"0")];
