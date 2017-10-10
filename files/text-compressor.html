@@ -65,14 +65,18 @@
 					/* Remove invalid charcters from input field: */
 					for (var i = 0; i < vm.input.length; i++) {
 						let char = vm.input.substr(i, 1);
-						if (!vm.codes.hasOwnProperty(char.toUpperCase()) && !["æ","ø","å"].includes(char.toLowerCase())) {
+						if (!vm.codes.hasOwnProperty(char.toUpperCase()) && !vm.special_replacements.hasOwnProperty(char.toLowerCase())) {
 							vm.input = vm.input.slice(0,i) + vm.input.slice(i+1);
 							i--;
 						}
 					}
 					/* Calculate a binary sum */
 					let binary_sum = "";
-					vm.input.replace(/å/g, "aa").replace(/ø/g, "oe").replace(/æ/g, "ae").concat(" www").replace(/./gi, (match)=>{
+          let input = vm.input;
+          for (let key in vm.special_replacements) {
+            input = input.replace(RegExp(key, "g"), vm.special_replacements[key]);
+          }
+					input.concat(" www").replace(/./gi, (match)=>{
 						binary_sum += vm.codes[match.toUpperCase()];
 					});
 					/* Turn the binary sum into a string */
@@ -93,7 +97,10 @@
 					for (let i = 0; i < binary_sum.length; i += 5) {
 						output += vm.reversed_codes[binary_sum.substr(i, 5).padStart(5,"0")];
 					}
-					output = output.toLowerCase().replace(/\sw+$/, "").replace("ae", "æ").replace("oe","ø").replace("aa", "å").replace(/^./, c => c.toUpperCase()).replace(/\.../g, p => p.toUpperCase());
+					output = output.toLowerCase().replace(/\sw+$/, "").replace(/^./, c => c.toUpperCase()).replace(/\.../g, p => p.toUpperCase());
+          for (let key in vm.special_replacements) {
+            output = output.replace(RegExp(vm.special_replacements[key], "g"), key);
+          }
 				}
         return output;
       };
@@ -159,6 +166,12 @@
 			for (let key in vm.codes) {
 				vm.reversed_codes[vm.codes[key]] = key;
 			};
+
+      vm.special_replacements = {
+        "æ": "ae",
+        "ø": "oe",
+        "å": "aa"
+      };
     }]);
 
   </script>
