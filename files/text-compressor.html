@@ -72,7 +72,7 @@
 					}
 					/* Calculate a binary sum */
 					let binary_sum = "";
-					vm.input.replace(/å/g, "aa").replace(/ø/g, "oe").replace(/æ/g, "ae").concat(" ww").replace(/./gi, (match)=>{
+					vm.input.replace(/å/g, "aa").replace(/ø/g, "oe").replace(/æ/g, "ae").concat(" www").replace(/./gi, (match)=>{
 						binary_sum += vm.codes[match.toUpperCase()];
 					});
 					/* Turn the binary sum into a string */
