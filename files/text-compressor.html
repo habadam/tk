@@ -88,9 +88,7 @@
 						vm.stat = Math.round(10000*(vm.input.length-output.length)/vm.input.length)/100;
 					}
 				} else { // DECOMPRESS STRING
-          if ((navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./) ? parseInt(navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./)[2], 10) : Infinity) < 57) {
-            output = "Your version of Chrome is too old";
-          } else {
+          if ('padStart' in String.prototype) {
             /* Calculate a binary sum */
             let binary_sum = "";
             for (let i = 0; i < vm.input.length; i++) {
@@ -104,6 +102,8 @@
             for (let key in vm.special_replacements) {
               output = output.replace(RegExp(vm.special_replacements[key], "g"), key);
             }
+          } else {
+            output = "Your browser is too old"
           }
 				}
         return output;
