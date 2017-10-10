@@ -21,7 +21,7 @@
 	<textarea name="input" placeholder="{{m.inputPlaceholder()}}" ng-model="m.input" ng-keyup="m.process()"></textarea>
 
   <h3>Output:</h3>
-	<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.output" id="output"></pre>
+	<pre placeholder="{{m.outputPlaceholder()}}" ng-bind="m.process()" id="output"></pre>
 	<span ng-bind="m.stat+'% compression'" ng-if="m.compress" style="color:#333;font-size:smaller"></span>
   <div class="block">
     <button ng-click="m.selectText()">Copy output</button>
@@ -43,9 +43,8 @@
 			vm.stat = 0;
 
 			vm.setMode = (mode)=>{
+				vm.input = vm.process();
 				vm.compress = !mode;
-				vm.input = vm.output;
-				vm.process();
 			};
 
 			vm.inputPlaceholder = ()=>{
@@ -61,6 +60,7 @@
 			};
 
       vm.process = function () {
+        let output = "";
 				if (vm.compress) { // COMPRESS STRING
 					/* Remove invalid charcters from input field: */
 					for (var i = 0; i < vm.input.length; i++) {
@@ -76,13 +76,12 @@
 						binary_sum += vm.codes[match.toUpperCase()];
 					});
 					/* Turn the binary sum into a string */
-					vm.output = "";
 					if (vm.input.length) {
 						for (var i = 0; i < binary_sum.match(/.{1,16}/g).length; i++) {
-							vm.output += String.fromCharCode(parseInt(binary_sum.match(/.{1,16}/g)[i].padStart(16,"0"), 2));
+							output += String.fromCharCode(parseInt(binary_sum.match(/.{1,16}/g)[i].padStart(16,"0"), 2));
 						}
 						/* Calculate how much compression */
-						vm.stat = Math.round(10000*(vm.input.length-vm.output.length)/vm.input.length)/100;
+						vm.stat = Math.round(10000*(vm.input.length-output.length)/vm.input.length)/100;
 					}
 				} else { // DECOMPRESS STRING
 					/* Calculate a binary sum */
@@ -91,12 +90,12 @@
 						binary_sum += decimal_number_to_binary(vm.input.charCodeAt(i));
 					}
 					/* Turn the binary sum into a string */
-					vm.output = "";
 					for (let i = 0; i < binary_sum.length; i += 5) {
-						vm.output += vm.reversed_codes[binary_sum.substr(i, 5).padStart(5,"0")];
+						output += vm.reversed_codes[binary_sum.substr(i, 5).padStart(5,"0")];
 					}
-					vm.output = vm.output.toLowerCase().replace(/\sw+$/, "").replace("ae", "æ").replace("oe","ø").replace("aa", "å").replace(/^./, c => c.toUpperCase()).replace(/\.../g, p => p.toUpperCase());
+					output = output.toLowerCase().replace(/\sw+$/, "").replace("ae", "æ").replace("oe","ø").replace("aa", "å").replace(/^./, c => c.toUpperCase()).replace(/\.../g, p => p.toUpperCase());
 				}
+        return output;
       };
 
       vm.selectText = ()=>{
