@@ -1,7 +1,7 @@
 <!doctype html>
-<html>
+<html ng-app="app">
 <head>
-  <title>Plusstimer</title>
+  <title>Plusstimer (midlertidig)</title>
   <link href="../assets/standard.css" rel="stylesheet">
   <link rel="icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico">
   <meta charset="utf-8">
@@ -9,56 +9,45 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Mathematic%20Plus2.ico" />
   <style>
-    pre {
-      line-height: 1.5;
-      font-size: 1em !important;
-      white-space: pre-line;
-      word-wrap: break-word;
-    }
-    html {
-      min-height: 100%;
-      display: flex;
-    }
-    body {
-      min-width:100%;
-      display:flex;
-      margin:0;
-    }
-    #caption {
-      position: absolute;
-      margin: 40px 0 -30px 0;
-      color: #aaa;
-      width: 62vw;
-      max-width:210px;
-    }
-    #result {
-      width: 62vw;
-      height: 65vw;
-      max-width: 210px;
-      margin-top: 0;
-      max-height: 180px;
-      margin: auto;
-      border-radius: 5px;
-    }
-
     a {
       color: #337ab7;
       font-size: small;
     }
-
-    @media screen and (min-width:270px) {
-      number {
-        font-size:8em!important;
-      }
+    input[type=number] {
+      width: 30px;
+    }
+    p {
+      line-height: 24px;
+    }
+    span {
+      font-weight: 900;
+      font-size: 1.1em;
     }
   </style>
-  <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </head>
-<body>
+<body ng-controller="masterCtrl as m">
   <h2>Midlertidig plusstimekalkulator</h2>
-  <div>
-    Jeg har <input ng-model="m.loose"> løse studietimer i uka og <input ng-model="m.days"> timer og <input ng-model="m.hours"> 
-  </div>
+  <p>
+    Jeg har <input ng-model="m.loose" type="number"> løse studietimer i uka og <input ng-model="m.days" type="number"> dager og <input ng-model="m.hours" type="number" style="width:40px"> timer fravær på skolearena.
+  </p>
+  <p>
+    Du har <span ng-bind="m.calculate()"></span> plusstimer hvis det som står ovenfor stemmer og du ikke får mer fravær denne uka.
+  </p>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <script>
+    let app = angular.module("app", []);
+    app.controller('masterCtrl', [function() {
+      let vm = this;
+      vm.loose = 5;
+      vm.days = 0;
+      vm.hours = 0;
+      let onejan = new Date(new Date().getFullYear(),0,1);
+      let weeknum = Math.ceil((((new Date()-onejan)/86400000) + onejan.getDay()+1)/7);
+      vm.calculate = ()=>{
+        return Math.round(((weeknum-35)*vm.loose)-((vm.hours + vm.days*6)/0.75))
+      };
+    }]);
+  </script>
   <script>!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-69446843-9","auto"),ga("send","pageview");</script>
 </body>
 </html>
