@@ -41,9 +41,17 @@
       vm.loose = 5;
       vm.days = 0;
       vm.hours = 0;
+      try {
+        vm.days = Number(localStorage.days) || 0;
+        vm.hours = Number(localStorage.hours) || 0;
+      } catch (e) { }
       let onejan = new Date(new Date().getFullYear(),0,1);
       let weeknum = Math.ceil((((new Date()-onejan)/86400000) + onejan.getDay()+1)/7);
       vm.calculate = ()=>{
+        try {
+          localStorage.hours = vm.hours;
+          localStorage.days = vm.days;
+        } catch (e) { }
         return Math.round(((weeknum-35)*vm.loose)-((vm.hours + vm.days*6)/0.75))
       };
     }]);
