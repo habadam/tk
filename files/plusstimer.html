@@ -136,7 +136,7 @@
     * Load Google Drive API library.
     */
     function loadGDriveApi() {
-      appendPre('Laster…');
+      appendPre('Laster inn viktige filer…');
       gapi.client.load('drive', 'v2', findFile);
     }
 
@@ -150,7 +150,6 @@
       });
       request.execute(function(resp) {
         if (!resp.error) {
-          console.log(resp);
           spreadsheetId = getID(resp.items);
           if (spreadsheetId) {
             loadSheetsApi()
@@ -183,7 +182,7 @@
     * Load Sheets API client library.
     */
     function loadSheetsApi(update) {
-      appendPre('Laster…');
+      appendPre('Laster inn flere viktige filer…');
       var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
       gapi.client.load(discoveryUrl).then(outputData);
@@ -196,7 +195,6 @@
     function outputData() {
       appendPre('Laster inn plusstimer…');
       if (typeof spreadsheetId === 'string' && spreadsheetId.length > 5) {
-        console.log("spreadsheetId passed line 100 test. Var-dump:","(",typeof spreadsheetId,")",spreadsheetId);
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadsheetId,
           range: 'Plusstimer!'+version.range,
@@ -204,7 +202,6 @@
           appendPre('Lasting fullført.');
           var range = response.result;
           if (range.values.length > 0) {
-            console.log(range.values);
             days = range.values[version.days[0]][version.days[1]];
             hours = range.values[version.hours[0]][version.hours[1]];
             appendPre(range.values[version.plusstimer[0]][version.plusstimer[1]] + 'plusstimer');
@@ -236,7 +233,6 @@
         });
         version_request.execute(function(resp) {
           if (!resp.error) {
-            console.log(resp);
             let oldSheet;
             let items = resp.items;
             for (var i = 0; i < items.length; i++) {
@@ -269,7 +265,6 @@
         'resource': body
       });
       request.execute(function(resp) {
-        console.log('Copy ID: ' + resp.id);
         spreadsheetId = resp.id;
         loadSheetsApi();
         firstVisit = true;
@@ -299,7 +294,6 @@
           valueInputOption: 'USER_ENTERED',
           values: values
         }).then(function (resp) {
-          console.log(resp);
           appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
           outputData();
         })
