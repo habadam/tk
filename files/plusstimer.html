@@ -74,6 +74,7 @@
     let emptyPre = ()=>q('pre').innerHTML = "";
     let version = {
       key:"Plusstimer 2017 høst Panda Bever", // A unique identifier for the document
+      template: "17x1xBTLtThJMk7qrQpReAbczYQDCceHD1eTgh3Vmi84", // The drive id for the template
       range: "D7:G7", // The range where days, hours and plusstimer can be found
       days: [0,0], // The vertical and horizontal position of days in the range, respectively
       hours: [0,1], // The vertical and horizontal position of hours in the range, respectively
@@ -268,7 +269,7 @@
       }
       var body = {'title': 'Plusstimer høst 2017'};
       var request = gapi.client.drive.files.copy({
-        'fileId': '1kOrGon0gHNKs-MjBss7RlyShuV0MlxD-7JFADOEJehM',
+        'fileId': version.template,
         'resource': body
       });
       request.execute(function(resp) {
