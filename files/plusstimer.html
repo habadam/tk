@@ -72,13 +72,22 @@
 
     let q = (s)=>document.querySelector(s);
     let emptyPre = ()=>q('pre').innerHTML = "";
-    let version = "Plusstimer vår 2017 versjon Kanada";
-    let firstVisit = false;
-    let compatible_version = {
-      "key": "Uoffisielt midlertidig regneark for plusstimer",
-      "hours": "Plusstimer!B12",
-      "days": "Plusstimer!B11"
+    let version = {
+      key:"Plusstimer 2017 høst Panda Bever", // A unique identifier for the document
+      range: "D7:G7", // The range where days, hours and plusstimer can be found
+      days: [0,0], // The vertical and horizontal position of days in the range, respectively
+      hours: [0,1], // The vertical and horizontal position of hours in the range, respectively
+      plusstimer: [0,3]  // The vertical and horizontal position of plusstimer in the range, respectively
     };
+    let firstVisit = false;
+
+    /**
+    * compatible_versions is an array of objects where each object has these properties:
+    * key {string} A unique identifier for the spreadsheet
+    * days {string} The cell where days are saved
+    * hours {string} The cell where hours are saved
+    */
+    let compatible_versions = [];
 
     /**
     * Check if current user has authorized this application.
@@ -140,7 +149,7 @@
     function findFile() {
       appendPre('Finner regnearket…')
       var request = gapi.client.drive.files.list({
-        "q": "fullText contains '"+version+"'"
+        "q": "fullText contains '"+version.key+"'"
       });
       request.execute(function(resp) {
         if (!resp.error) {
@@ -193,15 +202,15 @@
         console.log("spreadsheetId passed line 100 test. Var-dump:","(",typeof spreadsheetId,")",spreadsheetId);
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: spreadsheetId,
-          range: 'Plusstimer!D7:G7',
+          range: 'Plusstimer!'+version.range,
         }).then(function(response) {
           appendPre('Lasting fullført.');
           var range = response.result;
           if (range.values.length > 0) {
             console.log(range.values);
-            days = range.values[0][0];
-            hours = range.values[0][1];
-            appendPre(range.values[0][3] + 'plusstimer');
+            days = range.values[version.days[0]][version.days[1]];
+            hours = range.values[version.hours[0]][version.hours[1]];
+            appendPre(range.values[version.plusstimer[0]][version.plusstimer[1]] + 'plusstimer');
             q('#result>number').innerHTML = Number(range.values[0][3]);
             q('#result').style.display = 'block';
             q('#caption').style.display = 'block';
@@ -223,41 +232,43 @@
     * Copy an existing file.
     */
     function copyFile() {
-      appendPre('Prøver å finne et gammelt regneark…')
-      var version_request = gapi.client.drive.files.list({
-        "q": "fullText contains '"+compatible_version.key+"'"
-      });
-      version_request.execute(function(resp) {
-        if (!resp.error) {
-          console.log(resp);
-          let oldSheet;
-          let items = resp.items;
-          for (var i = 0; i < items.length; i++) {
-            if (items[i].mimeType == "application/vnd.google-apps.spreadsheet") {
-              appendPre('Fant et gammelt regneark');
-              oldSheetId = items[i].id;
-              gapi.client.load('https://sheets.googleapis.com/$discovery/rest?version=v4').then(()=>{
-                gapi.client.sheets.spreadsheets.values.get({
-                  spreadsheetId: oldSheetId,
-                  range: compatible_version.days,
-                }).then(function(response) {
-                  let days = response.result.values[0][0]
-                    gapi.client.sheets.spreadsheets.values.get({
-                      spreadsheetId: oldSheetId,
-                      range: compatible_version.hours,
-                    }).then(function(response) {
-                      let hours = response.result.values[0][0];
-                      updateSheet(days, hours, true);
-                    });
+      if (compatible_versions.length) {
+        appendPre('Prøver å finne et gammelt regneark…')
+        var version_request = gapi.client.drive.files.list({
+          "q": "fullText contains '"+compatible_versions[0].key+"'"
+        });
+        version_request.execute(function(resp) {
+          if (!resp.error) {
+            console.log(resp);
+            let oldSheet;
+            let items = resp.items;
+            for (var i = 0; i < items.length; i++) {
+              if (items[i].mimeType == "application/vnd.google-apps.spreadsheet") {
+                appendPre('Fant et gammelt regneark');
+                oldSheetId = items[i].id;
+                gapi.client.load('https://sheets.googleapis.com/$discovery/rest?version=v4').then(()=>{
+                  gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: oldSheetId,
+                    range: compatible_versions[0].days,
+                  }).then(function(response) {
+                    let days = response.result.values[0][0]
+                      gapi.client.sheets.spreadsheets.values.get({
+                        spreadsheetId: oldSheetId,
+                        range: compatible_versions[0].hours,
+                      }).then(function(response) {
+                        let hours = response.result.values[0][0];
+                        updateSheet(days, hours, true);
+                      });
+                  });
                 });
-              });
+              }
             }
           }
-        }
-      });
-      var body = {'title': 'Plusstimer vår 2017'};
+        });
+      }
+      var body = {'title': 'Plusstimer høst 2017'};
       var request = gapi.client.drive.files.copy({
-        'fileId': '1HpjoFCbvekFvwN9SSkBPkgrfXPPqXT6mat8UDQPMiYs',
+        'fileId': '1kOrGon0gHNKs-MjBss7RlyShuV0MlxD-7JFADOEJehM',
         'resource': body
       });
       request.execute(function(resp) {
@@ -279,12 +290,17 @@
       if ((typeof skip_conf !== "undefined" && skip_conf) || (days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours))) {
         q('#output').style.display = 'block';
         firstVisit = false;
+        values = [];
+        values[version.days[0]] = [];
+        values[version.days[0]][version.days[1]] = days;
+        values[version.hours[0]] = [];
+        values[version.hours[0]][version.hours[1]] = hours;
         appendPre('Oppdaterer fravær…');
         gapi.client.sheets.spreadsheets.values.update({
           spreadsheetId: spreadsheetId,
-          range: "'Plusstimer'!D7:E7",
+          range: "'Plusstimer'!"+version.range,
           valueInputOption: 'USER_ENTERED',
-          values: [ [days, hours] ]
+          values: values
         }).then(function (resp) {
           console.log(resp);
           appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
