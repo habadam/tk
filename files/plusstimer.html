@@ -13,13 +13,17 @@
   <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 </head>
 <body>
-  <div id="result" style="background-color: rgba(0, 0, 0, 0.8);color: white;padding: 2em;display:none;">
-    <number style="font-size: 50vw;display: block;width: 100%;letter-spacing: 10px;"></number>
-    <description style="font-size: 1.75em;">plusstimer</description>
+  <div id="result">
+    <div class="number"></div>
+    <description>plusstimer</description>
     <div id="caption"><a href="#" onclick="updateSheet()">Klikk her for å oppdatere fravær</a></div>
   </div>
-  <pre id="output"><div id="authorize-div" style="display: none"><span>Autoriser med Google Drive</span> <button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button></div></pre>
-  <div id="reload" style="display:none"><a href=".">Try again</a><div>
+  <pre id="output">
+    <div id="authorize-div" style="display: none">
+      <span>Du må autorisere med Google Disk fordi regnearket blir lagret på din Disk</span>
+      <button onclick="handleAuthClick(event)">Autoriser</button>
+    </div>
+  </pre>
   <script>!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-69446843-9","auto"),ga("send","pageview");</script>
 </body>
 </html>
