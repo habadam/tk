@@ -220,7 +220,8 @@ function updateSheet(preset_days, preset_hours, skip_conf) {
   q('pre').innerHTML = ""
   days = typeof preset_days !== "undefined" ? preset_days : prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
   hours = typeof preset_hours !== "undefined" ? preset_hours : prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
-  if ((typeof skip_conf !== "undefined" && skip_conf) || (days && hours && confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours))) {
+  confirmed = confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours);
+  if ((typeof skip_conf !== "undefined" && skip_conf) || (days && hours && confirmed)) {
     q('#output').style.display = 'block';
     firstVisit = false;
     values = [];
@@ -238,7 +239,7 @@ function updateSheet(preset_days, preset_hours, skip_conf) {
       appendPre('Fravær er oppdatert, laster inn plusstimer på nytt…');
       fetchAndOutputData();
     })
-  } else {
+  } else if (days && hours && !confirmed) {
     updateSheet(preset_days, preset_hours, skip_conf);
   }
 }
