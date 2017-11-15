@@ -218,16 +218,16 @@ function copyDataFromOldSheet () {
 let days, hours;
 function updateSheet(preset_days, preset_hours, skip_conf) {
   q('pre').innerHTML = ""
-  days = typeof preset_days !== "undefined" ? preset_days : prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
-  hours = typeof preset_hours !== "undefined" ? preset_hours : prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
+  days = preset_days || prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
+  hours = preset_hours || prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
   confirmed = confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours);
   if ((typeof skip_conf !== "undefined" && skip_conf) || (days && hours && confirmed)) {
     q('#output').style.display = 'block';
     firstVisit = false;
     values = [];
     values[version.days[0]] = [];
-    values[version.days[0]][version.days[1]] = days;
     values[version.hours[0]] = [];
+    values[version.days[0]][version.days[1]] = days;
     values[version.hours[0]][version.hours[1]] = hours;
     appendPre('Oppdaterer fravær…');
     gapi.client.sheets.spreadsheets.values.update({
