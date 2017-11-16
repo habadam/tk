@@ -186,12 +186,11 @@ function copyDataFromOldSheet () {
     "q": "fullText contains '"+compatible_versions[0].key+"'"
   }).execute(function(resp) { // Handle response
     if (!resp.error) { // Stop if an error occurs, but just ignore it because it is not impotant
-      let oldSheet;
       let items = resp.items;
       for (var i = 0; i < items.length; i++) {
         if (items[i].mimeType == "application/vnd.google-apps.spreadsheet" && !items[i].labels.trashed) {
           appendPre('Fant et gammelt regneark');
-          oldSheetId = items[i].id;
+          let oldSheetId = items[i].id;
           loadSheetsApi(()=>{ // Load sheets api
             gapi.client.sheets.spreadsheets.values.get({ // Get amount of days abscence
               spreadsheetId: oldSheetId,
@@ -204,6 +203,7 @@ function copyDataFromOldSheet () {
               }).then(function(response) {
                 let hours = response.result.values[0][0]; // Save response
                 updateSheet(days, hours, true); // Update the new sheet with the variables from the old sheet
+                trashFile(oldSheetId); // Move the old file to the trash
               });
             });
           });
@@ -211,6 +211,18 @@ function copyDataFromOldSheet () {
       }
     }
   });
+}
+
+/**
+ * Move a file to the trash.
+ *
+ * @param {String} fileId ID of the file to trash.
+ */
+function trashFile(fileId) {
+  var request = gapi.client.drive.files.trash({
+    'fileId': fileId
+  });
+  request.execute(function(resp) { });
 }
 
 /*
