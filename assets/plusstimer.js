@@ -230,14 +230,14 @@ function trashFile(fileId) {
 *
 * @param {string|number|undefined} preset_days Prompt can be skipped if this parameter is defined
 * @param {string|number|undefined} preset_hours Prompt can be skipped if this parameter is defined
-* @param {boolean|undefined} skip_conf Whether or not confirmation should be skipped
+* @param {any} skip_conf Confirmation will be skipped if this parameter is truthy
 */
 let days, hours;
 function updateSheet(preset_days, preset_hours, skip_conf) {
   q('pre').innerHTML = ""
   days = preset_days || prompt('Hvor mange hele DAGER fravær har du på skolearena?\nf.eks. 2', days);
   hours = preset_hours || prompt('Hvor mange TIMER fravær har du på skolearena?\nf.eks. 23,75', hours);
-  confirmed = (typeof skip_conf !== "undefined" && skip_conf) || confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours);
+  confirmed = skip_conf || confirm("Er dette riktig informasjon?:\nDager: "+days+"\nTimer: "+hours);
   if (days && hours && confirmed) {
     q('#output').style.display = 'block';
     firstVisit = false;
@@ -257,7 +257,7 @@ function updateSheet(preset_days, preset_hours, skip_conf) {
       fetchAndOutputData();
     })
   } else if (days && hours && !confirmed) {
-    updateSheet(preset_days, preset_hours, skip_conf);
+    updateSheet(days, hours, skip_conf);
   }
 }
 
