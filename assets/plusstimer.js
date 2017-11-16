@@ -9,7 +9,8 @@ let spreadsheetId; // ID of the spreadsheet on the user's Drive
 
 let q = (s)=>document.querySelector(s); // Quickly select HTML elements using a CSS selector
 let version = { // Info regarding the current version of the spreadsheet
-  key: "Plusstimer 2017 høst Panda Bever", // A unique identifier for the document
+  key: "Plusstimer 2017 høst Ulv Rotte", // A unique identifier for the document
+  title: "Plusstimer høst 2017 Oppdatert", // The name the spreadsheet will get in the user's Drive
   template: "17x1xBTLtThJMk7qrQpReAbczYQDCceHD1eTgh3Vmi84", // The drive id for the template
   range: "Plusstimer!D7:G7", // The range where days, hours and plusstimer can be found (include name of sheet if more than one sheet in spreadsheet)
   days: [0,0], // The vertical and horizontal position of days in the range, respectively
@@ -28,7 +29,11 @@ let firstVisit = false; // Whether or not the user has visited this page earlier
 }
 * The point of this array is to copy values from an existing spreadsheet so that the user does not have to re-enter them
 */
-let compatible_versions = [];
+let compatible_versions = [{
+  key: "Plusstimer 2017 høst Panda Bever",
+  days: "Plusstimer!D7",
+  hours: "Plusstimer!E7"
+}];
 
 /**
 * Handle response from authorization server.
