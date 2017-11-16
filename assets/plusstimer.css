@@ -3,6 +3,8 @@ pre {
   font-size: 1em !important;
   white-space: pre-line;
   word-wrap: break-word;
+  padding-top: 0;
+  padding-bottom: 20px;
 }
 html {
   min-height: 100%;
@@ -28,11 +30,25 @@ body {
   max-height: 180px;
   margin: auto;
   border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2em;
+  display:none;
 }
 
 a {
   color: #337ab7;
   font-size: small;
+}
+
+.number {
+  font-size: 130px;
+  width: 100%;
+  letter-spacing: 10px;
+}
+
+description {
+  font-size: 1.75em;
 }
 
 @media screen and (min-width:270px) {
