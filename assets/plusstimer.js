@@ -14,8 +14,7 @@ let spreadsheetId, spreadSheetName;
 let q = (s)=>document.querySelector(s);
 let emptyPre = ()=>q('pre').innerHTML = "";
 let version = {
-  key:"Plusstimer 2017 høst Ulv Rotte", // A unique identifier for the document
-  title: 'Plusstimer høst 2017 Oppdatert', // The name the spreadsheet will have in user's Drive
+  key:"Plusstimer 2017 høst Panda Bever", // A unique identifier for the document
   template: "17x1xBTLtThJMk7qrQpReAbczYQDCceHD1eTgh3Vmi84", // The drive id for the template
   range: "D7:G7", // The range where days, hours and plusstimer can be found
   days: [0,0], // The vertical and horizontal position of days in the range, respectively
@@ -30,11 +29,7 @@ let firstVisit = false;
 * days {string} The cell where days are saved
 * hours {string} The cell where hours are saved
 */
-let compatible_versions = [{
-	key: "Plusstimer 2017 høst Panda Bever",
-	days: "Plusstimer!D7",
-	hours: "Plusstimer!E7"
-}];
+let compatible_versions = [];
 
 /**
 * Check if current user has authorized this application.
@@ -209,7 +204,7 @@ function copyFile() {
       }
     });
   }
-  var body = {'title': version.title};
+  var body = {'title': 'Plusstimer høst 2017'};
   var request = gapi.client.drive.files.copy({
     'fileId': version.template,
     'resource': body
