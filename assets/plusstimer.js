@@ -219,10 +219,10 @@ function copyDataFromOldSheet () {
  * @param {String} fileId ID of the file to trash.
  */
 function trashFile(fileId) {
-  var request = gapi.client.drive.files.trash({
+  appendPre("Flytter gammelt regneark til papirkurven…");
+  gapi.client.drive.files.trash({
     'fileId': fileId
-  });
-  request.execute(function(resp) { });
+  }).execute(function(resp) { });
 }
 
 /*
