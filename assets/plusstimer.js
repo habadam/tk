@@ -1,1 +1,0 @@
-location = "http://plusstimer.tk/?no-redirect"
