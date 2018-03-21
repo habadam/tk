@@ -23,20 +23,20 @@
     });
     app.directive('pinyin', ['$http', '$timeout', function ($http, $timeout) {
       return {
-        link: function (el, attrs, scope) {
+        link: function (scope, el, attrs) {
           let tones = {
             "a": ["ā", "á", "ǎ", "à"],
             "e": ["ē", "é", "ě", "è"],
             "i": ["ī", "í", "ǐ", "ì"],
             "o": ["ō", "ó", "ǒ", "ò"],
             "u": ["ū", "ú", "ǔ", "ù"],
-      "ü": ["ǖ", "ǘ", "ǚ", "ǜ"],
-      "v": ["ǖ", "ǘ", "ǚ", "ǜ"]
+            "ü": ["ǖ", "ǘ", "ǚ", "ǜ"],
+            "v": ["ǖ", "ǘ", "ǚ", "ǜ"]
           }
 
-          console.log(el,scope,attrs);
+          console.log(scope);
           scope.$watch(attrs.ngModel, function () {
-            el[0].value = el[0].replace(/[a-z]+[1-4]/gi, (match)=>{
+            el[0].value = el[0].value.replace(/[a-z]+[1-4]/gi, (match)=>{
               let letters = match.split("");
               letters.pop();
               let tone = match.substr(match.length - 1);
