@@ -34,7 +34,6 @@
             "v": ["ǖ", "ǘ", "ǚ", "ǜ"]
           }
 
-          console.log(scope);
           scope.$watch(attrs.ngModel, function () {
             el[0].value = el[0].value.replace(/[a-z]+[1-4]/gi, (match)=>{
               let letters = match.split("");
