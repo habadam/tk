@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <title>Pinyin editor</title>
+  <link rel="stylesheet" href="../assets/standard-tool-css.css">
+	<link rel="icon" href="http://www.i2clipart.com/cliparts/c/2/9/9/clipart-kanji-o-c299.png" type="image/png">
+	<link rel="apple-touch-icon" href="http://www.i2clipart.com/cliparts/c/2/9/9/clipart-kanji-o-c299.png" type="image/png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+  <h1>Pinyin writer</h1>
+
+  <h3>Input:</h3>
+  <textarea name="input" placeholder="ni3 shi4 wo3de xiao3 ping2guo3" ng-model="input" ng-keyup="m.process()" pinyin></textarea>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.config(function($sceProvider) {
+      $sceProvider.enabled(false);
+    });
+    app.directive('pinyin', ['$http', '$timeout', function ($http, $timeout) {
+      return {
+        link: function (el, attrs, scope) {
+          let tones = {
+            "a": ["ā", "á", "ǎ", "à"],
+            "e": ["ē", "é", "ě", "è"],
+            "i": ["ī", "í", "ǐ", "ì"],
+            "o": ["ō", "ó", "ǒ", "ò"],
+            "u": ["ū", "ú", "ǔ", "ù"],
+      "ü": ["ǖ", "ǘ", "ǚ", "ǜ"],
+      "v": ["ǖ", "ǘ", "ǚ", "ǜ"]
+          }
+
+          console.log(el,scope,attrs);
+          scope.$watch(attrs.ngModel, function () {
+            el[0].value = el[0].replace(/[a-z]+[1-4]/gi, (match)=>{
+              let letters = match.split("");
+              letters.pop();
+              let tone = match.substr(match.length - 1);
+              match = addTones(letters, tone);
+              return match;
+            });
+          });
+
+          function isVowel(c) {
+            return ['a', 'e', 'i', 'o', 'u', "ü", "v"].indexOf(c.toLowerCase()) !== -1
+          }
+
+          function addTones(letters, tone) {
+            let index = 0;
+            for (let i = 0;i<letters.length;i++) if (isVowel(letters[i]) && i>index) index = i;
+            if (letters.join("").indexOf("ou")>-1) index = letters.join("").indexOf("ou");
+            if (letters.join("").indexOf("e")>-1) index = letters.join("").indexOf("e");
+            if (letters.join("").indexOf("a")>-1) index = letters.join("").indexOf("a");
+            letters[index] = tones[letters[index]][tone-1];
+            return letters.join("");
+          }
+        }
+      }
+    }]);
+  </script>
+  <script>!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-69446843-9","auto"),ga("send","pageview");</script>
+</body>
+</html>
