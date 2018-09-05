@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title>Komplekse tall</title>
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+	<style type="text/css">
+		body {
+			font-family: 'Crimson Text', serif;
+			font-size: 22px;
+		}
+		main {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+		main > div {
+		    display:  flex;
+		    flex-direction:  column;
+		    position: relative;
+		    text-align: center;
+		}
+		main > div > * {
+		    flex:  1;
+		}
+		input {
+			border: 0;
+			border-bottom: 2px solid #ccc;
+			font-size: 18px;
+			padding: 0;
+			text-align: center;
+			width: 50px;
+		}
+		math, input {
+			font-style: italic;
+			margin: 0 2.5px;
+		}
+		math {
+			font-style: bold italic;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body ng-controller="main">
+
+	<main>
+		<div>
+			<h4></h4>
+			<div>
+				<math>z</math>
+			</div>
+		</div>
+		<div>
+			<h4></h4>
+			<div>=</div>
+		</div>
+		<div>
+			<h4>Kartesisk form</h4>
+			<div>
+				<input ng-model="a">
+				+
+				<math>i</math>
+				<input ng-model="b">
+			</div>
+		</div>
+		<div>
+			<h4></h4>
+			<div>=</div>
+		</div>
+		<div>
+			<h4>Polarform</h4>
+			<div>
+				<input ng-model="r">
+				cos
+				<input ng-model="theta">
+				+
+				<input ng-model="r">
+				sin
+				<input ng-model="theta">
+				<math>i</math>
+			</div>
+		</div>
+		<div>
+			<h4></h4>
+			<div>=</div>
+		</div>
+		<div>
+			<h4>Kompakt polarform</h4>
+			<div>
+				<input ng-model="r">
+				<math>e</math>
+				<sup><math>i</math></sup>
+				<sup><input ng-model="theta"></sup>
+			</div>
+		</div>
+	</main>
+
+	<script>[...document.getElementsByTagName("input")].forEach(el=>el.setAttribute("placeholder", `{{placeholder("${el.getAttribute("ng-model")}")}}`))</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+	<script type="text/javascript">
+		let app = angular.module("app", []);
+		app.controller("main", ["$scope", function ($scope) {
+			let vm = this;
+			let round = n=>Math.round(Number(n)*100)/100;
+			$scope.placeholder = str=>{
+				if (str === "a") return "r" in $scope && "theta" in $scope ? round($scope.r*Math.cos($scope.theta)) : "a";
+				else if (str === "b") return "r" in $scope && "theta" in $scope ? round($scope.r*Math.sin($scope.theta)) : "b";
+				else if (str === "r") return "a" in $scope && "b" in $scope ? round(Math.sqrt(Math.pow($scope.a, 2)+Math.pow($scope.b, 2))) : "r";
+				else if (str === "theta") return "a" in $scope && "b" in $scope ? round(Math.cos($scope.a/$scope.placeholder("r"))) : "θ";
+			};
+		}]);
+	</script>
+</body>
+</html>
