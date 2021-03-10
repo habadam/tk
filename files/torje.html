@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Torje!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <link rel="icon" href="../assets/torje.png" type="image/png">
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      font-size:2em;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-weight: 900;
+      font-variant: small-caps;
+      height: 100%;
+      padding: 0px;
+      margin: 0px;
+      overflow-y: hidden;
+      background-color: #1c2227;
+      color: #fff;
+      text-shadow: #000 0px 0px 3px;
+    }
+    body>div {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes bubble {
+      0%   {width:30%;min-width:100px;}
+      70%  {width:60%;min-width:300px;}
+      100% {width:30%;min-width:100px;}
+    }
+    img {
+      animation-name: bubble;
+      animation-duration: 4s;
+      animation-iteration-count:infinite;
+    }
+    .dot {
+      width: 2px;
+      height: 2px;
+      background-image: url('../assets/torje.png');
+      background-size: contain;
+      position: absolute;
+      transition: height, width, opacity 1s;
+      animation-name: small-bubble;
+      animation-duration: 2.5s;
+      border-radius:100%;
+    }
+    @keyframes small-bubble {
+      0%   {height:0px;width:0px;}
+      /*50%  {height:20px;width:20px;}*/
+      100% {height:70px;width:70px;opacity: 0;}
+     }
+  </style>
+</head>
+
+<body>
+  <div style="z-index:100">Følg meg ρå insta</div>
+  <div style="flex:5;"><img src="../assets/torje.png"></div>
+  <div>@torjeandreas</div>
+  <audio autoplay loop>
+    <source src="../assets/cocktails.mp3?asa" type="audio/mpeg">
+  </audio>
+  <script>
+    document.getElementsByTagName('body')[0].setAttribute('style', 'height:'+window.innerHeight+'px');
+      document.onmousemove = handleMouseMove;
+      function handleMouseMove(event) {
+        var dot, eventDoc, doc, body, pageX, pageY;
+        event = event || window.event; // IE-ism
+      // Add a dot to follow the cursor
+      dot = document.createElement('div');
+      dot.className = "dot";
+      var randStr = Math.round((Math.pow(36, 6 + 1) - Math.random() * Math.pow(36, 6))).toString(36).slice(1);
+      dot.setAttribute('id', randStr);
+      dot.style.left = event.pageX-10 + "px";
+      dot.style.top = event.pageY-10 + "px";
+      document.body.appendChild(dot);
+      setTimeout(function(){
+        document.getElementsByTagName("body")[0].removeChild(document.getElementById(randStr));
+      }, 2500);
+      }
+  </script>
+  <script>!function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-69446843-9","auto"),ga("send","pageview");</script>
+</body>
+</html>
